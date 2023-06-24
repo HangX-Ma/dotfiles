@@ -117,7 +117,7 @@
 
     /* CODING COMMAND */
     { // show help information
-    "key": "ctrl+h",
+    "key": "ctrl+h h",
     "command": "editor.action.showHover",
     "when": "editorTextFocus"
     },
