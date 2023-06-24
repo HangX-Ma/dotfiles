@@ -1,67 +1,77 @@
 {
-    // vscode-vim setting
-    // 绑定vim前导键
-    "vim.leader": "<space>",
-    // 启用easymotion插件
-    "vim.easymotion": true,
-    // 启用系统粘贴板作为vim寄存器
-    "vim.useSystemClipboard": true,
-    // 由vim接管ctrl+any的按键，而不是vscode
-    "vim.useCtrlKeys": true,
-    // 突出显示与当前搜索匹配的所有文本
-    "vim.hlsearch": true,
-    // 普通模式下的非递归按键绑定
-    "vim.normalModeKeyBindingsNonRecursive": [
-        { // toggle Fold
-            "before": [
-                "z",
-                "z"
-            ],
-            "commands": [
-                "editor.toggleFold"
-            ]
-        },
+    //! editor settings
+    "editor.fontFamily": "Consolas, 'YaHei Consolas Hybrid', monospace",
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "all",
+    "editor.detectIndentation": false,
+    "editor.tabCompletion": "on",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "files.autoGuessEncoding": true,
+    "explorer.confirmDelete": false,
+    "editor.suggest.shareSuggestSelections": true,
+    "editor.suggestSelection": "first",
+    "editor.semanticHighlighting.enabled": false,
+
+    "editor.lineNumbers": "relative",
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+
+    //! vscode-vim settings
+
+    //? vim options start
+    "vim.useSystemClipboard": true, // use system clipboard as vim registers
+    "vim.useCtrlKeys": true,        // vim will take over <C-any> rather than vscode
+    "vim.hlsearch": true,           // highlight all matched text
+    "vim.smartcase": true,          // This group will cause case sensitive when only one capital character exists
+    "vim.ignorecase": true,
+    "vim.leader": "<space>",        // bind the 'leader' key
+    "vim.normalModeKeyBindingsNonRecursive": [ 
+    // Normal Mode non-recursive Keybindings
         { // cancel highlight
-            "before": [
-                "<C-n>"
-            ],
-            "commands": [
-                ":nohl"
-            ]
+            "before": ["<leader>", "nh"],
+            "commands": [":nohl"]
         },
         { // previous problem 
-            "before": [
-                "g",
-                "["
-            ],
-            "commands": [
-                "editor.action.marker.prevInFiles"
-            ]
+            "before": ["g","["],
+            "commands": ["editor.action.marker.prevInFiles"]
         },
         { // next problem 
-            "before": [
-                "g",
-                "]"
-            ],
-            "commands": [
-                "editor.action.marker.nextInFiles"
-            ]
+            "before": ["g", "]"],
+            "commands": ["editor.action.marker.nextInFiles"]
         }
     ],
-    // 插入模式下的非递归按键绑定
+    // Insert Mode keybindings
     "vim.insertModeKeyBindings": [],
-    // 命令模式下的非递归按键绑定
+    // Command Mode non-recursive Keybindings
     "vim.commandLineModeKeyBindingsNonRecursive": [],
-    // 可视模式下的非递归按键绑定
-    "vim.operatorPendingModeKeyBindings": [],
-    // 下面定义的按键将交由vscode进行处理，而不是vscode-vim插件
+    // Visual Mode Keybindings
+    "vim.visualModeKeyBindings": [
+        { // indent line
+            "before": [">"],
+            "commands": ["editor.action.indentLines"]
+        },
+        { // outdent line
+            "before": ["<"],
+            "commands": ["editor.action.outdentLines"]
+        },
+    ],
+    // let vscode control the following keys rather than vscode-vim
     "vim.handleKeys": {
-        "<C-a>": false,
-        "<C-f>": false
+        // "<C-a>": false,
+        // "<C-f>": false
     },
-    // 自动切换输入法
+    //? vim keybindings end
+
+
+    //? vim emulated plugins start
+    "vim.easymotion": true,
+    "vim.surround": true,
+    "vim.camelCaseMotion.enable": true,
+
+    /* automatically switch input method */
     "vim.autoSwitchInputMethod.enable": true,
     "vim.autoSwitchInputMethod.defaultIM": "1033", // 这里输入你刚刚获得的英文输入法名称
-    "vim.autoSwitchInputMethod.obtainIMCmd": "C:/Users/Contour/scoop/apps/im-select/current/im-select.exe",
-    "vim.autoSwitchInputMethod.switchIMCmd": "C:/Users/Contour/scoop/apps/im-select/current/im-select.exe {im}"
+    "vim.autoSwitchInputMethod.obtainIMCmd": "C:/Users/Master/scoop/apps/im-select/current/im-select.exe",
+    "vim.autoSwitchInputMethod.switchIMCmd": "C:/Users/Master/scoop/apps/im-select/current/im-select.exe {im}",
+    //? vim emulated plugins end
 }
