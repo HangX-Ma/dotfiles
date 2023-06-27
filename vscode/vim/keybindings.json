@@ -274,30 +274,30 @@
 
     /* PANEL COMMAND */
     { // toggle panel
-    "key": "ctrl+p [",
+    "key": "ctrl+l [",
     "command": "workbench.action.togglePanel"
     },
     { // toggle problem panel
-    "key": "ctrl+p 1",
+    "key": "ctrl+l 1",
     "command": "workbench.panel.markers.view.focus"
     },
     { // toggle output panel
-    "key": "ctrl+p 2",
+    "key": "ctrl+l 2",
     "command": "workbench.action.output.toggleOutput",
     "when": "workbench.panel.output.active"
     },
     { // toggle terminal panel
-    "key": "ctrl+p 3",
+    "key": "ctrl+l 3",
     "command": "workbench.action.terminal.toggleTerminal",
     "when": "terminal.active"
     },
     { // toggle debug control panel
-    "key": "ctrl+p 4",
+    "key": "ctrl+l 4",
     "command": "workbench.debug.action.toggleRepl",
     "when": "workbench.panel.repl.view.active"
     },
     { // toggle gitlen panel
-    "key": "ctrl+p 5",
+    "key": "ctrl+l 5",
     "command": "workbench.view.extension.gitlensPanel"
     },
 
