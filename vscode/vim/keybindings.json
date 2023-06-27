@@ -180,7 +180,7 @@
     "command": "workbench.action.previousEditor"
     },
     { // switch to next editor
-    "key": "ctrl+.",
+    "key": "ctrl+/",
     "command": "workbench.action.nextEditor"
     },
     { // split editor down
