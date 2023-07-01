@@ -172,7 +172,7 @@
     "command": "workbench.action.closeActiveEditor"
     },
     { // focus on the first editor group
-    "key": "ctrl+e",
+    "key": "ctrl+w e",
     "command": "workbench.action.focusFirstEditorGroup"
     },
     { // switch to previous editor
