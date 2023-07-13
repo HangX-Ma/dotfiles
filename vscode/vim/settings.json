@@ -28,7 +28,7 @@
     "vim.normalModeKeyBindingsNonRecursive": [ 
     // Normal Mode non-recursive Keybindings
         { // cancel highlight
-            "before": ["<leader>", "nh"],
+            "before": ["<leader>", "n", "h"],
             "commands": [":nohl"]
         },
         { // previous problem 
