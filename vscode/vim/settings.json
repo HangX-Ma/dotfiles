@@ -25,19 +25,28 @@
     "vim.smartcase": true,          // This group will cause case sensitive when only one capital character exists
     "vim.ignorecase": true,
     "vim.leader": "<space>",        // bind the 'leader' key
-    "vim.normalModeKeyBindingsNonRecursive": [ 
+    "vim.normalModeKeyBindingsNonRecursive": [
     // Normal Mode non-recursive Keybindings
         { // cancel highlight
             "before": ["<leader>", "n", "h"],
             "commands": [":nohl"]
         },
-        { // previous problem 
+        { // previous problem
             "before": ["g","["],
             "commands": ["editor.action.marker.prevInFiles"]
         },
-        { // next problem 
+        { // next problem
             "before": ["g", "]"],
             "commands": ["editor.action.marker.nextInFiles"]
+        },
+        /* Search */
+        { // find in files
+            "before": ["<leader>", "s", "f"],
+            "commands": ["workbench.action.findInFiles"]
+        },
+        { // replace in files
+            "before": ["<leader>", "s", "r"],
+            "commands": ["workbench.action.replaceInFiles"]
         }
     ],
     // Insert Mode keybindings
@@ -53,7 +62,7 @@
         { // outdent line
             "before": ["<"],
             "commands": ["editor.action.outdentLines"]
-        },
+        }
     ],
     // let vscode control the following keys rather than vscode-vim
     "vim.handleKeys": {
@@ -72,6 +81,6 @@
     "vim.autoSwitchInputMethod.enable": true,
     "vim.autoSwitchInputMethod.defaultIM": "1033", // 这里输入你刚刚获得的英文输入法名称
     "vim.autoSwitchInputMethod.obtainIMCmd": "C:/Users/Master/scoop/apps/im-select/current/im-select.exe",
-    "vim.autoSwitchInputMethod.switchIMCmd": "C:/Users/Master/scoop/apps/im-select/current/im-select.exe {im}",
+    "vim.autoSwitchInputMethod.switchIMCmd": "C:/Users/Master/scoop/apps/im-select/current/im-select.exe {im}"
     //? vim emulated plugins end
 }

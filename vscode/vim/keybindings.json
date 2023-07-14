@@ -1,51 +1,58 @@
-
 // Place your key bindings in this file to override the defaultsauto[]
 [
     /* SIDE BAR COMMAND */
-    { // toggle sidebar visibility 
-    "key": "ctrl+n [",
+    { // toggle sidebar visibility
+    "key": "ctrl+k [",
     "command": "workbench.action.toggleSidebarVisibility"
     },
-    { // toggle secondary sidebar visibility 
-    "key": "ctrl+n ]",
+    { // toggle secondary sidebar visibility
+    "key": "ctrl+k ]",
     "command": "workbench.action.toggleAuxiliaryBar"
     },
     { // show explorer
-    "key": "ctrl+n 1",
+    "key": "ctrl+k 1",
     "command": "workbench.files.action.focusFilesExplorer"
     },
     { // show global search
-    "key": "ctrl+n 2",
-    "command": "workbench.action.replaceInFiles"
+    "key": "ctrl+k 2",
+    "command": "workbench.view.search"
     },
     { // show version control
-    "key": "ctrl+n 3",
+    "key": "ctrl+k 3",
     "command": "workbench.view.scm",
     "when": "workbench.scm.active"
     },
     { // show debug
-    "key": "ctrl+n 4",
+    "key": "ctrl+k 4",
     "command": "workbench.view.debug",
     "when": "viewContainer.workbench.view.debug.enabled"
     },
     { // show extensions store
-    "key": "ctrl+n 5",
+    "key": "ctrl+k 5",
     "command": "workbench.view.extensions",
     "when": "viewContainer.workbench.view.extensions.enabled"
     },
     { // show todo tree
-    "key": "ctrl+n 6",
-    "command": "todo-tree-view.focus",
+    "key": "ctrl+k 6",
+    "command": "todo-tree-view.focus"
     },
     { // show bookmark
-    "key": "ctrl+n 7",
+    "key": "ctrl+k 7",
     "command": "bookmarksExplorer.focus"
     },
     { // show test-explorer
-    "key": "ctrl+n 8",
+    "key": "ctrl+k 8",
     "command": "test-explorer.focus"
     },
-
+    { // show project manager
+    "key": "ctrl+k 9",
+    "command": "workbench.view.extension.project-manager"
+    },
+    {
+    "key": "ctrl+k 9",
+    "command": "workbench.action.terminal.searchWorkspace",
+    "when": "terminalFocus && terminalProcessSupported && terminalTextSelected"
+    },
 
     /* EXPLORER MANAGEMENT */
     { // collapse the explorer folder 
@@ -154,7 +161,7 @@
     { // quick fix problem
     "key": "ctrl+\\",
     "command": "editor.action.quickFix",
-    "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly",
+    "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
     },
     { // zoom in
     "key": "ctrl+=",
@@ -212,7 +219,7 @@
     /* FILE COMMAND */
     { // create a new file
     "key": "ctrl+f n",
-    "command": "welcome.showNewFileEntries",
+    "command": "welcome.showNewFileEntries"
     },
     { // open a file
     "key": "ctrl+f o",
@@ -331,7 +338,7 @@
     },
     {
     "key": "ctrl+v",
-    "command": "-execPaste",
+    "command": "-execPaste"
     },
     {
     "key": "ctrl+v",
@@ -373,6 +380,18 @@
     "command": "bookmarks.clearFromAllFiles"
     },
 
+    /* SEARCH */
+    { // focus on next search result
+    "key": "ctrl+n",
+    "command": "search.action.focusNextSearchResult",
+    "when": "hasSearchResult || inSearchEditor"
+    },
+    {
+    "key": "ctrl+p",
+    "command": "search.action.focusPreviousSearchResult",
+    "when": "hasSearchResult || inSearchEditor"
+    },
+
 
     /* MARKDOWN */
     {
@@ -395,4 +414,28 @@
     "command": "markdown.extension.closePreview",
     "when": "markdownPreviewFocus"
     },
+    {
+    "key": "shift+alt+p",
+    "command": "-projectManager.listProjects"
+    },
+    {
+        "key": "shift+f4",
+        "command": "-search.action.focusPreviousSearchResult",
+        "when": "hasSearchResult || inSearchEditor"
+    },
+    {
+        "key": "f4",
+        "command": "-search.action.focusNextSearchResult",
+        "when": "hasSearchResult || inSearchEditor"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "-workbench.view.search",
+        "when": "workbench.view.search.active && neverMatch =~ /doesNotMatch/"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "-workbench.action.terminal.searchWorkspace",
+        "when": "terminalFocus && terminalProcessSupported && terminalTextSelected"
+    }
 ]
