@@ -34,15 +34,15 @@
     },
     { // show todo tree
     "key": "ctrl+k 6",
-    "command": "todo-tree-view.focus"
+    "command": "workbench.view.extension.todo-tree-container"
     },
     { // show bookmark
     "key": "ctrl+k 7",
-    "command": "bookmarksExplorer.focus"
+    "command": "workbench.view.extension.bookmarks"
     },
     { // show test-explorer
     "key": "ctrl+k 8",
-    "command": "test-explorer.focus"
+    "command": "workbench.view.extension.test"
     },
     { // show project manager
     "key": "ctrl+k 9",
@@ -55,7 +55,7 @@
     },
 
     /* EXPLORER MANAGEMENT */
-    { // collapse the explorer folder 
+    { // collapse the explorer folder
     "key": "z",
     "command": "workbench.files.action.collapseExplorerFolders",
     "when": " explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus "
