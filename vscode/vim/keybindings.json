@@ -384,12 +384,12 @@
     { // focus on next search result
     "key": "ctrl+n",
     "command": "search.action.focusNextSearchResult",
-    "when": "hasSearchResult || inSearchEditor"
+    "when": "hasSearchResult && inSearchEditor"
     },
     {
     "key": "ctrl+p",
     "command": "search.action.focusPreviousSearchResult",
-    "when": "hasSearchResult || inSearchEditor"
+    "when": "hasSearchResult && inSearchEditor"
     },
 
 
