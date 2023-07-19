@@ -39,6 +39,16 @@
             "before": ["g", "]"],
             "commands": ["editor.action.marker.nextInFiles"]
         },
+
+        /* PROJECT MANAGER */
+        { // list project manager to open
+            "before": ["<leader>", "p", "o"],
+            "commands": ["projectManager.listProjects"]
+        },
+        { // list project manager to open in new window
+            "before": ["<leader>", "p", "n"],
+            "commands": ["projectManager.listProjectsNewWindow"]
+        },
         /* Search */
         { // find in files
             "before": ["<leader>", "s", "f"],
