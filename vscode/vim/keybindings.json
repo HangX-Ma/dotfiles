@@ -413,5 +413,15 @@
     "key": "ctrl+k alt+v",
     "command": "markdown.extension.closePreview",
     "when": "markdownPreviewFocus"
+    },
+
+    /* PROJECT MANAGER */
+    { // list project manager to open
+    "key": "ctrl+k alt+o",
+    "command": "projectManager.listProjects"
+    },
+    { // list project manager to open in new window
+    "key": "ctrl+k alt+n",
+    "command": "projectManager.listProjectsNewWindow"
     }
 ]
