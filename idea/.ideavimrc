@@ -4,6 +4,8 @@
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
+let mapleader=' '
+
 set scrolloff=5
 set hlsearch
 set incsearch
@@ -11,6 +13,8 @@ set ignorecase
 set smartcase
 set showmode
 set number
+set relativenumber
+set keep-english-in-normal
 set clipboard+=unnamed
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
@@ -26,51 +30,70 @@ set clipboard+=unnamed
 
 " Find more examples here: https://jb.gg/share-ideavimrc
 
+" IdeaVim Plugins: https://github.com/JetBrains/ideavim/blob/master/doc/IdeaVim%20Plugins.md
+Plug 'easymotion/vim-easymotion'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'tpope/vim-commentary'
+Plug 'machakann/vim-highlightedyank'
 
 " clear the highlighted search result
-nnoremap <Space>sc :nohlsearch<CR>
+nnoremap <Leader>nh :nohlsearch<CR>
 
 " Quit\Save normal mode
-nnoremap <Space>q  :q<CR>
-nnoremap <Space>Q  :qa!<CR>
-nnoremap <Space>x  :x<CR>
+nnoremap <Leader>q  :q<CR>
+nnoremap <Leader>Q  :qa!<CR>
+nnoremap <Leader>x  :x<CR>
 
-" find
-nnoremap <Space>fe :action SearchEverywhere<CR>
-nnoremap <Space>fp :action FindInPath<CR>
+" Switch Tab
+nnoremap tn gt
+nnoremap tp gT
 
-" go + action
-nnoremap ga :action GotoAction<CR>
-nnoremap gc :action GotoClass<CR>
-nnoremap gd :action GotoDeclaration<CR>
-nnoremap gf :action GotoFile<CR>
-nnoremap gi :action GotoImplementation<CR>
-nnoremap gt :action GotoTest<CR>
-nnoremap gu :action ShowUsages<CR>
+" CamelCaseMotion Simulation
 
-" actions
-nnoremap <Space>, :action Back<CR>
-nnoremap <Space>. :action Forward<CR>
+" MotionCamelRightAction
+map <Leader>w [w
+" MotionCamelEndRightAction
+map <Leader>e ]w
+" MotionCamelLeftAction
+map <Leader>b [b
 
-" breakpoint debug
-nnoremap <Space>bb :action ToggleLineBreakpoint<CR>
-nnoremap <Space>br :action ViewBreakpoints<CR>
+" ====================================================
+" Note: Show all the provided actions via `:actionlist`
+" ====================================================
 
-" comment
-nnoremap <C-/> :action CommentByLineComment<CR>
-inoremap <C-/> :action CommentByLineComment<CR>
-vnoremap <C-/> :action CommentByLineComment<CR>
+" search in project
+nnoremap <Leader>fe :action SearchEverywhere<CR>
+" find usage
+nnoremap <Leader>fu :action FindUsages<CR>
+" find string
+nnoremap <Leader>/ :action Find<CR>
 
-" switch tab
-nnoremap <C-,> gT
-nnoremap <C-.> gt
-inoremap <C-,> gT
-inoremap <C-.> gt
-vnoremap <C-,> gT
-vnoremap <C-.> gt
+nnoremap <Leader>ga :action GotoAction<CR>
+nnoremap <Leader>gc :action GotoClass<CR>
+nnoremap <Leader>gd :action GotoDeclaration<CR>
+nnoremap <Leader>gf :action GotoFile<CR>
+nnoremap <Leader>gh :action ShowUsages<CR>
+nnoremap <Leader>gi :action GotoImplementation<CR>
+nnoremap <Leader>gs :action GotoSymbol<CR>
+nnoremap <Leader>gt :action GotoTest<CR>
 
-" Insert mode shortcut
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
+nnoremap <C-o> :action Back<CR>
+nnoremap <C-i> :action Forward<CR>
+
+" change every related element name
+nnoremap <Leader>re :action RenameElement<CR>
+" change current file name
+nnoremap <Leader>rf :action RenameFile<CR>
+
+nnoremap <Leader>ta :action Annotate<CR>
+nnoremap <Leader>tb :action ToggleLineBreakpoint<CR>
+nnoremap <Leader>tm :action ToggleBookmark<CR>
+nnoremap <Leader>tp :action ActivateProjectToolWindow<CR>
+
+" =========== NERDTree Remap ===========
+nnoremap <Leader>nf :NERDTreeFocus<CR>
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+nnoremap <Leader>ns :NERDTreeFind<CR>
+nnoremap <Leader>nc :NERDTreeClose<CR>
