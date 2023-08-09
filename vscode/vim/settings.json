@@ -19,12 +19,13 @@
     //! vscode-vim settings
 
     //? vim options start
-    "vim.useSystemClipboard": true, // use system clipboard as vim registers
-    "vim.useCtrlKeys": true,        // vim will take over <C-any> rather than vscode
-    "vim.hlsearch": true,           // highlight all matched text
-    "vim.smartcase": true,          // This group will cause case sensitive when only one capital character exists
+    "vim.useSystemClipboard": true,     // use system clipboard as vim registers
+    "vim.useCtrlKeys": true,            // vim will take over <C-any> rather than vscode
+    "vim.hlsearch": true,               // highlight all matched text
+    "vim.smartcase": true,              // This group will cause case sensitive when only one capital character exists
     "vim.ignorecase": true,
-    "vim.leader": "<space>",        // bind the 'leader' key
+    "vim.leader": "<space>",            // bind the 'leader' key
+    "vim.highlightedyank.enable": true, // highlight when yanking
     "vim.normalModeKeyBindingsNonRecursive": [
     // Normal Mode non-recursive Keybindings
         { // cancel highlight
