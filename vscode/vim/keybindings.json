@@ -53,6 +53,10 @@
     "command": "workbench.action.terminal.searchWorkspace",
     "when": "terminalFocus && terminalProcessSupported && terminalTextSelected"
     },
+    { // show leetcode
+    "key": "ctrl+k 0",
+    "command": "leetCodeExplorer.focus"
+    },
 
     /* EXPLORER MANAGEMENT */
     { // collapse the explorer folder
@@ -308,9 +312,9 @@
     "command": "workbench.view.extension.gitlensPanel"
     },
 
-    
+
     /* CANCEL SOME COMMAND */
-    { // <C-a> select all will only take effects in Insert Mode 
+    { // <C-a> select all will only take effects in Insert Mode
     "key": "ctrl+a",
     "command": "editor.action.selectAll",
     "when": "vim.mode != 'Normal' && vim.mode != 'Visual' && vim.mode != 'VisualLine' && vim.mode != 'VisualBlock' && vim.mode != 'CommandlineInProgress'"
@@ -423,5 +427,12 @@
     { // list project manager to open in new window
     "key": "ctrl+k alt+n",
     "command": "projectManager.listProjectsNewWindow"
+    },
+
+    /* LEETCODE */
+    {
+    "key": "ctrl+c f",
+    "command": "leetcode.searchProblem"
     }
+
 ]
