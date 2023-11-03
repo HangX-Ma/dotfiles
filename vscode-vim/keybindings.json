@@ -431,7 +431,7 @@
 
     /* LEETCODE */
     {
-    "key": "ctrl+c f",
+    "key": "ctrl+t f",
     "command": "leetcode.searchProblem"
     }
 
