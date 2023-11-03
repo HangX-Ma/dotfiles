@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile",
+            "type": "shell",
+            "command": "clang++-14",
+            "args": [
+                "${file}",
+                "-g",
+                "-o",
+                "${workspaceFolder}/build/src/${fileBasenameNoExtension}",
+                "-I",
+                "/usr/include",
+                "-I",
+                "/usr/include/gtest",
+                "-I",
+                "${workspaceFolder}/include",
+                "-pthread",
+                "-lgtest",
+                "-lgtest_main",
+                "-Wall",
+                "-std=c++17",
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${fileDirname}"
+            }
+        },
+    ]
+}
