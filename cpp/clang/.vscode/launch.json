@@ -8,7 +8,7 @@
             "name": "LLDB Debug",
             "type": "lldb",
             "request": "launch",
-            "program": "${fileDirname}/build/${fileBasenameNoExtension}.out",
+            "program": "${workspaceFolder}/build/src/${fileBasenameNoExtension}",
             //args的这个设置是为了防止每次Debug都会多弹出一个Debug Console
             "args": [
                 "&&",
