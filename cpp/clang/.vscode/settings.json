@@ -1,0 +1,52 @@
+{
+    // Clang + Clangd + LLDB
+    // - <https://blog.csdn.net/tyKuGengty/article/details/120119820>
+    // - <https://github.com/Pokerpoke/LeetCode>
+    /* CLANG */
+    "clangd.arguments": [
+        "--background-index",
+        "-j=8",
+        "--enable-config",
+        "--all-scopes-completion",
+        "--completion-style=bundled",
+        "--enable-config",
+        "--pretty",
+        "--clang-tidy",
+        "--log=verbose",
+        "--header-insertion=iwyu",
+        "--header-insertion-decorators",
+        "--compile-commands-dir=${workspaceFolder}/build",
+        "--query-driver=/usr/bin/clang++-14*",
+        "--pch-storage=memory",
+    ],
+    "clangd.fallbackFlags": [
+        "--target=x86_64-pc-linux-gnu"
+    ],
+    "[cpp]": {
+        "editor.formatOnType": false,
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+
+    /* LLDB */
+    "lldb.commandCompletions": true,
+    "lldb.dereferencePointers": true,
+    "lldb.evaluateForHovers": true,
+    "lldb.launch.expressions": "simple",
+    "lldb.showDisassembly": "never",
+    "lldb.verboseLogging": true,
+
+    /* OUTPUT WINDOWS */
+    "[Log]": {
+        "editor.fontSize": 15
+    },
+    "editor.codeLensFontFamily": "Fira Code Retina",
+    "editor.fontFamily": "Fira Code Retina",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 15,
+
+    /* TEST */
+    "testMate.cpp.test.executables": "build/src/*.*"
+}
