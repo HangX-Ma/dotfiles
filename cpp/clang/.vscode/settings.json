@@ -18,6 +18,7 @@
         "--compile-commands-dir=${workspaceFolder}/build",
         "--query-driver=/usr/bin/clang++-14*",
         "--pch-storage=memory",
+        "--malloc-trim",
     ],
     "clangd.fallbackFlags": [
         "--target=x86_64-pc-linux-gnu"
@@ -48,5 +49,28 @@
     "terminal.integrated.fontSize": 15,
 
     /* TEST */
-    "testMate.cpp.test.executables": "build/src/*.*"
+    "testMate.cpp.test.executables": "build/src/*.*",
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "googletest.failed",
+                "settings": {
+                    "foreground": "#f00"
+                }
+            },
+            {
+                "scope": "googletest.passed",
+                "settings": {
+                    "foreground": "#0f0"
+                }
+            },
+            {
+                "scope": "googletest.run",
+                "settings": {
+                    "foreground": "#0f0"
+                }
+            }
+        ]
+    },
+    "gtest-adapter.debugConfig": "LLDB Debug"
 }
