@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile",
+            "type": "process",
+            "command": "clang",
+            "args": [
+                "${file}",
+                "-g",
+                "-o",
+                "${fileDirname}/build/${fileBasenameNoExtension}.out",
+                "-Wall",
+                "-std=c17"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${fileDirname}"
+            }
+        }
+    ]
+}
