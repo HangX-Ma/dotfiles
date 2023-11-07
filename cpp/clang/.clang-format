@@ -139,7 +139,7 @@ ShortNamespaceLines: 1
 SortIncludes:    Never
 SortJavaStaticImport: Before
 SortUsingDeclarations: true
-SpaceAfterCStyleCast: false
+SpaceAfterCStyleCast: true
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
