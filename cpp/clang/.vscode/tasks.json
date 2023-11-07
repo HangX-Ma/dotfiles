@@ -21,6 +21,9 @@
                 "-lgtest_main",
                 "-Wall",
                 "-std=c++17",
+                "-L",
+                "${workspaceFolder}/build/include",
+                "-lleetcode"
             ],
             "group": {
                 "kind": "build",
