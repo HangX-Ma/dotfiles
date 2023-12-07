@@ -52,6 +52,8 @@ Plugin 'airblade/vim-gitgutter'
     highlight GitGutterChange guifg=#bbbb00 ctermfg=3
     highlight GitGutterDelete guifg=#ff2222 ctermfg=1
     let g:gitgutter_set_sign_backgrounds = 1
+Plugin 'luochen1990/rainbow'
+    let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 Plugin 'ervandew/supertab'
 Plugin 'bkad/CamelCaseMotion'
     let g:camelcasemotion_key = '<leader>'
@@ -78,12 +80,12 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-set tags=~/App-GB/tags_20231204
+" set tags=tags
 
 "YCM
-let g:syntastic_python_python_exec = '/home/sdb/zhengcj/Python-3.6.7/install/bin/python3'·
-let g:ycm_server_python_interpreter='/home/sdb/zhengcj/Python-3.6.7/install/bin/python3'
-let g:ycm_python_sys_path = '/home/sdb/zhengcj/Python-3.6.7/install/lib/python3.6'
+let g:syntastic_python_python_exec = '${HOME}/.local/python3.6/bin/python3'·
+let g:ycm_server_python_interpreter='${HOME}/.local/python3.6/bin/python3'
+let g:ycm_python_sys_path = '${HOME}/.local/python3.6/lib/python3.6'
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 " make completion like other IDE (VimTip1228)
 set completeopt=longest,menu
