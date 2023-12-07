@@ -14,7 +14,33 @@ set matchtime=5
 set cindent
 set ignorecase smartcase " ignore case during searching, except that one or more capital letter exists
 set laststatus=2 " show status bar
-" set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\
+set statusline+=%0*\[%n]                                  "buffernr
+set statusline+=%1*\ %<%F\                                "File+path
+set statusline+=%2*\ %y\                                  "FileType
+set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix..)
+set statusline+=%5*\ %{&spelllang}\%{HighlightSearch()}\  "Spellanguage & Highlight on?
+set statusline+=%6*\ %=\ %l:%c\ (%03p%%)\                 "Row/ColNumber/total (%)
+set statusline+=%7*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
+
+function! HighlightSearch()
+  if &hls
+    return 'H'
+  else
+    return ''
+  endif
+endfunction
+
+hi User0 ctermfg=black  ctermbg=7
+hi User1 ctermfg=black  ctermbg=7
+hi User2 ctermfg=black  ctermbg=7
+hi User3 ctermfg=black  ctermbg=7
+hi User4 ctermfg=black  ctermbg=7
+hi User5 ctermfg=black  ctermbg=7
+hi User6 ctermfg=black  ctermbg=7
+hi User7 ctermfg=black  ctermbg=7
+
 
 " user directory var: $VIMFILES
 let $VIMFILES = $HOME.'/.vim'
