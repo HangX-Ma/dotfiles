@@ -80,7 +80,6 @@ Plugin 'airblade/vim-gitgutter'
     let g:gitgutter_set_sign_backgrounds = 1
 Plugin 'luochen1990/rainbow'
     let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-Plugin 'ervandew/supertab'
 Plugin 'bkad/CamelCaseMotion'
     let g:camelcasemotion_key = '<leader>'
 "TagList(ctags)
