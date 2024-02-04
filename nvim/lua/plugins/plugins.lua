@@ -22,8 +22,10 @@ vim.cmd([[
 return require('packer').startup(function(use)
   -- Packer
   use 'wbthomason/packer.nvim'
+
   -- atom one dark theme
   use 'navarasu/onedark.nvim'
+
   -- status line
   use {
     'nvim-lualine/lualine.nvim',
@@ -46,20 +48,16 @@ return require('packer').startup(function(use)
   end}
 
   -- highlight end
-  use 'nvim-treesitter/nvim-treesitter'
-  use 'p00f/nvim-ts-rainbow'
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- highlight end
 
   -- comment
   use 'numToStr/Comment.nvim'
 
   -- search start
-  use 'nvim-lua/popup.nvim'
-  use 'nvim-lua/plenary.nvim'
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
-  -- or                            , branch = '0.1.x',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    'nvim-telescope/telescope.nvim', tag = '0.1.5',
+    requires = {{'nvim-lua/plenary.nvim'}}
   }
   -- search end
 
@@ -69,40 +67,29 @@ return require('packer').startup(function(use)
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
   }
-  use {
-    "j-hui/fidget.nvim", tag = 'legacy',
-     config = function()
-       require("fidget").setup()
-     end
-  }
 
   -- auto-complete start
+  -- nvim-cmp
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
+  -- vsnip
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
-  use 'saadparwaiz1/cmp_luasnip'
+  use "rafamadriz/friendly-snippets"
+  -- lspkind
+  use 'onsails/lspkind-nvim'
+  -- autopair
   use 'windwp/nvim-autopairs'
   -- auto-complete end
-
-  -- snippets
-  use "rafamadriz/friendly-snippets"
-
-  -- debug start
-  use 'puremourning/vimspector'
-  use 'mfussenegger/nvim-dap'
-  -- debug end
-
+  
+  -- clipboard
+  use 'EtiamNullam/deferred-clipboard.nvim'
+  
   -- rust
   use 'simrat39/rust-tools.nvim'
-
-  -- clipboard
-  use {
-    'EtiamNullam/deferred-clipboard.nvim', tag = 'v0.8.0'
-  }
 
   -- git
   use({
@@ -120,14 +107,37 @@ return require('packer').startup(function(use)
   -- speed up
   use("nathom/filetype.nvim")
 
+  -- startuptime
+  use("dstein64/vim-startuptime")
+
+  -- camelcase motion
+  use("chrisgrieser/nvim-spider")
+
   -- greeter
   use {
-    "startup-nvim/startup.nvim",
+    'startup-nvim/startup.nvim',
     requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
     config = function()
-      require"startup".setup()
+        require"startup".setup({theme = "dashboard"})
     end
   }
+  -- which key
+  use {
+  "folke/which-key.nvim",
+  config = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
+    require("which-key").setup {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  end
+  }
+
+  -- debug
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use { "theHamsta/nvim-dap-virtual-text" }
 
   -- riscv
   use 'kylelaker/riscv.vim'
