@@ -1,45 +1,87 @@
--- ---------- nvim-cmp ----------
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-    return
-end
-
+-- auto complete
+local cmp = require("cmp")
+local lspkind = require("lspkind")
 cmp.setup({
-  preselect = cmp.PreselectMode.None,
-  snippet = {
-      expand = function(args)
-          vim.fn["vsnip#anonymous"](args.body)
-      end,
-  },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
-  },
-  mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    -- Add tab support
-    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    ["<Tab>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
+    -- 设置代码片段引擎，用于根据代码片段补全
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anymous"](args.body)
+        end,
+    },
+
+    window = {
+    },
+
+    mapping = {
+        -- 选择上一个
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        -- 选择下一个
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        -- 出现补全
+        ['<A-.>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+        -- 取消补全
+        ['<A-,>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
+
+        -- 确认使用某个补全项
+        ['<CR>'] = cmp.mapping.confirm({
+            select = true,
+            behavior = cmp.ConfirmBehavior.Replace
+        }),
+
+        -- 向上翻页
+        ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+        -- 向下翻页
+        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+    },
+
+    -- 补全来源
+    sources = cmp.config.sources({
+        {name = 'nvim_lsp'},
+        {name = 'vsnip'},
+        {name = 'buffer'},
+        {name = 'path'}
     }),
-  },
 
-  -- Installed sources
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "vsnip" },
-    { name = "path" },
-    { name = "buffer" },
-  },
+    --根据文件类型来选择补全来源
+    cmp.setup.filetype('gitcommit', {
+        sources = cmp.config.sources({
+            {name = 'buffer'}
+        })
+    }),
+
+    -- 命令模式下输入 `/` 启用补全
+    cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+            { name = 'buffer' }
+        }
+    }),
+
+    -- 命令模式下输入 `:` 启用补全
+    cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+            { name = 'path' }
+        }, {
+                { name = 'cmdline' }
+            })
+    }),
+
+    -- 设置补全显示的格式
+    formatting = {
+        format = lspkind.cmp_format({
+            with_text = true,
+            maxwidth = 50,
+            before = function(entry, vim_item)
+                vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
+                return vim_item
+            end
+        }),
+    },
 })
-
 
 -- ---------- nvim-autopairs ----------
 

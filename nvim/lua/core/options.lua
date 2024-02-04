@@ -8,6 +8,7 @@ vim.loader.enable()
 -- line number
 opt.relativenumber = true       -- show relative line number
 opt.number = true               -- show line number
+opt.relativenumber = true	-- relative number
 
 -- highlight
 opt.cursorline = true           -- highlight the line where the cursor points
@@ -36,10 +37,3 @@ opt.spelllang="en,cjk"
 -- split windows
 opt.splitright = true           -- prefer to split the new windows right
 opt.splitbelow = true           -- prefer to split the new windows below
-
--- Vimspector options
-vim.cmd([[
-let g:vimspector_sidebar_width = 85
-let g:vimspector_bottombar_height = 15
-let g:vimspector_terminal_maxwidth = 70
-]])
