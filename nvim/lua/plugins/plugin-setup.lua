@@ -36,7 +36,7 @@ return require('packer').startup(function(use)
     use { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' } }
     use('christoomey/vim-tmux-navigator')
     use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'nvim-tree/nvim-web-devicons' }
-    use { 'simrat39/symbols-outline.nvim', lazy = true }
+    use { 'simrat39/symbols-outline.nvim' }
     -- navigation end
 
     -- toggleterm Terminal
@@ -70,10 +70,10 @@ return require('packer').startup(function(use)
         'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
     }
-    use("onsails/lspkind-nvim")
-    use("glepnir/lspsaga.nvim")
+    use "onsails/lspkind-nvim"
+    use "glepnir/lspsaga.nvim"
     -- formatter
-    use('mhartington/formatter.nvim')
+    use 'mhartington/formatter.nvim'
 
     -- auto-complete start
     -- nvim-cmp
@@ -85,6 +85,10 @@ return require('packer').startup(function(use)
     -- vsnip
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
+    -- luasnip
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
+
     use "rafamadriz/friendly-snippets"
     -- autopair
     use 'windwp/nvim-autopairs'
@@ -144,14 +148,34 @@ return require('packer').startup(function(use)
     use { "theHamsta/nvim-dap-virtual-text" }
 
     -- trouble
-    use { "folke/trouble.nvim", config = function()
-        require("trouble").setup {}
-    end
+    use { "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup {}
+        end
     }
     -- todo
-    use { "folke/todo-comments.nvim", requires = { { "nvim-lua/plenary.nvim" } }, config = function()
-        require("todo-comments").setup {}
-    end
+    use { "folke/todo-comments.nvim", requires = { { "nvim-lua/plenary.nvim" } },
+        config = function()
+            require("todo-comments").setup {}
+        end
+    }
+
+    -- leetcode
+    use { "kawre/leetcode.nvim",
+        run = ":TSUpdate html",
+        requires = {
+            {"nvim-telescope/telescope.nvim"},
+            {"nvim-lua/plenary.nvim"}, -- required by telescope
+            {"MunifTanjim/nui.nvim"},
+
+            -- optional
+            {"nvim-treesitter/nvim-treesitter"},
+            {"rcarriga/nvim-notify"},
+            {"nvim-tree/nvim-web-devicons"},
+        },
+        config = function()
+            require("leetcode").setup {}
+        end
     }
 
 
