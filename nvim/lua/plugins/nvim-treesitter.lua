@@ -1,6 +1,6 @@
 require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "rust", "bash", "cpp", "json", "python", "cmake", "markdown" },
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "rust", "bash", "cpp", "json", "python", "cmake", "markdown", "yaml"},
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers",
@@ -18,9 +18,7 @@ require('nvim-treesitter.configs').setup {
   },
   rainbow = {
     enable = true,
-    -- Which query to use for finding delimiters
-    query = 'rainbow-parens',
-    -- Highlight the entire buffer all at once
-    strategy = require('ts-rainbow').strategy.global,
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
   }
 }

@@ -1,5 +1,17 @@
-require("toggleterm").setup {
-    open_mapping = [[<F7>]],
+
+local status_ok, toggleterm = pcall(require, "toggleterm")
+if not status_ok then
+    return
+end
+
+toggleterm.setup({
+    size = function(term)
+      if term.direction == "horizontal" then
+        return 15
+      elseif term.direction == "vertical" then
+        return vim.o.columns * 0.3
+      end
+    end,
     hide_numbers = true,    -- hide the number column in toggleterm buffers
     shade_filetypes = {},
     autochdir = false,      -- when neovim changes it current directory the terminal will change it's own when next it's opened
@@ -9,7 +21,7 @@ require("toggleterm").setup {
     insert_mappings = true, -- whether or not the open mapping applies in insert mode
     persist_size = true,
     persist_mode = true,    -- if set to true (default) the previous terminal mode will be remembered
-    direction = 'horizontal',
+    direction = 'float',
     close_on_exit = true,   -- close the terminal window when the process exits
     -- Change the default shell. Can be a string or a function returning a string
     shell = vim.o.shell,
@@ -28,16 +40,18 @@ require("toggleterm").setup {
             background = "Normal",
         },
     },
-}
+})
 
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("t", "<leader>ht", ":sp | terminal<CR>", opts)
-vim.api.nvim_set_keymap("t", "<leader>vt", ":vsp | terminal<CR>", opts)
-vim.api.nvim_set_keymap("t", "<Esc>", [[ <C-\><C-n> ]], opts)
-vim.api.nvim_set_keymap("t", "<C-w>h", [[ <Cmd> wincmd h<CR> ]], opts)
-vim.api.nvim_set_keymap("t", "<C-w>j", [[ <Cmd> wincmd j<CR> ]], opts)
-vim.api.nvim_set_keymap("t", "<C-w>k", [[ <Cmd> wincmd k<CR> ]], opts)
-vim.api.nvim_set_keymap("t", "<C-w>l", [[ <Cmd> wincmd l<CR> ]], opts)
+function _G.set_terminal_keymaps()
+  local opts = {noremap = true, buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
@@ -49,21 +63,68 @@ local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true })
 function _LAZYGIT_TOGGLE()
     lazygit:toggle()
 end
-
-vim.api.nvim_set_keymap("n", "<leader>git", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", { noremap = true, silent = true })
 
 -- ncdu
 local ncdu = Terminal:new({ cmd = "ncdu", hidden = true })
 function _NCDU_TOGGLE()
     ncdu:toggle()
 end
-
-vim.api.nvim_set_keymap("n", "<leader>ncdu", "<cmd>lua _NCDU_TOGGLE()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>lua _NCDU_TOGGLE()<CR>", { noremap = true, silent = true })
 
 -- htop
 local htop = Terminal:new({ cmd = "htop", hidden = true })
 function _HTOP_TOGGLE()
     htop:toggle()
 end
+vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>lua _HTOP_TOGGLE()<CR>", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "<leader>htop", "<cmd>lua _HTOP_TOGGLE()<CR>", { noremap = true, silent = true })
+
+local M = {}
+
+local ta = Terminal:new({
+  direction = "float",
+  close_on_exit = true,
+})
+
+local tb = Terminal:new({
+  direction = "vertical",
+  close_on_exit = true,
+})
+
+local tc = Terminal:new({
+  direction = "horizontal",
+  close_on_exit = true,
+})
+
+M.toggleFloat = function()
+  if ta:is_open() then
+    ta:close()
+    return
+  end
+  tb:close()
+  tc:close()
+  ta:open()
+end
+
+M.toggleVertical = function()
+  if tb:is_open() then
+    tb:close()
+    return
+  end
+  ta:close()
+  tc:close()
+  tb:open()
+end
+
+M.toggleHorizontal = function()
+  if tc:is_open() then
+    tc:close()
+    return
+  end
+  ta:close()
+  tb:close()
+  tc:open()
+end
+
+require("core.keybindings").mapToggleTerm(M)

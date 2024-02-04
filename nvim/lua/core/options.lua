@@ -37,3 +37,7 @@ opt.spelllang="en,cjk"
 -- split windows
 opt.splitright = true           -- prefer to split the new windows right
 opt.splitbelow = true           -- prefer to split the new windows below
+
+-- appearance
+opt.termguicolors = true
+opt.signcolumn = "yes"
