@@ -1,4 +1,20 @@
 require('telescope').setup {
+  defaults = {
+    initial_mode = "insert",
+    -- vertical , center , cursor
+    --layout_strategy = "horizontal",
+    mappings = require("core.keybindings").telescopeList,
+  },
+  pickers = {
+    find_files = {
+      --theme = "dropdown", -- optional: dropdown, cursor, ivy
+      preview = true,
+    },
+    live_grep = {
+      -- theme = "ivy",
+      preview = true,
+    }
+  },
   extensions = {
     fzf = {
       fuzzy = true,                    -- false will only do exact matching
@@ -8,6 +24,7 @@ require('telescope').setup {
     }
   }
 }
+
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})

@@ -131,7 +131,7 @@ lspsaga.setup({ -- defaults ...
     custom_sort = nil,
     keys = {
       expand_or_jump = 'o',
-      quit = "<F8>",
+      quit = "<C-[>",
     },
   },
 })

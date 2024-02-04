@@ -11,6 +11,10 @@ local opt = { noremap = true, silent = true }
 -- ---------------------------------------
 
 keymap.set("i", "<C-[>", "<ESC>", opt)
+keymap.set("n", "<leader>q", ":q!<CR>", opt)
+keymap.set("n", "<leader>Q", ":qa!<CR>", opt)
+keymap.set("n", "<leader>x", ":x<CR>", opt)
+keymap.set("n", "<leader>X", ":xa<CR>", opt)
 
 -- visual line
 -- no highlight
@@ -44,26 +48,51 @@ keymap.set("n", "<C-Up>", ":resize -2<CR>", opt)
 -- ------------- extensions -------------
 local pluginKeys = {}
 -- toogle explorer
-keymap.set("n", "<leader>nt", ":NvimTreeToggle<CR>", opt)
+keymap.set("n", "<C-N>", ":NvimTreeToggle<CR>", opt)
 
 -- treesitter folder
 keymap.set('n', 'zz', ':foldclose<CR>', opt)
 keymap.set('n', 'Z', ':foldopen<CR>', opt)
 
+-- symbol outline
+keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<CR>", opt)
+
 -- lsp callbackfunction
 pluginKeys.mapLSP = function(mapbuf)
   mapbuf('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opt)
-  mapbuf('n', 'cm', '<cmd>Lspsaga rename<CR>', opt)
-  mapbuf('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opt)
   mapbuf('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', opt)
   mapbuf('n', 'gD', '<cmd>Lspsaga peek_definition<CR>', opt)
-  mapbuf('n', 'gt', '<cmd>Lspsaga peek_definition<CR>', opt)
-  mapbuf('n', 'gh', '<cmd>Lspsaga hover_doc<cr>', opt)
-  mapbuf('n', 'gr', '<cmd>Lspsaga lsp_finder<CR>', opt)
-  mapbuf('n', 'gp', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
-  mapbuf('n', 'gj', '<cmd>Lspsaga diagnostic_jump_next<CR>', opt)
-  mapbuf('n', 'gk', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
-  mapbuf('n', '<F8>', '<cmd>Lspsaga outline<CR>', opt)
+  mapbuf('n', 'gh', '<cmd>Lspsaga hover_doc<CR>', opt)
+  mapbuf('n', 'gf', '<cmd>Lspsaga lsp_finder<CR>', opt)
+  mapbuf('n', 'gs', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
+  mapbuf('n', 'gp', '<cmd>Lspsaga diagnostic_jump_next<CR>', opt)
+  mapbuf('n', 'gn', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
+  mapbuf('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opt)
+  mapbuf('n', '<leader>cr', '<cmd>Lspsaga rename<CR>', opt)
+  mapbuf('n', '<leader>co', '<cmd>Lspsaga outline<CR>', opt)
 end
+
+-- <leader>tt float
+-- <leader>tv vertical
+-- <leader>th horizontal
+pluginKeys.mapToggleTerm = function(toggleterm)
+  vim.keymap.set({ 'n', 't' }, 'tf', toggleterm.toggleFloat)
+  vim.keymap.set({ 'n', 't' }, 'tv', toggleterm.toggleVertical)
+  vim.keymap.set({ 'n', 't' }, 'th', toggleterm.toggleHorizontal)
+end
+
+pluginKeys.telescopeList = {
+  i = {
+    ['<C-j>'] = 'move_selection_next',
+    ['<C-k>'] = 'move_selection_previous',
+    ['<C-n>'] = 'move_selection_next',
+    ['<C-p>'] = 'move_selection_previous',
+    ['<Down>'] = 'cycle_history_next',
+    ['<Up>'] = 'cycle_history_prev',
+    ['<C-c>'] = 'close',
+    ['<C-u>'] = 'preview_scrolling_up',
+    ['<C-d>'] = 'preview_scrolling_down',
+  },
+}
 
 return pluginKeys
