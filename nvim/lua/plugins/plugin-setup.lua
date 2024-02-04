@@ -44,7 +44,11 @@ return require('packer').startup(function(use)
         require("toggleterm").setup()
     end }
 
-    use { 'rcarriga/nvim-notify' }
+    use { 'rcarriga/nvim-notify', config = function ()
+        require("notify").setup({
+            background_colour = "#000000"
+        })
+    end }
 
     -- highlight start
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -174,7 +178,15 @@ return require('packer').startup(function(use)
             {"nvim-tree/nvim-web-devicons"},
         },
         config = function()
-            require("leetcode").setup {}
+            require("leetcode").setup {
+                arg = "leetcode.nvim",
+                lang = "cpp",
+                cn = { -- leetcode.cn
+                    enabled = true, ---@type boolean
+                    translator = true, ---@type boolean
+                    translate_problems = true, ---@type boolean
+                },
+            }
         end
     }
 
