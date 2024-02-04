@@ -1,66 +1,69 @@
 require("toggleterm").setup {
-  open_mapping = [[<A-t>]],
-  hide_numbers = true, -- hide the number column in toggleterm buffers
-  shade_filetypes = {},
-  autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
-  shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
-  shading_factor = 2, -- the percentage by which to lighten terminal background, default: -30 (gets multiplied by -3 if background is light)
-  start_in_insert = true, -- start with insert mode
-  insert_mappings = true, -- whether or not the open mapping applies in insert mode
-  persist_size = true,
-  persist_mode = true, -- if set to true (default) the previous terminal mode will be remembered
-  direction = 'horizontal',
-  close_on_exit = true, -- close the terminal window when the process exits
-   -- Change the default shell. Can be a string or a function returning a string
-  shell = vim.o.shell,
-  auto_scroll = true, -- automatically scroll to the bottom on terminal output
-  -- This field is only relevant if direction is set to 'float'
-  float_opts = {
-    -- The border key is *almost* the same as 'nvim_open_win'
-    -- see :h nvim_open_win for details on borders however
-    -- the 'curved' border is a custom border type
-    -- not natively supported but implemented in this plugin.
-    border = 'curved',
-    -- like `size`, width and height can be a number or function which is passed the current terminal
-    winblend = 0,
-    hightlights = {
-      border = "Normal",
-      background = "Normal",
+    open_mapping = [[<F7>]],
+    hide_numbers = true,    -- hide the number column in toggleterm buffers
+    shade_filetypes = {},
+    autochdir = false,      -- when neovim changes it current directory the terminal will change it's own when next it's opened
+    shade_terminals = true, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+    shading_factor = 2,     -- the percentage by which to lighten terminal background, default: -30 (gets multiplied by -3 if background is light)
+    start_in_insert = true, -- start with insert mode
+    insert_mappings = true, -- whether or not the open mapping applies in insert mode
+    persist_size = true,
+    persist_mode = true,    -- if set to true (default) the previous terminal mode will be remembered
+    direction = 'horizontal',
+    close_on_exit = true,   -- close the terminal window when the process exits
+    -- Change the default shell. Can be a string or a function returning a string
+    shell = vim.o.shell,
+    auto_scroll = true, -- automatically scroll to the bottom on terminal output
+    -- This field is only relevant if direction is set to 'float'
+    float_opts = {
+        -- The border key is *almost* the same as 'nvim_open_win'
+        -- see :h nvim_open_win for details on borders however
+        -- the 'curved' border is a custom border type
+        -- not natively supported but implemented in this plugin.
+        border = 'curved',
+        -- like `size`, width and height can be a number or function which is passed the current terminal
+        winblend = 0,
+        hightlights = {
+            border = "Normal",
+            background = "Normal",
+        },
     },
-  },
 }
 
-function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, "t", "<Esc>", [[ <C-\><C-n> ]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<C-w>h", [[ <Cmd> wincmd h<CR> ]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<C-w>j", [[ <Cmd> wincmd j<CR> ]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<C-w>k", [[ <Cmd> wincmd k<CR> ]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<C-w>l", [[ <Cmd> wincmd l<CR> ]], opts)
-end
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("t", "<leader>ht", ":sp | terminal<CR>", opts)
+vim.api.nvim_set_keymap("t", "<leader>vt", ":vsp | terminal<CR>", opts)
+vim.api.nvim_set_keymap("t", "<Esc>", [[ <C-\><C-n> ]], opts)
+vim.api.nvim_set_keymap("t", "<C-w>h", [[ <Cmd> wincmd h<CR> ]], opts)
+vim.api.nvim_set_keymap("t", "<C-w>j", [[ <Cmd> wincmd j<CR> ]], opts)
+vim.api.nvim_set_keymap("t", "<C-w>k", [[ <Cmd> wincmd k<CR> ]], opts)
+vim.api.nvim_set_keymap("t", "<C-w>l", [[ <Cmd> wincmd l<CR> ]], opts)
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-local Terminal  = require('toggleterm.terminal').Terminal
+local Terminal = require('toggleterm.terminal').Terminal
 
 -- lazygit
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true })
 function _LAZYGIT_TOGGLE()
-  lazygit:toggle()
+    lazygit:toggle()
 end
-vim.api.nvim_set_keymap("n", "<leader>git", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", {noremap = true, silent = true})
+
+vim.api.nvim_set_keymap("n", "<leader>git", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", { noremap = true, silent = true })
 
 -- ncdu
 local ncdu = Terminal:new({ cmd = "ncdu", hidden = true })
 function _NCDU_TOGGLE()
-  ncdu:toggle()
+    ncdu:toggle()
 end
-vim.api.nvim_set_keymap("n", "<leader>ncdu", "<cmd>lua _NCDU_TOGGLE()<CR>", {noremap = true, silent = true})
+
+vim.api.nvim_set_keymap("n", "<leader>ncdu", "<cmd>lua _NCDU_TOGGLE()<CR>", { noremap = true, silent = true })
 
 -- htop
-local htop = Terminal:new({ cmd = "htop", hidden = true})
+local htop = Terminal:new({ cmd = "htop", hidden = true })
 function _HTOP_TOGGLE()
-  htop:toggle()
+    htop:toggle()
 end
-vim.api.nvim_set_keymap("n", "<leader>htop", "<cmd>lua _HTOP_TOGGLE()<CR>", {noremap = true, silent = true})
+
+vim.api.nvim_set_keymap("n", "<leader>htop", "<cmd>lua _HTOP_TOGGLE()<CR>", { noremap = true, silent = true })

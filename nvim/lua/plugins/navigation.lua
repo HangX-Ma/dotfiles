@@ -10,7 +10,6 @@ vim.g.loaded_netrwPlugin = 1
 -- empty setup using defaults
 require("nvim-tree").setup()
 
-
 -- ===== bufferline
 vim.opt.termguicolors = true
 require("bufferline").setup {
@@ -28,6 +27,7 @@ require("bufferline").setup {
         }}
     }
 }
+
 -- jump between buffers
 vim.api.nvim_set_keymap("n", "<leader>1", ":BufferLineGoToBuffer 1<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>2", ":BufferLineGoToBuffer 2<CR>", {noremap = true, silent = true})
