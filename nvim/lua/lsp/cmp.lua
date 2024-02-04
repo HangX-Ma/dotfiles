@@ -1,12 +1,16 @@
 local cmp = require("cmp")
 cmp.setup({
     snippet = {
+        -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-            vim.fn["vsnip#anymous"](args.body)
+            -- vim.fn["vsnip#anymous"](args.body) -- For `vsnip` users, it fails
+            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
         end,
     },
 
     window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
     },
 
     mapping = {
@@ -15,7 +19,7 @@ cmp.setup({
         -- select next one
         ['<C-n>'] = cmp.mapping.select_next_item(),
         -- show auto complete
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         -- cancel auto complete
         ['<C-e>'] = cmp.mapping({
             i = cmp.mapping.abort(),
@@ -29,27 +33,27 @@ cmp.setup({
         }),
 
         -- scroll up
-        ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+        ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         -- scroll down
-        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+        ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     },
 
-    -- 补全来源
     sources = cmp.config.sources({
-        {name = 'nvim_lsp'},
-        {name = 'vsnip'},
-        {name = 'buffer'},
-        {name = 'path'}
+        { name = 'nvim_lsp' },
+        { name = 'vsnip' },
+        { name = 'buffer' },
+        { name = 'path' },
+        { name = 'luasnip' }
     }),
 
-    --根据文件类型来选择补全来源
+    -- according filetype to select sources
     cmp.setup.filetype('gitcommit', {
         sources = cmp.config.sources({
-            {name = 'buffer'}
+            { name = 'buffer' }
         })
     }),
 
-    -- 命令模式下输入 `/` 启用补全
+    -- use '/' to trigger auto complete under command mode
     cmp.setup.cmdline('/', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -57,14 +61,14 @@ cmp.setup({
         }
     }),
 
-    -- 命令模式下输入 `:` 启用补全
+    -- use ':' to trigger auto complete under command mode
     cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
             { name = 'path' }
-        }, {
-                { name = 'cmdline' }
-            })
+        },{
+            { name = 'cmdline' }
+        })
     }),
     formatting = require('lsp.ui').formatting
 })
