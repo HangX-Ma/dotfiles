@@ -176,18 +176,8 @@ return require('packer').startup(function(use)
             {"nvim-treesitter/nvim-treesitter"},
             {"rcarriga/nvim-notify"},
             {"nvim-tree/nvim-web-devicons"},
+            {"3rd/image.nvim"}
         },
-        config = function()
-            require("leetcode").setup {
-                arg = "leetcode.nvim",
-                lang = "cpp",
-                cn = { -- leetcode.cn
-                    enabled = true, ---@type boolean
-                    translator = true, ---@type boolean
-                    translate_problems = true, ---@type boolean
-                },
-            }
-        end
     }
 
 
