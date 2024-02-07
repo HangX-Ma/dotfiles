@@ -22,6 +22,7 @@ require("plugins.onedark")
 -- require("plugins.rust-lang")
 require("plugins.symbols-outline")
 require("plugins.telescope")
+require("plugins.trouble")
 require("plugins.toggleterm")
 require("plugins.which-key")
 
