@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
     -- status line
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+        requires = { 'nvim-tree/nvim-web-devicons' }
     }
 
     -- navigation start
@@ -76,8 +76,6 @@ return require('packer').startup(function(use)
     }
     use "onsails/lspkind-nvim"
     use "glepnir/lspsaga.nvim"
-    -- formatter
-    use 'mhartington/formatter.nvim'
 
     -- auto-complete start
     -- nvim-cmp
@@ -92,11 +90,10 @@ return require('packer').startup(function(use)
     -- luasnip
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
-
     use "rafamadriz/friendly-snippets"
     -- autopair
     use 'windwp/nvim-autopairs'
-    -- auto-complete ena
+    -- auto-complete end
 
     -- clipboard
     use 'EtiamNullam/deferred-clipboard.nvim'
@@ -152,11 +149,7 @@ return require('packer').startup(function(use)
     use { "theHamsta/nvim-dap-virtual-text" }
 
     -- trouble
-    use { "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {}
-        end
-    }
+    use { "folke/trouble.nvim", requires = { 'nvim-tree/nvim-web-devicons' } }
     -- todo
     use { "folke/todo-comments.nvim", requires = { { "nvim-lua/plenary.nvim" } },
         config = function()

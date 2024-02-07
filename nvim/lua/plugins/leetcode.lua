@@ -10,9 +10,6 @@ require("leetcode").setup {
     injector = {
         ["cpp"] = {
             before = {
-                "#include <iostream>;",
-                "#include <string>;",
-                "#include <vector>;",
                 "using namespace std;"
             },
         },
