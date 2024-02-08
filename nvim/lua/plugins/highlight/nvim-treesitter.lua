@@ -2,6 +2,7 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	config = function()
+		local crisp = require("core.crisp")
 		require("nvim-treesitter.configs").setup({
 			-- A list of parser names, or "all" (the five listed parsers should always be installed)
 			ensure_installed = {
@@ -43,6 +44,9 @@ return {
 					-- Using this option may slow down your editor, and you may see some duplicate highlights.
 					-- Instead of true it can also be a list of languages
 					additional_vim_regex_highlighting = false,
+					disable = function(_, buf)
+						return crisp.isBigFile(buf)
+					end,
 				},
 				rainbow = {
 					enable = true,

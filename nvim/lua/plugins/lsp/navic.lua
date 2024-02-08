@@ -1,6 +1,6 @@
 return {
 	"SmiteshP/nvim-navic",
-	event = "VeryLazy",
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local navic = require("nvim-navic")
 		navic.setup({

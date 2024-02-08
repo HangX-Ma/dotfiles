@@ -4,6 +4,7 @@ return {
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim",
+			"nvim-lua/popup.nvim",
 		},
 		config = function()
 			require("startup").setup({ theme = "dashboard" })

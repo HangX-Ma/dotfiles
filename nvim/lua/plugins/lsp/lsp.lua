@@ -2,8 +2,6 @@ return {
 	-- cmdline tools and lsp servers
 	{
 		"williamboman/mason.nvim",
-		cmd = "Mason",
-		build = ":MasonUpdate",
 		opts = {
 			ui = {
 				icons = {
@@ -18,8 +16,8 @@ return {
 				"stylua",
 				"shfmt",
 				"lua-language-server",
+				"cmakelang",
 				"cmake-language-server",
-				"markdownlint",
 				"marksman",
 			},
 		},
@@ -113,7 +111,7 @@ return {
 
 	-- lspkind
 	{
-		"onsails/lspkind-nvim",
+		"onsails/lspkind.nvim",
 		config = function()
 			local lspkind = require("lspkind")
 			lspkind.init({
