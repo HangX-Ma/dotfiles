@@ -51,48 +51,48 @@ local pluginKeys = {}
 keymap.set("n", "<C-N>", ":NvimTreeToggle<CR>", opt)
 
 -- treesitter folder
-keymap.set('n', 'zz', ':foldclose<CR>', opt)
-keymap.set('n', 'Z', ':foldopen<CR>', opt)
+keymap.set("n", "zz", ":foldclose<CR>", opt)
+keymap.set("n", "Z", ":foldopen<CR>", opt)
 
 -- symbol outline
 keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<CR>", opt)
 
 -- lsp callbackfunction
 pluginKeys.mapLSP = function(mapbuf)
-  mapbuf('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opt)
-  mapbuf('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', opt)
-  mapbuf('n', 'gD', '<cmd>Lspsaga peek_definition<CR>', opt)
-  mapbuf('n', 'gh', '<cmd>Lspsaga hover_doc<CR>', opt)
-  mapbuf('n', 'gf', '<cmd>Lspsaga lsp_finder<CR>', opt)
-  mapbuf('n', 'gs', '<cmd>Lspsaga show_line_diagnostics<CR>', opt)
-  mapbuf('n', 'gp', '<cmd>Lspsaga diagnostic_jump_next<CR>', opt)
-  mapbuf('n', 'gn', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
-  mapbuf('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opt)
-  mapbuf('n', '<leader>cr', '<cmd>Lspsaga rename<CR>', opt)
-  mapbuf('n', '<leader>co', '<cmd>Lspsaga outline<CR>', opt)
+	-- mapbuf('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opt)
+	mapbuf("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opt)
+	mapbuf("n", "gD", "<cmd>Lspsaga peek_definition<CR>", opt)
+	mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opt)
+	mapbuf("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opt)
+	mapbuf("n", "gs", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
+	mapbuf("n", "gp", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
+	mapbuf("n", "gn", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
+	mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
+	mapbuf("n", "<leader>cr", "<cmd>Lspsaga rename<CR>", opt)
+	mapbuf("n", "<leader>co", "<cmd>Lspsaga outline<CR>", opt)
 end
 
 -- <leader>tt float
 -- <leader>tv vertical
 -- <leader>th horizontal
 pluginKeys.mapToggleTerm = function(toggleterm)
-  vim.keymap.set({ 'n', 't' }, 'tf', toggleterm.toggleFloat)
-  vim.keymap.set({ 'n', 't' }, 'tv', toggleterm.toggleVertical)
-  vim.keymap.set({ 'n', 't' }, 'th', toggleterm.toggleHorizontal)
+	vim.keymap.set({ "n", "t" }, "tf", toggleterm.toggleFloat)
+	vim.keymap.set({ "n", "t" }, "tv", toggleterm.toggleVertical)
+	vim.keymap.set({ "n", "t" }, "th", toggleterm.toggleHorizontal)
 end
 
 pluginKeys.telescopeList = {
-  i = {
-    ['<C-j>'] = 'move_selection_next',
-    ['<C-k>'] = 'move_selection_previous',
-    ['<C-n>'] = 'move_selection_next',
-    ['<C-p>'] = 'move_selection_previous',
-    ['<Down>'] = 'cycle_history_next',
-    ['<Up>'] = 'cycle_history_prev',
-    ['<C-c>'] = 'close',
-    ['<C-u>'] = 'preview_scrolling_up',
-    ['<C-d>'] = 'preview_scrolling_down',
-  },
+	i = {
+		["<C-j>"] = "move_selection_next",
+		["<C-k>"] = "move_selection_previous",
+		["<C-n>"] = "move_selection_next",
+		["<C-p>"] = "move_selection_previous",
+		["<Down>"] = "cycle_history_next",
+		["<Up>"] = "cycle_history_prev",
+		["<C-c>"] = "close",
+		["<C-u>"] = "preview_scrolling_up",
+		["<C-d>"] = "preview_scrolling_down",
+	},
 }
 
 return pluginKeys

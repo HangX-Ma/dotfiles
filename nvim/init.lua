@@ -1,51 +1,28 @@
+require("core.autocmds")
 require("core.options")
 require("core.keybindings")
-require("lsp.setup")
-require("lsp.cmp")
-require("lsp.ui")
-require("plugins/plugin-setup")
-require("plugins.bufferline")
-require("plugins.clipboard")
-require("plugins.comment")
-require("plugins.debug")
-require("plugins.filetype")
-require("plugins.gitsigns")
-require("plugins.leetcode")
-require("plugins.lualine")
-require("plugins.nvim-autopairs")
-require("plugins.nvim-notify")
-require("plugins.nvim-spider")
-require("plugins.nvim-tree")
-require("plugins.nvim-treesitter")
-require("plugins.nvim-treesitter-context")
-require("plugins.onedark")
--- require("plugins.rust-lang")
-require("plugins.symbols-outline")
-require("plugins.telescope")
-require("plugins.trouble")
-require("plugins.toggleterm")
-require("plugins.which-key")
+require("lazy-init")
 
 -- wsl clipboard configuration
 if vim.fn.has("wsl") == 1 then
-    if vim.fn.executable("wl-copy") == 0 then
-        print("wl-clipboard not found, clipboard integration won't work")
-    else
-        vim.g.clipboard = {
-            name = "wl-clipboard (wsl)",
-            copy = {
-                ["+"] = 'wl-copy --foreground --type text/plain',
-                ["*"] = 'wl-copy --foreground --primary --type text/plain',
-            },
-            paste = {
-                ["+"] = (function()
-                    return vim.fn.systemlist('wl-paste --no-newline|sed -e "s/\r$//"', {''}, 1) -- '1' keeps empty lines
-                end),
-                ["*"] = (function()
-                    return vim.fn.systemlist('wl-paste --primary --no-newline|sed -e "s/\r$//"', {''}, 1)
-                end),
-            },
-            cache_enabled = true
-        }
-    end
+	if vim.fn.executable("wl-copy") == 0 then
+		print("wl-clipboard not found, clipboard integration won't work")
+	else
+		vim.g.clipboard = {
+			name = "wl-clipboard (wsl)",
+			copy = {
+				["+"] = "wl-copy --foreground --type text/plain",
+				["*"] = "wl-copy --foreground --primary --type text/plain",
+			},
+			paste = {
+				["+"] = function()
+					return vim.fn.systemlist('wl-paste --no-newline|sed -e "s/\r$//"', { "" }, 1) -- '1' keeps empty lines
+				end,
+				["*"] = function()
+					return vim.fn.systemlist('wl-paste --primary --no-newline|sed -e "s/\r$//"', { "" }, 1)
+				end,
+			},
+			cache_enabled = true,
+		}
+	end
 end
