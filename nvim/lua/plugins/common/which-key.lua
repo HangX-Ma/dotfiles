@@ -90,7 +90,7 @@ return {
 
 		local opts = {
 			mode = "n", -- NORMAL mode
-			prefix = "<leader>",
+			prefix = "",
 			buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
 			silent = true, -- use `silent` when creating keymaps
 			noremap = true, -- use `noremap` when creating keymaps
@@ -99,27 +99,24 @@ return {
 		}
 
 		local mappings = {
-			["1"] = { ":BufferLineGoToBuffer 1<CR>", "Goto Tab1" },
-			["2"] = { ":BufferLineGoToBuffer 2<CR>", "Goto Tab2" },
-			["3"] = { ":BufferLineGoToBuffer 3<CR>", "Goto Tab3" },
-			["4"] = { ":BufferLineGoToBuffer 4<CR>", "Goto Tab4" },
-			["5"] = { ":BufferLineGoToBuffer 5<CR>", "Goto Tab5" },
-			["6"] = { ":BufferLineGoToBuffer 6<CR>", "Goto Tab6" },
-			["7"] = { ":BufferLineGoToBuffer 7<CR>", "Goto Tab7" },
-			["8"] = { ":BufferLineGoToBuffer 8<CR>", "Goto Tab8" },
-			["9"] = { ":BufferLineGoToBuffer 9<CR>", "Goto Tab9" },
-			f = {
-				name = "+file",
+			-- bufferline
+			["<leader>1"] = { ":BufferLineGoToBuffer 1<CR>", "Goto Tab1" },
+			["<leader>2"] = { ":BufferLineGoToBuffer 2<CR>", "Goto Tab2" },
+			["<leader>3"] = { ":BufferLineGoToBuffer 3<CR>", "Goto Tab3" },
+			["<leader>4"] = { ":BufferLineGoToBuffer 4<CR>", "Goto Tab4" },
+			["<leader>5"] = { ":BufferLineGoToBuffer 5<CR>", "Goto Tab5" },
+			["<leader>f"] = {
+				name = "+File",
 				f = { "<cmd>Telescope find_files<cr>", "Find File" },
 				r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 				n = { "<cmd>enew<cr>", "New File" },
 				m = { "Format File" },
 				h = { "Help" },
-				g = { "Live Grep" },
-				b = { "Buffers" },
+				g = { "Find Word" },
+				b = { "Find Buffers" },
 			},
-			t = {
-				name = "terminal & tab",
+			["<leader>t"] = {
+				name = "+Terminal/Tab",
 				f = { "Terminal Float" },
 				h = { "Terminal Horizontal" },
 				v = { "Terminal Vertical " },
@@ -131,32 +128,20 @@ return {
 				p = { "Pick Tab" },
 				d = { "Close Tab" },
 				c = {
-					name = "close tab",
+					name = "+close tab",
 					p = { "Pick And Close Tab" },
 					o = { "Close Other Tabs" },
 					l = { "Close Left Tab" },
 					r = { "Close Right Tab" },
 				},
 			},
-			s = {
-				name = "window",
-				o = { "<cmd>SymbolsOutline<CR>", "Symbols Outline" },
+			["<leader>s"] = {
+				name = "+Window",
 				h = { "<cmd>:sp<CR>", "Spilt Window Horizontal" },
 				v = { "<cmd>:vsp<CR>", "Spilt Window Vertical" },
 			},
-			T = {
-				name = "trouble",
-				t = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
-				d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
-				w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics" },
-				q = { "<cmd>TroubleToggle quickfix<cr>", "Quick Fix" },
-				l = { "<cmd>TroubleToggle loclist<cr>", "List" },
-				u = { "<cmd>TroubleToggle lsp_references<cr>", "Usage" },
-				g = { "<cmd>Gitsigns setloclist<cr>", "Open changed hunk" },
-			},
-			g = {
-				name = "git",
-				-- g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
+			["<leader>g"] = {
+				name = "+Git",
 				f = { "<cmd>DiffviewFileHistory<CR>", "File History" },
 				p = { "<cmd>DiffviewOpen<CR>", "Diff Project" },
 				n = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
@@ -176,22 +161,57 @@ return {
 					"Diff",
 				},
 			},
-			l = {
-				name = "lsp",
-				l = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-				d = { "<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics" },
-				w = { "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
-				f = { "<cmd>Format<cr>", "Format" },
-				i = { "<cmd>LspInfo<cr>", "Info" },
-				I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
-				j = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", "Next Diagnostic" },
-				k = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
-				q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-				r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-				s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-				S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
+			g = {
+				d = { "<cmd>Lspsaga goto_definitions<cr>", "Goto Definitions", noremap = true, silent = true },
+				D = { "<cmd>Lspsaga goto_definitions<cr>", "Peek Definitions", noremap = true, silent = true },
+				h = { "<cmd>Lspsaga hover_doc<cr>", "Hint", noremap = true, silent = true },
+				a = { "<cmd>Lspsaga code_action<cr>", "Code Action", noremap = true, silent = true },
+				i = { "<cmd>Lspsaga incoming_calls<cr>", "Callee Functions", noremap = true, silent = true },
+				o = { "<cmd>Lspsaga outgoing_calls<cr>", "Called Functions", noremap = true, silent = true },
+				r = { "<cmd>Lspsaga rename<cr>", "Rename", noremap = true, silent = true },
+				s = { "<cmd>Lspsaga finder<cr>", "Search", noremap = true, silent = true },
+			},
+			["<leader>a"] = {
+				name = "Diagonostics",
+				b = {
+					"<cmd>Lspsaga show_buf_diagnostics<cr>",
+					"Show Buffer Diagonostics",
+					noremap = true,
+					silent = true,
+				},
+				l = {
+					"<cmd>Lspsaga show_line_diagnostics<cr>",
+					"Show Line Diagonostics",
+					noremap = true,
+					silent = true,
+				},
+				c = {
+					"<cmd>Lspsaga show_cursor_diagnostics<cr>",
+					"Show Cursor Diagonostics",
+					noremap = true,
+					silent = true,
+				},
+				w = {
+					"<cmd>Lspsaga show_workspace_diagnostics<cr>",
+					"Show Workspace Diagonostics",
+					noremap = true,
+					silent = true,
+				},
+				p = {
+					"<cmd>Lspsaga diagnostic_jump_prev<cr>",
+					"Prevous Diagonostics",
+					noremap = true,
+					silent = true,
+				},
+				n = {
+					"<cmd>Lspsaga diagnostic_jump_next<cr>",
+					"Next Diagonostics",
+					noremap = true,
+					silent = true,
+				},
 			},
 		}
+
 		which_key.setup(setup)
 		which_key.register(mappings, opts)
 	end,
