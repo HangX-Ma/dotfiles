@@ -50,28 +50,6 @@ local pluginKeys = {}
 -- toogle explorer
 keymap.set("n", "<C-N>", ":NvimTreeToggle<CR>", opt)
 
--- treesitter folder
-keymap.set("n", "zz", ":foldclose<CR>", opt)
-keymap.set("n", "Z", ":foldopen<CR>", opt)
-
--- symbol outline
-keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<CR>", opt)
-
--- lsp callbackfunction
-pluginKeys.mapLSP = function(mapbuf)
-	-- mapbuf('n', '<leader>fm', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', opt)
-	mapbuf("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opt)
-	mapbuf("n", "gD", "<cmd>Lspsaga peek_definition<CR>", opt)
-	mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opt)
-	mapbuf("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opt)
-	mapbuf("n", "gs", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
-	mapbuf("n", "gp", "<cmd>Lspsaga diagnostic_jump_next<CR>", opt)
-	mapbuf("n", "gn", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opt)
-	mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
-	mapbuf("n", "<leader>cr", "<cmd>Lspsaga rename<CR>", opt)
-	mapbuf("n", "<leader>co", "<cmd>Lspsaga outline<CR>", opt)
-end
-
 -- <leader>tt float
 -- <leader>tv vertical
 -- <leader>th horizontal

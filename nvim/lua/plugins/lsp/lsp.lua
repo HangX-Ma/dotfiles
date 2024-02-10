@@ -87,6 +87,12 @@ return {
 		},
 		config = function()
 			local crisp = require("core.crisp")
+			-- Change diagnostic symbols in the sign column (gutter)
+			local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+			for type, icon in pairs(signs) do
+				local hl = "DiagnosticSign" .. type
+				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+			end
 			-- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 			local servers = {
 				"bash",
@@ -163,7 +169,7 @@ return {
 
 	-- lspsaga
 	{
-		"glepnir/lspsaga.nvim",
+		"nvimdev/lspsaga.nvim",
 		config = function()
 			local lspsaga = require("lspsaga")
 			lspsaga.setup({ -- defaults ...
