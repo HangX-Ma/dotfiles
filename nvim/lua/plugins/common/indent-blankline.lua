@@ -8,6 +8,12 @@ return {
 				char = "│",
 				tab_char = "│",
 			},
+			whitespace = {
+				highlight = {
+					"Whitespace",
+				},
+				remove_blankline_trail = true,
+			},
 			scope = {
 				enabled = true,
 			},
