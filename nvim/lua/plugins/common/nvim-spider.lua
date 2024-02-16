@@ -1,6 +1,6 @@
 return {
 	"chrisgrieser/nvim-spider",
-	event = "VeryLazy",
+	lazy = true,
 	config = function()
 		vim.keymap.set(
 			{ "n", "o", "x" },
