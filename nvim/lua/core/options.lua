@@ -6,38 +6,52 @@ local opt = vim.opt
 vim.loader.enable()
 
 -- line number
-opt.relativenumber = true       -- show relative line number
-opt.number = true               -- show line number
-opt.relativenumber = true	-- relative number
+opt.relativenumber = true -- show relative line number
+opt.number = true -- show line number
 
 -- highlight
-opt.cursorline = true           -- highlight the line where the cursor points
+opt.cursorline = true -- highlight the line where the cursor points
 
 -- tab
 -- ref: <https://www.jianshu.com/p/162c19cc9c11>
-opt.tabstop = 4                 -- determine one tab length is 4 space
-opt.shiftwidth = 4              -- indent length for each level, usually equals to 'tabstop'
-opt.expandtab = true            -- use space to replace the tab
-opt.autoindent = true           -- the new tab level will use the same format as previous ones
+opt.tabstop = 4 -- determine one tab length is 4 space
+opt.shiftwidth = 4 -- indent length for each level, usually equals to 'tabstop'
+opt.expandtab = true -- use space to replace the tab
+opt.autoindent = true -- the new tab level will use the same format as previous ones
+opt.smartindent = true
 
 -- render
-opt.termguicolors = true        -- the nvim terminal will become colorful
+opt.termguicolors = true -- the nvim terminal will become colorful
 opt.signcolumn = "yes"
 
 -- coding
-opt.wrap = false                -- don't wrap the codes when too long
+opt.wrap = false -- don't wrap the codes when too long
 
 -- search
-opt.ignorecase = true           -- ignore the case while searching
-opt.smartcase = true            -- if 'ignorecase' is also true, case sensitive when exists only one uppercase character, otherwise not
+opt.ignorecase = true -- ignore the case while searching
+opt.smartcase = true -- if 'ignorecase' is also true, case sensitive when exists only one uppercase character, otherwise not
 
 -- spell check
-opt.spelllang="en,cjk"
+opt.spelllang = "en,cjk"
 
 -- split windows
-opt.splitright = true           -- prefer to split the new windows right
-opt.splitbelow = true           -- prefer to split the new windows below
+opt.splitright = true -- prefer to split the new windows right
+opt.splitbelow = true -- prefer to split the new windows below
+opt.title = true
 
 -- appearance
 opt.termguicolors = true
 opt.signcolumn = "yes"
+
+-- other
+opt.formatoptions = opt.formatoptions
+	- "t" -- wrap with text width
+	+ "c" -- wrap comments
+	- "r" -- insert comment after enter
+	- "o" -- insert comment after o/O
+	- "q" -- allow formatting of comments with gq
+	- "a" -- format paragraphs
+	+ "n" -- recognized numbered lists
+	- "2" -- use indent of second line for paragraph
+	+ "l" -- long lines are not broken
+	+ "j" -- remove comment when joining lines
