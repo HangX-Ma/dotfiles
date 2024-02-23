@@ -11,6 +11,8 @@ return {
 				},
 			},
 			ensure_installed = {
+				"black",
+				"prettier",
 				"clang-format",
 				"clangd",
 				"stylua",
