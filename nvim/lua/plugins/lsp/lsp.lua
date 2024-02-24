@@ -2,6 +2,8 @@ return {
 	-- cmdline tools and lsp servers
 	{
 		"williamboman/mason.nvim",
+		cmd = "Mason",
+		event = "BufReadPre",
 		opts = {
 			ui = {
 				icons = {
@@ -11,6 +13,7 @@ return {
 				},
 			},
 			ensure_installed = {
+				"codelldb",
 				"black",
 				"prettier",
 				"clang-format",
@@ -66,6 +69,8 @@ return {
 	-- mason lspconfig
 	{
 		"williamboman/mason-lspconfig.nvim",
+		event = "BufReadPre",
+		dependencies = "williamboman/mason.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
@@ -74,7 +79,9 @@ return {
 					"cmake",
 					"lua_ls",
 					"marksman",
+					"rust_analyzer",
 				},
+				automatic_installation = true,
 			})
 		end,
 	},
@@ -86,6 +93,7 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/cmp-nvim-lsp",
+			"windwp/nvim-autopairs",
 		},
 		config = function()
 			local crisp = require("core.crisp")
@@ -120,6 +128,10 @@ return {
 	-- lspkind
 	{
 		"onsails/lspkind.nvim",
+		event = "InsertEnter",
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+		},
 		config = function()
 			local lspkind = require("lspkind")
 			lspkind.init({
