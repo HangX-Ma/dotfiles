@@ -47,12 +47,17 @@ return {
 		-- mason.nvim integration
 		{
 			"jay-babu/mason-nvim-dap.nvim",
-			dependencies = "mason.nvim",
+			event = "BufReadPre",
+			dependencies = {
+				"williamboman/mason.nvim",
+				"mfussenegger/nvim-dap",
+			},
 			cmd = { "DapInstall", "DapUninstall" },
 			opts = {
 				-- Makes a best effort to setup the various debuggers with
 				-- reasonable debug configurations
 				automatic_installation = true,
+	            automatic_setup = true,
 
 				-- You can provide additional configuration to the handlers,
 				-- see mason-nvim-dap README for more information
@@ -62,8 +67,13 @@ return {
 				-- online, please don't ask me how to install them :)
 				ensure_installed = {
 					-- Update this to ensure that you have the debuggers for the langs you want
+					"bash",
+					"codelldb",
+					"cppdbg",
+					"cpptools",
 				},
 			},
+			enabled = false,
 		},
 		keys = {
 			{
