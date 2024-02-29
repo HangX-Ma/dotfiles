@@ -27,6 +27,8 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
+            local select_opts = {behavior = cmp.SelectBehavior.Select}
+			local status_ok, luasnip = pcall(require, "luasnip")
 			cmp.setup({
 				snippet = {
 					-- REQUIRED - you must specify a snippet engine
@@ -64,15 +66,40 @@ return {
 					["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 					-- scroll down
 					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+
+					-- solve placeholder movement problem
+                    -- <https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/>
+					["<Tab>"] = cmp.mapping(function(fallback)
+						local col = vim.fn.col(".") - 1
+
+						if cmp.visible() then
+							cmp.select_next_item(select_opts)
+						elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+							fallback()
+						elseif status_ok and luasnip.expand_or_locally_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							cmp.complete()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item(select_opts)
+						elseif status_ok and luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 				},
 
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
-					{ name = "vsnip" },
-					{ name = "buffer" },
 					{ name = "path" },
+					{ name = "nvim_lsp", keyword_length = 1 },
+					{ name = "buffer", keyword_length = 3 },
+					{ name = "luasnip", keyword_length = 2 },
+					{ name = "vsnip" },
 					{ name = "calc" },
-					{ name = "luasnip" },
 				}),
 
 				-- according filetype to select sources

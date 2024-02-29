@@ -29,6 +29,11 @@ return {
                         -- Remove annoying indent jumping
                         vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
                     end,
+                    ["sh"] = function()
+                        vim.bo.filetype = "bash"
+                        -- Remove annoying indent jumping
+                        vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
+                    end,
                     ["pdf"] = function()
                         vim.bo.filetype = "pdf"
                         -- Open in PDF viewer (Skim.app) automatically
