@@ -45,6 +45,15 @@ keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
 
 -- equivalent scale: <C-w>=
 
+-- close all floating windows
+keymap.set("n", "<esc>", function()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.api.nvim_win_get_config(win).relative == "win" then
+            vim.api.nvim_win_close(win, false)
+        end
+    end
+end)
+
 -- ------------- extensions -------------
 local pluginKeys = {}
 -- toogle explorer
