@@ -32,7 +32,8 @@ opt.ignorecase = true -- ignore the case while searching
 opt.smartcase = true -- if 'ignorecase' is also true, case sensitive when exists only one uppercase character, otherwise not
 
 -- spell check
-opt.spelllang = "en,cjk"
+opt.spelllang = "en_us,cjk"
+opt.spell = true
 
 -- split windows
 opt.splitright = true -- prefer to split the new windows right
