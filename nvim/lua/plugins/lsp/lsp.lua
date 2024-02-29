@@ -103,6 +103,7 @@ return {
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 			end
+
 			-- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 			local servers = {
 				"bash",

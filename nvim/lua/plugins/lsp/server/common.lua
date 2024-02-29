@@ -1,6 +1,7 @@
 local M = {}
 
-M.capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 M.capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
 	lineFoldingOnly = true,

@@ -1,5 +1,10 @@
 -- general configuration
 -- ref: <https://www.ruanyifeng.com/blog/2018/09/vimrc.html>
+
+-- set vim leader to <space>
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 local opt = vim.opt
 
 -- speed up lua load time
