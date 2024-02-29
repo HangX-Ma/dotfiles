@@ -1,6 +1,5 @@
--- set vim leader to <space>
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- Reference list:
+-- https://github.com/lettertwo/config/blob/0b56ed8f5b0e8c1186ca29cbf8623ed64976568e/nvim/lua/config/keymaps.lua
 
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
