@@ -45,6 +45,7 @@ return {
 		},
 		"tsakirist/telescope-lazy.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
+		"nvim-telescope/telescope-file-browser.nvim",
 		"catgoose/telescope-helpgrep.nvim",
 	},
 	cmd = "Telescope",
@@ -157,6 +158,7 @@ return {
 			"fzf",
 			"lazy",
 			"helpgrep",
+            "file_browser",
 		}
 
 		for e in ipairs(extensions) do
