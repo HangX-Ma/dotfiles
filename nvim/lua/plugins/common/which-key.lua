@@ -107,7 +107,7 @@ return {
 			["<leader>5"] = { ":BufferLineGoToBuffer 5<CR>", "Goto Tab5" },
 			["<leader>f"] = {
 				name = "+File",
-				b = { "<cmd>Telescope buffers<CR>", "Buffers" },
+                b = { "<cmd>Telescope file_browser<CR>", "File Browser"},
 				B = { "<cmd>Telescope buffers show_all_buffers=true<cr>", "Buffers(All)" },
 				f = { "<cmd>Telescope find_files<cr>", "Find Files(Root)" },
 				F = { "<cmd>Telescope find_files<cr> cwd=true", "Find Files(CWD)" },
@@ -186,8 +186,8 @@ return {
 				},
 			},
 			g = {
-				d = { "<cmd>Lspsaga goto_definitions<cr>", "Goto Definitions", noremap = true, silent = true },
-				D = { "<cmd>Lspsaga goto_definitions<cr>", "Peek Definitions", noremap = true, silent = true },
+				d = { "<cmd>Lspsaga goto_definition<cr>", "Goto Definitions", noremap = true, silent = true },
+				D = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definitions", noremap = true, silent = true },
 				h = { "<cmd>Lspsaga hover_doc<cr>", "Hint", noremap = true, silent = true },
 				a = { "<cmd>Lspsaga code_action<cr>", "Code Action", noremap = true, silent = true },
 				i = { "<cmd>Lspsaga incoming_calls<cr>", "Callee Functions", noremap = true, silent = true },

@@ -14,7 +14,6 @@ function server.setup()
 			"clangd",
 			"--background-index",
 			"-j=12",
-			"--enable-config",
 			"--all-scopes-completion",
 			"--completion-style=bundled",
 			"--enable-config",

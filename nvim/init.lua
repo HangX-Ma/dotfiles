@@ -1,4 +1,3 @@
-require("core.options")
 require("lazy-init")
 
 vim.api.nvim_create_autocmd("User", {
