@@ -19,8 +19,28 @@ return {
 
                 -- The same as the ones above except the keys map to functions
                 function_extensions = {
+                    ["pl"] = function()
+                        vim.bo.filetype = "perl"
+                        -- Remove annoying indent jumping
+                        vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
+                    end,
+                    ["s"] = function()
+                        vim.bo.filetype = "asm"
+                        -- Remove annoying indent jumping
+                        vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
+                    end,
+                    ["S"] = function()
+                        vim.bo.filetype = "asm"
+                        -- Remove annoying indent jumping
+                        vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
+                    end,
                     ["cpp"] = function()
                         vim.bo.filetype = "cpp"
+                        -- Remove annoying indent jumping
+                        vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
+                    end,
+                    ["c"] = function()
+                        vim.bo.filetype = "c"
                         -- Remove annoying indent jumping
                         vim.bo.cinoptions = vim.bo.cinoptions .. "L0"
                     end,

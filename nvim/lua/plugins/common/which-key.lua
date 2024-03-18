@@ -196,7 +196,7 @@ return {
 				s = { "<cmd>Lspsaga finder<cr>", "Search", noremap = true, silent = true },
 			},
 			["<leader>a"] = {
-				name = "Diagonostics",
+				name = "+Diagonostics",
 				b = {
 					"<cmd>Lspsaga show_buf_diagnostics<cr>",
 					"Show Buffer Diagonostics",
