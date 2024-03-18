@@ -27,6 +27,7 @@ return {
 			injector = {
 				["cpp"] = {
 					before = {
+                        "#include <bits/stdc++.h>",
 						"using namespace std;",
 					},
 				},
