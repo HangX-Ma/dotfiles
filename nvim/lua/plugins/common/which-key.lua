@@ -234,6 +234,27 @@ return {
 					silent = true,
 				},
 			},
+            ["<leader>d"] = {
+                name = "+Dap",
+                B = { "BreakPoint Condition" },
+                b = { "Toggle BreakPoint" },
+                c = { "Continue "},
+                C = { "Run to Cursor" },
+                a = { "Run with Args" },
+                l = { "Run Last" },
+                g = { "Goto line (on execute)" },
+                p = { "Pause" },
+                s = { "Session "},
+                r = { "Toggle REPL" },
+                o = { "Step Out"},
+                O = { "Step Over"},
+                i = { "Step Into" },
+                j = { "Down" },
+                k = { "Up" },
+                w = { "Widgets" },
+                u = { "Dap UI" },
+                e = { "Dap Eval "},
+            },
 		}
 
 		which_key.setup(setup)
