@@ -10,73 +10,32 @@ local function get_args(config)
 	return config
 end
 
+---@warning Before you use the Dap Debugger, you need to ensure to add symbol table and debugger info while compiling.
+---         eg. g++ -std=c++17 test.cpp -g -o test
 return {
-	"mfussenegger/nvim-dap",
-	dependencies = {
-		-- fancy UI for the debugger
-		{
-			"rcarriga/nvim-dap-ui",
-            dependencies = {
-                "nvim-neotest/nvim-nio",
-            },
-            -- stylua: ignore
-            keys = {
-                { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
-                { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
-            },
-			opts = {},
-			config = function(_, opts)
-				-- setup dap config by VsCode launch.json file
-				-- require("dap.ext.vscode").load_launchjs()
-				local dap = require("dap")
-				local dapui = require("dapui")
-				dapui.setup(opts)
-				dap.listeners.after.event_initialized["dapui_config"] = function()
-					dapui.open({})
-				end
-				dap.listeners.before.event_terminated["dapui_config"] = function()
-					dapui.close({})
-				end
-				dap.listeners.before.event_exited["dapui_config"] = function()
-					dapui.close({})
-				end
-			end,
-		},
-		-- virtual text for the debugger
-		{
-			"theHamsta/nvim-dap-virtual-text",
-			opts = {},
-		},
-		-- mason.nvim integration
-		{
-			"jay-babu/mason-nvim-dap.nvim",
-			event = "BufReadPre",
-			dependencies = {
-				"williamboman/mason.nvim",
-				"mfussenegger/nvim-dap",
-			},
-			cmd = { "DapInstall", "DapUninstall" },
-			opts = {
-				-- Makes a best effort to setup the various debuggers with
-				-- reasonable debug configurations
-				automatic_installation = true,
-	            automatic_setup = true,
-
-				-- You can provide additional configuration to the handlers,
-				-- see mason-nvim-dap README for more information
-				handlers = {},
-
-				-- You'll need to check that you have the required things installed
-				-- online, please don't ask me how to install them :)
-				ensure_installed = {
-					-- Update this to ensure that you have the debuggers for the langs you want
-					"bash",
-					"codelldb",
-					"cppdbg",
-					"cpptools",
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			{ "rcarriga/nvim-dap-ui" },
+			{ "theHamsta/nvim-dap-virtual-text" },
+			{
+				"jay-babu/mason-nvim-dap.nvim",
+				dependencies = {
+					"williamboman/mason.nvim",
+					"mfussenegger/nvim-dap",
 				},
+				config = function()
+					require("mason-nvim-dap").setup({
+						ensure_installed = {
+							"bash",
+							"python",
+							"codelldb",
+							"cpptools",
+						},
+						automatic_installation = true,
+					})
+				end,
 			},
-			enabled = false,
 		},
 		keys = {
 			{
@@ -199,70 +158,74 @@ return {
 				desc = "Widgets",
 			},
 		},
-	},
-	-- config
-	config = function()
-		local dap = require("dap")
-		dap.adapters.codelldb = {
-			type = "server",
-			host = "localhost",
-			port = "${port}",
-			executable = {
-				command = "codelldb",
-				args = {
-					"--port",
-					"${port}",
-				},
-			},
-		}
-		dap.adapters.nlua = function(callback, config)
-			callback({
+		config = function()
+			-- load from json file
+			require("dap.ext.vscode").load_launchjs()
+			local dap = require("dap")
+			-- config adapters
+			dap.adapters.codelldb = {
 				type = "server",
-				host = config.host or "127.0.0.1",
-				port = config.port or 8086,
-			})
-		end
-		dap.configurations.lua = {
-			{
-				type = "nlua",
-				request = "attach",
-				name = "Attach to running Neovim instance (port = 8086)",
-			},
-		}
-		dap.configurations.cpp = {
-			{
-				name = "Launch",
-				type = "codelldb",
-				request = "launch",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-				cwd = "${workspaceFolder}",
-				stopOnEntry = false,
-				args = {},
+				port = "${port}",
+				executable = {
+					command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/codelldb",
+					args = { "--port", "${port}" },
+				},
+			}
+			dap.adapters.cppdbg = {
+				id = "cppdbg",
+				type = "executable",
+				command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/OpenDebugAD7",
+			}
+			dap.adapters.nlua = function(callback, config)
+				callback({
+					type = "server",
+					host = config.host or "127.0.0.1",
+					port = config.port or 8086,
+				})
+			end
+			-- config language
+			dap.configurations.lua = {
+				{
+					type = "nlua",
+					request = "attach",
+					name = "Attach to running Neovim instance (port = 8086)",
+				},
+			}
+			dap.configurations.cpp = {
+				{
+					name = "Launch",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+					args = {},
 
-				-- 💀
-				-- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-				--
-				--    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-				--
-				-- Otherwise you might get the following error:
-				--
-				--    Error on launch: Failed to attach to the target process
-				--
-				-- But you should be aware of the implications:
-				-- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-				-- runInTerminal = false,
-			},
-			{
-				type = "codelldb",
-				request = "attach",
-				name = "Attach to process",
-				processId = require("dap.utils").pick_process,
-				cwd = "${workspaceFolder}",
-			},
-		}
-		dap.configurations.c = dap.configurations.cpp
-		dap.configurations.rust = dap.configurations.cpp
-	end,
+					-- 💀
+					-- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+					--
+					--    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+					--
+					-- Otherwise you might get the following error:
+					--
+					--    Error on launch: Failed to attach to the target process
+					--
+					-- But you should be aware of the implications:
+					-- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+					-- runInTerminal = false,
+				},
+				{
+					type = "codelldb",
+					request = "attach",
+					name = "Attach to process",
+					processId = require("dap.utils").pick_process,
+					cwd = "${workspaceFolder}",
+				},
+			}
+			dap.configurations.c = dap.configurations.cpp
+			dap.configurations.rust = dap.configurations.cpp
+		end,
+	},
 }

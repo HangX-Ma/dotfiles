@@ -86,6 +86,7 @@ return {
 		end,
 	},
 
+
 	-- lspconfig
 	{
 		"neovim/nvim-lspconfig",
