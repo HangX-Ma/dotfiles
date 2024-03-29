@@ -12,8 +12,6 @@ local opts = { noremap = true, silent = true }
 keymap.set("i", "<C-[>", "<ESC>", opts)
 keymap.set("n", "<leader>q", ":q!<CR>", opts)
 keymap.set("n", "<leader>Q", ":qa!<CR>", opts)
-keymap.set("n", "<leader>x", ":x<CR>", opts)
-keymap.set("n", "<leader>X", ":xa<CR>", opts)
 
 -- visual line
 -- no highlight

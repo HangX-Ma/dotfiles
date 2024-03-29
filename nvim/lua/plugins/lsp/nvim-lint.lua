@@ -20,6 +20,14 @@ return {
 			}
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
+            -- configure cpplint
+            --ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
+            local cpplint = lint.linters.cpplint
+            cpplint.args = {
+                '--filter',
+                '-legal/copyright',
+            }
+
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
