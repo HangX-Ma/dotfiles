@@ -27,6 +27,8 @@ return {
                 '--filter',
                 '-legal/copyright',
             }
+            local cpplint_ns = lint.get_namespace("cpplint")
+            vim.diagnostic.config({ virtual_text = false }, cpplint_ns)
 
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
