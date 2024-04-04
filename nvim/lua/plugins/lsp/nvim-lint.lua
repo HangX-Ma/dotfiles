@@ -24,11 +24,11 @@ return {
             --ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
             local cpplint = lint.linters.cpplint
             cpplint.args = {
-                '--filter',
-                '-legal/copyright',
+                '--filter=-whitespace/braces,-legal/copyright',
             }
+
             local cpplint_ns = lint.get_namespace("cpplint")
-            vim.diagnostic.config({ virtual_text = false }, cpplint_ns)
+            vim.diagnostic.config({ virtual_text = true }, cpplint_ns)
 
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
