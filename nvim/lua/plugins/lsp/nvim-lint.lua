@@ -24,7 +24,7 @@ return {
             --ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
             local cpplint = lint.linters.cpplint
             cpplint.args = {
-                '--filter=-whitespace/braces,-legal/copyright',
+                '--filter=-whitespace/braces,-whitespace/line_length,-legal/copyright,-build/c++11',
             }
 
             local cpplint_ns = lint.get_namespace("cpplint")
