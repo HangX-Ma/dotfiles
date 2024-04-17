@@ -60,9 +60,9 @@ keymap.set("n", "<C-N>", ":NvimTreeToggle<CR>", opts)
 -- <leader>tv vertical
 -- <leader>th horizontal
 pluginKeys.mapToggleTerm = function(toggleterm)
-	vim.keymap.set({ "n", "t" }, "tf", toggleterm.toggleFloat)
-	vim.keymap.set({ "n", "t" }, "tv", toggleterm.toggleVertical)
-	vim.keymap.set({ "n", "t" }, "th", toggleterm.toggleHorizontal)
+	vim.keymap.set({ "n", "t" }, "<leader>tf", toggleterm.toggleFloat)
+	vim.keymap.set({ "n", "t" }, "<leader>tv", toggleterm.toggleVertical)
+	vim.keymap.set({ "n", "t" }, "<leader>th", toggleterm.toggleHorizontal)
 end
 
 pluginKeys.telescopeList = {
