@@ -1,5 +1,9 @@
+-- reference: https://waylonwalker.com/nvim-navic/
 return {
 	"SmiteshP/nvim-navic",
+	dependencies = {
+		"neovim/nvim-lspconfig",
+	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local navic = require("nvim-navic")
