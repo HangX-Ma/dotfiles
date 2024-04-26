@@ -1,10 +1,13 @@
 return {
 	{ import = "plugins.common" },
 	{ import = "plugins.debug" },
-	{ import = "plugins.extra" },
+	{ import = "plugins.editor" },
+	{ import = "plugins.file" },
 	{ import = "plugins.git" },
 	{ import = "plugins.highlight" },
-	{ import = "plugins.theme" },
 	{ import = "plugins.lsp" },
-	{ import = "plugins.ui" },
+	{ import = "plugins.manager" },
+	{ import = "plugins.system" },
+	{ import = "plugins.theme" },
+	{ import = "plugins.tools" },
 }
