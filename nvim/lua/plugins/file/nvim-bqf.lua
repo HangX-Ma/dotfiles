@@ -1,3 +1,5 @@
+-- The goal of nvim-bqf is to make Neovim's quickfix window better.
+-- https://github.com/kevinhwang91/nvim-bqf
 local opts = {
 	auto_enable = true,
 	auto_resize_height = true,
