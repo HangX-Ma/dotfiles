@@ -61,3 +61,5 @@ opt.formatoptions = opt.formatoptions
 	- "2" -- use indent of second line for paragraph
 	+ "l" -- long lines are not broken
 	+ "j" -- remove comment when joining lines
+
+vim.o.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"

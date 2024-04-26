@@ -34,6 +34,31 @@ local function grep_string_files()
 	})
 end
 
+
+local function check_utils()
+	local crisp = require("core.crisp")
+	local script = [[
+        #!/bin/bash
+        if ! command -v fdfind &>/dev/null; then
+            echo -n "Package 'fd-find' not installed. Installing..."
+            sudo apt-get update && sudo apt install fd-find -y
+        fi
+        if ! command -v rg &>/dev/null; then
+            echo -n "Package 'ripgrep' not installed. Installing..."
+            sudo apt-get update && sudo apt install ripgrep -y
+        fi
+    ]]
+	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
+	if handle ~= nil then
+		local result = handle:read("*a")
+		handle:close()
+		if result ~= nil and result ~= "" then
+			crisp.notify(result, "info", "Installing result")
+		end
+	end
+end
+
+
 return {
 	"nvim-telescope/telescope.nvim",
 	version = "0.1.5",
