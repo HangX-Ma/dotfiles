@@ -20,9 +20,13 @@ return {
 	opts = opts,
 	ft = "qf",
 	dependencies = {
-		"junegunn/fzf",
+		"ibhagwan/fzf-lua",
 		build = function()
 			vim.fn["fzf#install"]()
+		end,
+		config = function()
+			-- calling `setup` is optional for customization
+			require("fzf-lua").setup({})
 		end,
 	},
 }
