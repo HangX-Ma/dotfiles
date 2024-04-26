@@ -34,3 +34,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end, keymap_opts)
 	end,
 })
+
+-- Alternative to gutentags is to rebuild DB using :Cscope db build or <prefix>b.
+
+-- local group = vim.api.nvim_create_augroup("CscopeBuild", { clear = true })
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+-- 	pattern = { "*.c", "*.h" },
+-- 	callback = function()
+-- 		vim.cmd("Cscope db build")
+-- 	end,
+-- 	group = group,
+-- })
