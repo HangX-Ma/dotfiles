@@ -21,7 +21,7 @@ end
 return {
 	{
 		"kdheepak/lazygit.nvim",
-		event = "VeryLazy",
+        lazy = true,
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim",
