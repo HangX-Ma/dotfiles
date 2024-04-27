@@ -31,6 +31,13 @@ export PATH=/usr/local/nvim-linux64/bin:$PATH
 source ~/.bashrc
 ```
 
+## Install essential packages
+
+```bash
+sudo apt-get install -y build-essential zip luarocks lua5.3 npm fd-find ripgrep global
+luarocks install jsregexp
+```
+
 ## Install extra packages
 
 ### `bat-extras` Enhanced Linux CLI Tools
@@ -50,9 +57,10 @@ source $HOME/.bashrc
 
 ### System Support
 
-- wl-clipboard
+- clipboard
 
   ```bash
+  # support clipboard
   sudo apt-get install wl-clipboard
   ```
 
@@ -61,14 +69,13 @@ source $HOME/.bashrc
 - clang-format
 
   ```bash
+  # install clang-format
   sudo apt-get install -y clang-format
   ```
 
 - lua_ls
 
   ```bash
-  # install clang-format
-  sudo apt-get install -y clang-format
   # install lua-language-server
   # check <https://github.com/LuaLS/lua-language-server/releases> to download release file
   mkdir lua_ls
