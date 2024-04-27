@@ -33,6 +33,17 @@ source ~/.bashrc
 
 ## Install extra packages
 
+### `bat-extras` Enhanced Linux CLI Tools
+
+```bash
+sudo apt-get install bat
+git clone https://github.com/eth-p/bat-extras.git ~/bat-extras
+cd && sudo ./bat-extras/build.sh
+sudo mv bat-extras /usr/local
+echo "export PATH=/usr/local/bat-extras/bin:$PATH" >> $HOME/.bashrc
+source $HOME/.bashrc
+```
+
 ### `Yazi` File Manager(Optional)
 
 [\[Yazi - Installation\]](https://yazi-rs.github.io/docs/installation) tutorial provides you with the complete installation details.
