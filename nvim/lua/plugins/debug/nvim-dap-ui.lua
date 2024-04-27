@@ -56,6 +56,7 @@ return {
 		"mfussenegger/nvim-dap",
 		"nvim-neotest/nvim-nio",
 	},
+    lazy = true,
     -- stylua: ignore
     keys = {
         { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },

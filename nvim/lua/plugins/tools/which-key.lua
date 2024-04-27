@@ -262,6 +262,19 @@ return {
 				t = { "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", "Toggle Wrap Mode" },
 			},
 			["<leader>l"] = { "Trigger linting" },
+			["<leader>v"] = {
+				name = "+Neotest",
+				a = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach Nearest" },
+				d = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
+				t = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run File" },
+				T = { "<cmd>lua require('neotest').run.run(vim.uv.cwd())<cr>", "Run All Test Files" },
+				r = { "<cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
+				l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
+				s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Toggle Summary" },
+				o = { "<cmd>lua require('neotest').output.open({ enter = true, auto_close = true })<cr>", "Show Output" },
+				O = { "<cmd>lua require('neotest').output_panel.toggle()<cr>", "Toggle Output Panel" },
+				S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
+			},
 		}
 
 		which_key.setup(setup)
