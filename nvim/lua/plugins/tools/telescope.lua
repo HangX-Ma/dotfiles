@@ -47,6 +47,10 @@ local function check_utils()
             echo -n "Package 'ripgrep' not installed. Installing..."
             sudo apt-get update && sudo apt install ripgrep -y
         fi
+        if ! command -v batcat &>/dev/null; then
+            echo -n "Package 'bat' not installed. Installing..."
+            sudo apt-get update && sudo apt install bat -y
+        fi
     ]]
 	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
 	if handle ~= nil then

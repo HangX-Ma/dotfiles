@@ -18,14 +18,22 @@ local opts = {
 }
 
 return {
-	"kevinhwang91/nvim-bqf",
-	opts = opts,
-	ft = "qf",
-	dependencies = {
+	{
+		"kevinhwang91/nvim-bqf",
+		opts = opts,
+		ft = "qf",
+		dependencies = {
+			"ibhagwan/fzf-lua",
+		},
+	},
+
+	{
 		"ibhagwan/fzf-lua",
-		build = function()
-			vim.fn["fzf#install"]()
-		end,
+		dependencies = {
+			-- we need to ensure the fzf has been installed
+			{ "junegunn/fzf", build = "./install --bin" },
+			{ "nvim-web-devicons" },
+		},
 		config = function()
 			-- calling `setup` is optional for customization
 			require("fzf-lua").setup({})
