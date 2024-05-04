@@ -11,6 +11,7 @@ return {
 					return vim.o.columns * 0.3
 				end
 			end,
+            open_mapping = [[<c-\>]], -- or { [[<c-\>]], [[<c-¥>]] } if you also use a Japanese keyboard.
 			hide_numbers = true, -- hide the number column in toggleterm buffers
 			shade_filetypes = {},
 			autochdir = false, -- when neovim changes it current directory the terminal will change it's own when next it's opened
