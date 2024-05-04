@@ -44,11 +44,11 @@ keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
 
 -- close all floating windows
 keymap.set("n", "<esc>", function()
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        if vim.api.nvim_win_get_config(win).relative == "win" then
-            vim.api.nvim_win_close(win, false)
-        end
-    end
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_get_config(win).relative == "win" then
+			vim.api.nvim_win_close(win, false)
+		end
+	end
 end)
 
 -- ------------- extensions -------------
@@ -60,9 +60,9 @@ keymap.set("n", "<C-N>", ":NvimTreeToggle<CR>", opts)
 -- <leader>tv vertical
 -- <leader>th horizontal
 pluginKeys.mapToggleTerm = function(toggleterm)
-	vim.keymap.set({ "n", "t" }, "<leader>tf", toggleterm.toggleFloat)
-	vim.keymap.set({ "n", "t" }, "<leader>tv", toggleterm.toggleVertical)
-	vim.keymap.set({ "n", "t" }, "<leader>th", toggleterm.toggleHorizontal)
+	vim.keymap.set({ "n" }, "<leader>tf", toggleterm.toggleFloat)
+	vim.keymap.set({ "n" }, "<leader>tv", toggleterm.toggleVertical)
+	vim.keymap.set({ "n" }, "<leader>th", toggleterm.toggleHorizontal)
 end
 
 pluginKeys.telescopeList = {

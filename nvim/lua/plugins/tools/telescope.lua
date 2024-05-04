@@ -34,7 +34,6 @@ local function grep_string_files()
 	})
 end
 
-
 local function check_utils()
 	local crisp = require("core.crisp")
 	local script = [[
@@ -61,7 +60,6 @@ local function check_utils()
 		end
 	end
 end
-
 
 return {
 	"nvim-telescope/telescope.nvim",
@@ -154,9 +152,11 @@ return {
 				buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 			},
 			pickers = {
+				-- note: remove the 'builtin.' prefix.
 				find_files = {
 					--theme = "dropdown", -- optional: dropdown, cursor, ivy
 					preview = true,
+					wrap_results = true,
 				},
 				live_grep = {
 					-- theme = "ivy",
@@ -172,6 +172,11 @@ return {
 						},
 					},
 				},
+                -- reference: https://codeberg.org/artfulrobot/nvim-config/src/branch/lazy/lua/plugins/telescope.lua
+				lsp_references = { wrap_results = true },
+				lsp_definitions = { wrap_results = true },
+				diagnostics = { wrap_results = true },
+				buffers = { sort_mru = true, ignore_current_buffer = true },
 			},
 			extensions = {
 				fzf = {
@@ -187,7 +192,7 @@ return {
 			"fzf",
 			"lazy",
 			"helpgrep",
-            "file_browser",
+			"file_browser",
 		}
 
 		for e in ipairs(extensions) do
