@@ -24,6 +24,7 @@ return {
 				"cmakelang",
 				"cmake-language-server",
 				"marksman",
+                "pyright",
 			},
 		},
 		---@param opts MasonSettings | {ensure_installed: string[]}
