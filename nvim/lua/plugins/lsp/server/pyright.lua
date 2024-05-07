@@ -8,7 +8,7 @@ end
 function server.setup()
 	local lspconfig = require("lspconfig")
 	local common = require("plugins.lsp.server.common")
-	lspconfig.bashls.setup({
+	lspconfig.pyright.setup({
 		flags = common.lspflags,
 		capabilities = common.capabilities,
 		filetypes = { "python" },
