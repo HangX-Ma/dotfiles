@@ -11,6 +11,7 @@ function server.setup()
 	lspconfig.bashls.setup({
 		flags = common.lspflags,
 		capabilities = common.capabilities,
+		filetypes = { "python" },
 	})
 end
 
