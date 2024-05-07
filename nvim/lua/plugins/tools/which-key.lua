@@ -85,6 +85,7 @@ return {
 				-- most people should not need to change this
 				i = { "j", "k" },
 				v = { "j", "k" },
+				t = { "<leader>" },
 			},
 		}
 
@@ -271,7 +272,10 @@ return {
 				r = { "<cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
 				l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
 				s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Toggle Summary" },
-				o = { "<cmd>lua require('neotest').output.open({ enter = true, auto_close = true })<cr>", "Show Output" },
+				o = {
+					"<cmd>lua require('neotest').output.open({ enter = true, auto_close = true })<cr>",
+					"Show Output",
+				},
 				O = { "<cmd>lua require('neotest').output_panel.toggle()<cr>", "Toggle Output Panel" },
 				S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
 			},
