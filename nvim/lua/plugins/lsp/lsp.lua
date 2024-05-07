@@ -81,6 +81,7 @@ return {
 					"lua_ls",
 					"marksman",
 					"rust_analyzer",
+                    "pyright",
 				},
 				automatic_installation = true,
 			})
@@ -113,6 +114,7 @@ return {
 				"cmake",
 				"lua",
 				"markdown",
+                "pyright",
 			}
 
 			for _, server in ipairs(servers) do
