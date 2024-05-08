@@ -3,9 +3,8 @@ local function check_lazygit()
 	local script = [[
         #!/bin/bash
         if ! command -v lazygit &>/dev/null; then
-            echo -n "Package 'lazygit' not installed. Installing..."
-            sudo add-apt-repository ppa:lazygit-team/release
-            sudo apt-get update && sudo apt-get install lazygit -y
+            echo "Package 'lazygit' not installed"
+            echo -n "Please run 'requirements.sh' first"
         fi
     ]]
 	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
@@ -13,7 +12,7 @@ local function check_lazygit()
 		local result = handle:read("*a")
 		handle:close()
 		if result ~= nil and result ~= "" then
-			crisp.notify(result, "info", "Installing result")
+			crisp.notify(result, "error", "Package state checker information")
 		end
 	end
 end
@@ -21,13 +20,22 @@ end
 return {
 	{
 		"kdheepak/lazygit.nvim",
-        lazy = true,
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		lazy = true,
+		build = function()
+			check_lazygit()
+		end,
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
-			check_lazygit()
 			require("telescope").load_extension("lazygit")
 		end,
 	},

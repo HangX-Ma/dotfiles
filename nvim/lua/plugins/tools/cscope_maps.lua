@@ -3,8 +3,8 @@ local function check_global()
 	local script = [[
         #!/bin/bash
         if ! command -v gtags-cscope &>/dev/null; then
-            echo -n "Package 'global' not installed. Installing..."
-            sudo apt-get update && sudo apt install global -y
+            echo "Package 'global' not installed"
+            echo -n "Please run 'requirements.sh' first"
         fi
     ]]
 	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
@@ -12,7 +12,7 @@ local function check_global()
 		local result = handle:read("*a")
 		handle:close()
 		if result ~= nil and result ~= "" then
-			crisp.notify(result, "info", "Installing result")
+			crisp.notify(result, "error", "Package state checker information")
 		end
 	end
 end
@@ -29,6 +29,9 @@ return {
 		},
 		-- only matched patterns will load this extension
 		event = { "BufRead *.cpp *.c *.s *.S" },
+		build = {
+			check_global(),
+		},
 		opts = {
 			-- USE EMPTY FOR DEFAULT OPTIONS
 			-- DEFAULTS ARE LISTED BELOW
@@ -71,7 +74,6 @@ return {
 			},
 		},
 		config = function(_, opts)
-			check_global()
 			require("cscope_maps").setup(opts)
 		end,
 	},

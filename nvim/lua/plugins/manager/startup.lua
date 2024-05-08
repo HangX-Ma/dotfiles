@@ -9,6 +9,7 @@ return {
 		config = function()
 			require("startup").setup({ theme = "dashboard" })
 		end,
+		async = true,
 	},
 	-- icons
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
