@@ -1,6 +1,6 @@
 return {
 	"rmagatti/goto-preview",
-	lazy = true,
+	event = { "BufReadPre", "BufNewFile" },
 	keys = { "gp" },
 	config = function()
 		require("goto-preview").setup({

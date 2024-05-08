@@ -38,17 +38,22 @@ local function check_utils()
 	local crisp = require("core.crisp")
 	local script = [[
         #!/bin/bash
+        package_installed=true
         if ! command -v fdfind &>/dev/null; then
-            echo -n "Package 'fd-find' not installed. Installing..."
-            sudo apt-get update && sudo apt install fd-find -y
+            echo "Package 'fd-find' not installed"
+            package_installed=false
         fi
         if ! command -v rg &>/dev/null; then
-            echo -n "Package 'ripgrep' not installed. Installing..."
-            sudo apt-get update && sudo apt install ripgrep -y
+            echo "Package 'ripgrep' not installed"
+            package_installed=false
         fi
         if ! command -v batcat &>/dev/null; then
-            echo -n "Package 'bat' not installed. Installing..."
-            sudo apt-get update && sudo apt install bat -y
+            echo "Package 'bat' not installed"
+            package_installed=false
+        fi
+
+        if "$package_installed" = false; then
+            echo -n "Please run 'requirements.sh' first"
         fi
     ]]
 	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
@@ -56,7 +61,7 @@ local function check_utils()
 		local result = handle:read("*a")
 		handle:close()
 		if result ~= nil and result ~= "" then
-			crisp.notify(result, "info", "Installing result")
+			crisp.notify(result, "error", "Package state checker information")
 		end
 	end
 end
@@ -64,19 +69,24 @@ end
 return {
 	"nvim-telescope/telescope.nvim",
 	version = "0.1.x",
-    lazy = true,
+	event = { "VeryLazy" },
+	async = true,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
 		},
-		"tsakirist/telescope-lazy.nvim",
 		"nvim-telescope/telescope-symbols.nvim",
+		"nvim-telescope/telescope-ui-select.nvim",
 		"nvim-telescope/telescope-file-browser.nvim",
+		"nvim-telescope/telescope-dap.nvim",
 		"catgoose/telescope-helpgrep.nvim",
 	},
 	cmd = "Telescope",
+	build = function()
+		check_utils()
+	end,
 	keys = {
 		-- find files
 		{ "<leader>fg", live_grep_files, desc = "Grep in open files" },
@@ -95,14 +105,14 @@ return {
 		{ "<leader>fsM", "<cmd>Telescope man_pages<CR>", desc = "Man Pages" },
 		{ "<leader>fso", "<cmd>Telescope vim_options<CR>", desc = "Vim Options" },
 		{ "<leader>fsq", "<cmd>Telescope quickfix<CR>", desc = "Quickfix" },
-		{ "<leader>fst", "<cmd>Telescope<CR>", desc = "Telescope Builting " },
+		{ "<leader>fst", "<cmd>Telescope<CR>", desc = "Telescope Builtins" },
+		{ "<leader>fsT", "<cmd>Telescope tags<CR>", desc = "Tags" },
 		{ "<leader>fss", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
 		{ "<leader>fsS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Workspace Symbols" },
 		{ "<leader>fsw", grep_string_cwd, desc = "Word(CWD)" },
 		{ "<leader>fsW", grep_string_cbd, desc = "Word(Buffer)" },
 	},
 	config = function()
-        check_utils()
 		local actions = require("telescope.actions")
 		require("telescope").setup({
 			defaults = {
@@ -156,7 +166,7 @@ return {
 			pickers = {
 				-- note: remove the 'builtin.' prefix.
 				find_files = {
-					--theme = "dropdown", -- optional: dropdown, cursor, ivy
+					theme = "dropdown", -- optional: dropdown, cursor, ivy
 					preview = true,
 					wrap_results = true,
 				},
@@ -174,7 +184,7 @@ return {
 						},
 					},
 				},
-                -- reference: https://codeberg.org/artfulrobot/nvim-config/src/branch/lazy/lua/plugins/telescope.lua
+				-- reference: https://codeberg.org/artfulrobot/nvim-config/src/branch/lazy/lua/plugins/telescope.lua
 				lsp_references = { wrap_results = true },
 				lsp_definitions = { wrap_results = true },
 				diagnostics = { wrap_results = true },
@@ -187,14 +197,20 @@ return {
 					override_file_sorter = true, -- override the file sorter
 					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 				},
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown({
+						-- even more opts
+					}),
+				},
 			},
 		})
 
 		local extensions = {
 			"fzf",
-			"lazy",
 			"helpgrep",
 			"file_browser",
+			"ui-select",
+			"dap",
 		}
 
 		for e in ipairs(extensions) do

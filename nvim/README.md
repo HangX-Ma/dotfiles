@@ -33,9 +33,11 @@ source ~/.bashrc
 
 ## Install essential packages
 
+**You can run _requirements.sh_ to install the essential packages.**
+
 ```bash
-sudo apt-get install -y build-essential zip luarocks lua5.3 npm fd-find ripgrep global
-luarocks install jsregexp
+sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
+sudo luarocks install jsregexp
 ```
 
 ## Install extra packages
@@ -43,7 +45,6 @@ luarocks install jsregexp
 ### `bat-extras` Enhanced Linux CLI Tools
 
 ```bash
-sudo apt-get install bat
 git clone https://github.com/eth-p/bat-extras.git ~/bat-extras
 cd && sudo ./bat-extras/build.sh
 sudo mv bat-extras /usr/local
@@ -64,7 +65,9 @@ source $HOME/.bashrc
   sudo apt-get install wl-clipboard
   ```
 
-### Formatter Support
+  > You can select your own clipboard support by looking at `:help clipboard-tool` in neovim.
+
+### Formatter Support(Recommended)
 
 - clang-format
 
@@ -114,79 +117,83 @@ source $HOME/.bashrc
 ```txt
 nvim
 ├── init.lua
-└── lua
-    ├── core
-    │   ├── autocmds.lua
-    │   ├── crisp.lua
-    │   ├── keybindings.lua
-    │   └── options.lua
-    ├── lazy-init.lua
-    └── plugins
-        ├── common
-        │   ├── leetcode.lua
-        │   └── rustaceanvim.lua
-        ├── debug
-        │   ├── neotest.lua
-        │   ├── nvim-dap-ui.lua
-        │   ├── nvim-dap-vtxt.lua
-        │   └── nvim-dap.lua
-        ├── editor
-        │   ├── flash.lua
-        │   ├── nvim-spider.lua
-        │   └── vim-surround.lua
-        ├── file
-        │   ├── comment.lua
-        │   ├── goto-preview.lua
-        │   ├── indent-blankline.lua
-        │   ├── markdown-preview.lua
-        │   ├── nvim-autopairs.lua
-        │   ├── nvim-bqf.lua
-        │   ├── todo-comments.lua
-        │   ├── vim-doge.lua
-        │   └── wrapping.lua
-        ├── git
-        │   ├── gitsigns.lua
-        │   └── lazygit.lua
-        ├── highlight
-        │   ├── nvim-treesitter-context.lua
-        │   ├── nvim-treesitter.lua
-        │   └── nvim-ts-rainbow.lua
-        ├── init.lua
-        ├── lsp
-        │   ├── auto-complete.lua
-        │   ├── formatting.lua
-        │   ├── lsp.lua
-        │   ├── navic.lua
-        │   ├── neodev.lua
-        │   ├── nvim-lint.lua
-        │   ├── server
-        │   │   ├── bash.lua
-        │   │   ├── clangd.lua
-        │   │   ├── cmake.lua
-        │   │   ├── common.lua
-        │   │   ├── lua.lua
-        │   │   └── markdown.lua
-        │   └── signature.lua
-        ├── manager
-        │   ├── bufferline.lua
-        │   ├── lualine.lua
-        │   ├── navigation.lua
-        │   ├── startup.lua
-        │   └── yazi.lua
-        ├── system
-        │   ├── clipboard.lua
-        │   ├── filetype.lua
-        │   ├── nvim-notify.lua
-        │   └── startuptime.lua
-        ├── theme
-        │   └── onedark.lua
-        └── tools
-            ├── cscope_maps.lua
-            ├── symbols-outline.lua
-            ├── telescope.lua
-            ├── toggleterm.lua
-            ├── trouble.lua
-            └── which-key.lua
+├── lua
+│   ├── core
+│   │   ├── autocmds.lua
+│   │   ├── crisp.lua
+│   │   ├── keybindings.lua
+│   │   └── options.lua
+│   ├── lazy-init.lua
+│   └── plugins
+│       ├── common
+│       │   ├── leetcode.lua
+│       │   └── rustaceanvim.lua
+│       ├── debug
+│       │   ├── neotest.lua
+│       │   ├── nvim-dap-ui.lua
+│       │   ├── nvim-dap-vtxt.lua
+│       │   └── nvim-dap.lua
+│       ├── editor
+│       │   ├── flash.lua
+│       │   ├── nvim-spider.lua
+│       │   └── vim-surround.lua
+│       ├── file
+│       │   ├── comment.lua
+│       │   ├── goto-preview.lua
+│       │   ├── indent-blankline.lua
+│       │   ├── markdown-preview.lua
+│       │   ├── nvim-autopairs.lua
+│       │   ├── nvim-bqf.lua
+│       │   ├── todo-comments.lua
+│       │   ├── vim-doge.lua
+│       │   └── wrapping.lua
+│       ├── git
+│       │   ├── gitsigns.lua
+│       │   └── lazygit.lua
+│       ├── highlight
+│       │   ├── nvim-treesitter-context.lua
+│       │   ├── nvim-treesitter.lua
+│       │   ├── nvim-ts-rainbow.lua
+│       │   └── python-syntax.lua
+│       ├── init.lua
+│       ├── lsp
+│       │   ├── auto-complete.lua
+│       │   ├── formatting.lua
+│       │   ├── lsp.lua
+│       │   ├── navic.lua
+│       │   ├── neodev.lua
+│       │   ├── nvim-lint.lua
+│       │   ├── server
+│       │   │   ├── bash.lua
+│       │   │   ├── clangd.lua
+│       │   │   ├── cmake.lua
+│       │   │   ├── common.lua
+│       │   │   ├── lua.lua
+│       │   │   ├── markdown.lua
+│       │   │   └── pyright.lua
+│       │   └── signature.lua
+│       ├── manager
+│       │   ├── bufferline.lua
+│       │   ├── lualine.lua
+│       │   ├── navigation.lua
+│       │   ├── startup.lua
+│       │   └── yazi.lua
+│       ├── system
+│       │   ├── clipboard.lua
+│       │   ├── filetype.lua
+│       │   ├── nvim-notify.lua
+│       │   └── startuptime.lua
+│       ├── theme
+│       │   └── onedark.lua
+│       └── tools
+│           ├── cscope_maps.lua
+│           ├── smart-open.lua
+│           ├── symbols-outline.lua
+│           ├── telescope.lua
+│           ├── toggleterm.lua
+│           ├── trouble.lua
+│           └── which-key.lua
+└── requirements.sh
 
-16 directories, 63 files
+16 directories, 67 files
 ```
