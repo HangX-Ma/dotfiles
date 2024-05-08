@@ -1,5 +1,6 @@
 return {
 	"andrewferrier/wrapping.nvim",
+	event = { "BufReadPre", "BufNewFile" },
 	opts = {
 		softener = { markdown = true },
 		-- set own mapping in 'which-key.lua'

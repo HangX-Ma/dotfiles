@@ -1,17 +1,17 @@
 return {
 	"kawre/leetcode.nvim",
-    version = "v0.2.0",
+	version = "v0.2.0",
 	lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
 	build = ":TSUpdate html",
 	dependencies = {
-		"nvim-telescope/telescope.nvim",
+		{"nvim-telescope/telescope.nvim", lazy = true},
 		"nvim-lua/plenary.nvim", -- required by telescope
 		"MunifTanjim/nui.nvim",
 
 		-- optional
 		"nvim-treesitter/nvim-treesitter",
 		"rcarriga/nvim-notify",
-		"nvim-tree/nvim-web-devicons",
+		{ "nvim-tree/nvim-web-devicons", lazy = true },
 		"3rd/image.nvim",
 	},
 	config = function()
@@ -27,7 +27,7 @@ return {
 			injector = {
 				["cpp"] = {
 					before = {
-                        "#include <bits/stdc++.h>",
+						"#include <bits/stdc++.h>",
 						"using namespace std;",
 					},
 				},

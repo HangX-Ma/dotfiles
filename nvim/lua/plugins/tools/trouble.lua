@@ -1,7 +1,7 @@
 return {
 	"folke/trouble.nvim",
-	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = true,
+	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	config = function()
 		local trouble = require("trouble.providers.telescope")
 		local telescope = require("telescope")
