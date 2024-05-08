@@ -22,12 +22,13 @@ return {
 		"dhananjaylatkar/cscope_maps.nvim",
 		dependencies = {
 			"folke/which-key.nvim", -- optional [for whichkey hints]
-			"nvim-telescope/telescope.nvim", -- optional [for picker="telescope"]
+			{ "nvim-telescope/telescope.nvim", lazy = true }, -- optional [for picker="telescope"]
 			"ibhagwan/fzf-lua", -- optional [for picker="fzf-lua"]
-			"nvim-tree/nvim-web-devicons", -- optional [for devicons in telescope or fzf]
+			{ "nvim-tree/nvim-web-devicons", lazy = true }, -- optional [for devicons in telescope or fzf]
 			"rcarriga/nvim-notify",
 		},
-		event = "VeryLazy",
+		-- only matched patterns will load this extension
+		event = { "BufRead *.cpp *.c *.s *.S" },
 		opts = {
 			-- USE EMPTY FOR DEFAULT OPTIONS
 			-- DEFAULTS ARE LISTED BELOW
@@ -79,17 +80,19 @@ return {
 	-- reference: https://zhuanlan.zhihu.com/p/36279445
 	{
 		"ludovicchabant/vim-gutentags",
+		event = { "BufRead *.cpp *.c *.s *.S", "BufNewFile *.cpp *.c *.s *.S" },
 		init = function()
+			-- Or use 'Cs db build' manually!!!
 			vim.g.gutentags_project_root = { ".root", ".svn", ".git", ".hg", ".project" }
 			vim.g.gutentags_modules = { "cscope_maps" } -- This is required. Other config is optional
 			vim.g.gutentags_cscope_build_inverted_index_maps = 1
 			vim.g.gutentags_cache_dir = vim.fn.expand("~/.cache/.gutentags")
 			vim.g.gutentags_file_list_command = "fd -e c -e h"
-            vim.g.gutentags_ctags_extra_args = {
-                '--fields=+niazS',
-                '--c++-kinds=+px',
-                '--c-kinds=+px'
-            }
+			vim.g.gutentags_ctags_extra_args = {
+				"--fields=+niazS",
+				"--c++-kinds=+px",
+				"--c-kinds=+px",
+			}
 			-- vim.g.gutentags_trace = 1
 		end,
 	},

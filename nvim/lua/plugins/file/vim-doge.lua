@@ -1,6 +1,6 @@
 return {
 	"kkoomen/vim-doge",
-	event = "VeryLazy",
+	event = { "BufReadPre", "BufNewFile" },
 	build = function()
 		vim.fn["doge#install"]()
 	end,
@@ -15,7 +15,7 @@ return {
 		vim.keymap.set("x", "<TAB>", "<Plug>(doge-comment-jump-forward)")
 		vim.keymap.set("x", "<S-TAB>", "<Plug>(doge-comment-jump-backward)")
 
-        -- open doxygen syntax highlight
-        vim.g.load_doxygen_syntax=1
+		-- open doxygen syntax highlight
+		vim.g.load_doxygen_syntax = 1
 	end,
 }

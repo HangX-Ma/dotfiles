@@ -64,6 +64,7 @@ end
 return {
 	"nvim-telescope/telescope.nvim",
 	version = "0.1.x",
+    lazy = true,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{
@@ -101,6 +102,7 @@ return {
 		{ "<leader>fsW", grep_string_cbd, desc = "Word(Buffer)" },
 	},
 	config = function()
+        check_utils()
 		local actions = require("telescope.actions")
 		require("telescope").setup({
 			defaults = {

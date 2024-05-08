@@ -2,7 +2,7 @@ return {
 	{
 		"startup-nvim/startup.nvim",
 		dependencies = {
-			"nvim-telescope/telescope.nvim",
+			{ "nvim-telescope/telescope.nvim", lazy = true },
 			"nvim-lua/plenary.nvim",
 			"nvim-lua/popup.nvim",
 		},

@@ -1,6 +1,6 @@
 return {
 	"tpope/vim-surround",
-	event = "BufReadPre",
+	event = { "BufReadPre", "BufNewFile" },
 	version = "*",
 
     -- USAGE, ex: "Hello World"
