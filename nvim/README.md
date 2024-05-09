@@ -2,7 +2,7 @@
 
 You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html) to configure Neovim.
 
-> [!NOTE] Look at here!
+> [!NOTE]
 > **_requirements.sh_** provides you an easy installation method, just run `./requirements.sh all`! It may ask you privileged right to install necessary packages.
 
 > [!WARNING]
