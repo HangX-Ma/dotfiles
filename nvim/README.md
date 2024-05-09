@@ -1,6 +1,12 @@
 # Configure Neovim
 
-You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html).
+You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html) to configure Neovim.
+
+> [!NOTE] Look at here!
+> **_requirements.sh_** provides you an easy installation method, just run `./requirements.sh all`! It may ask you privileged right to install necessary packages.
+
+> [!WARNING]
+> But I haven't tested all modules in the script. Please inform me if you figure out issues.
 
 <div class="dino" align="center">
   <table>
@@ -33,7 +39,7 @@ source ~/.bashrc
 
 ## Install essential packages
 
-**You can run _requirements.sh_ to install the essential packages.**
+**You can run `./requirements.sh essential` to install the essential packages.**
 
 ```bash
 sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
@@ -55,6 +61,12 @@ source $HOME/.bashrc
 ### `Yazi` File Manager(Optional)
 
 [\[Yazi - Installation\]](https://yazi-rs.github.io/docs/installation) tutorial provides you with the complete installation details.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup update
+cargo install --locked yazi-fm yazi-cli
+```
 
 ### System Support
 
@@ -80,10 +92,11 @@ source $HOME/.bashrc
 
   ```bash
   # install lua-language-server
-  # check <https://github.com/LuaLS/lua-language-server/releases> to download release file
-  mkdir lua_ls
-  mv lua-language-server-3.7.4-linux-x64.tar.gz lua_ls
-  tar -xvf lua-language-server-3.7.4-linux-x64.tar.gz
+  LUA_LS_VERSION=$(curl -s "https://api.github.com/repos/LuaLS/lua-language-server/releases/latest" | grep -Po '"tag_name": "\K[^"]*')
+  curl -Lo lua_ls.tar.gz "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-${LUA_LS_VERSION}-linux-x64.tar.gz"
+  # If automatically download failed, please check <https://github.com/LuaLS/lua-language-server/releases>
+  mkdir -p lua_ls
+  tar xf lua_ls.tar.gz -C lua_ls
   sudo mv lus_ls /usr/local
   # add lus_ls/bin into .bashrc
   export PATH=/usr/local/lus_ls/bin:$PATH
