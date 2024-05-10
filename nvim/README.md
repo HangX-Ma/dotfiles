@@ -2,7 +2,7 @@
 
 You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html) to configure Neovim.
 
-> [!NOTE]
+> [!NOTE] Look at here!
 > **_requirements.sh_** provides you an easy installation method, just run `./requirements.sh all`! It may ask you privileged right to install necessary packages.
 
 > [!WARNING]
@@ -47,6 +47,15 @@ sudo luarocks install jsregexp
 ```
 
 ## Install extra packages
+
+### Lazygit
+
+```bash
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
+```
 
 ### `bat-extras` Enhanced Linux CLI Tools
 

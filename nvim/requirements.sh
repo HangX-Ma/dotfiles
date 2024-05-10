@@ -130,14 +130,13 @@ install_essential() {
 	sudo apt-get update
 	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
 	sudo luarocks install jsregexp
-
-	# install lazygit
-	install_lazygit
 }
 
 install_all() {
 	install_nvim
 	install_essential
+    install_yazi
+	install lazygit
 	install_bat_extra
 	install_clang_format
 	install_lua_ls
