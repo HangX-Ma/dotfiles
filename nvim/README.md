@@ -2,8 +2,23 @@
 
 You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html) to configure Neovim.
 
+<div class="dino" align="center">
+  <table>
+    <tr>
+      <td><img src="./assets/nvim-statup.png" alt="Neovim: Statup Page" width=500 />
+      <td><img src="./assets/nvim-main.png" alt="Neovim: Main Page" width=500 />
+    </tr>
+    <tr>
+      <td align="center"><font size="2" color="#999"><u>Neovim: Statup Page</u></font></td>
+      <td align="center"><font size="2" color="#999"><u>Neovim: Main Page</u></font></td>
+    </tr>
+  </table>
+</div>
+
 > [!NOTE]
-> **_requirements.sh_** provides you a convenient installation method. Just run `. ./requirements.sh help` and follow the guidance. It may ask you privileged right to install necessary packages. **You must run the script under current shell environment using `. ./requirements.sh all`. Otherwise, the environment variables take no effect!**
+> **_requirements.sh_** provides you a convenient installation method. Just run `. ./requirements.sh help` and follow the guidance. It may ask you privileged right to install necessary packages.
+>
+> **You must run the script under current shell environment using `. ./requirements.sh all`. Otherwise, the environment variables take no effect!**
 >
 > ```txt
 > Usage:  [all|basic|component|help]"
@@ -14,20 +29,7 @@ You can follow the steps in this `README` file or read the blog [\[Start from sc
 > ```
 
 > [!WARNING]
-> But I have tested all modules in the script but it possibly has some tiny mistakes than I haven't found. Please inform me if you figure out issues.
-
-<div class="dino" align="center">
-  <table>
-    <tr>
-      <td><img src="./assets/nvim-statup.png" alt="Neovim: Statup Page" width=400 />
-      <td><img src="./assets/nvim-main.png" alt="Neovim: Main Page" width=400 />
-    </tr>
-    <tr>
-      <td align="center"><font size="2" color="#999"><u>Neovim: Statup Page</u></font></td>
-      <td align="center"><font size="2" color="#999"><u>Neovim: Main Page</u></font></td>
-    </tr>
-  </table>
-</div>
+> I have tested all modules in the script but it possibly has some tiny mistakes that I haven't found. Please inform me if you figure out issues.
 
 ## Install the latest Neovim
 
@@ -146,7 +148,12 @@ cargo install --locked yazi-fm yazi-cli
 
 ```txt
 nvim
+├── README.md
+├── assets
+│   ├── nvim-main.png
+│   └── nvim-statup.png
 ├── init.lua
+├── lazy-lock.json
 ├── lua
 │   ├── core
 │   │   ├── autocmds.lua
@@ -184,7 +191,8 @@ nvim
 │       │   ├── nvim-treesitter-context.lua
 │       │   ├── nvim-treesitter.lua
 │       │   ├── nvim-ts-rainbow.lua
-│       │   └── python-syntax.lua
+│       │   ├── python-syntax.lua
+│       │   └── semshi.lua
 │       ├── init.lua
 │       ├── lsp
 │       │   ├── auto-complete.lua
@@ -225,5 +233,5 @@ nvim
 │           └── which-key.lua
 └── requirements.sh
 
-16 directories, 67 files
+16 directories, 68 files
 ```
