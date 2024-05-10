@@ -10,24 +10,24 @@ CYAN="\033[36m"
 RESET="\033[0m"
 
 show_help() {
-	echo -e "\nUsage: $0 [all|essential|component|help]"
+	echo -e "\nUsage: $0 [all|basic|component|help]"
 	echo    "    all       - Install all packages"
-	echo    "    essential - Install essential packages (Default)"
+	echo    "    basic     - Install basic component to support nvim functions(Default)"
 	echo    "    component - Install component that you need"
-    echo -e "    help      - Show this usage guidance information\n"
+	echo -e "    help      - Show this usage guidance information\n"
 	exit 1
 }
 
 show_components() {
-	echo "${MAGENTA}[nvim]: Select component that you want to install:${RESET}"
-	echo -e "\t1) neovim"
-	echo -e "\t2) lazygit"
-	echo -e "\t3) yazi"
-	echo -e "\t4) bat-extras"
-	echo -e "\t5) clang-format"
-	echo -e "\t6) lua_ls"
-	echo -e "\t7) python3-venv"
-	echo -e "\t8) nvim-config"
+	echo -e "${MAGENTA}[nvim]: Select component that you want to install:${RESET}"
+	echo -e "    1) neovim"
+	echo -e "    2) lazygit"
+	echo -e "    3) yazi"
+	echo -e "    4) bat-extras"
+	echo -e "    5) clang-format"
+	echo -e "    6) lua_ls"
+	echo -e "    7) python3-venv"
+	echo -e "    8) nvim-config"
 }
 
 install_nvim() {
@@ -49,36 +49,40 @@ install_lazygit() {
 		echo -e "${MAGENTA}[nvim]: Install 'lazygit' to support TUI git operations${RESET}"
 		# ensure we can acquire valid lazygit version or we use the default one
 		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-		if -n ${LAZYGIT_VERSION}; then
-			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-		else
-			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_0.41.0_Linux_x86_64.tar.gz"
+		if [ -z "${LAZYGIT_VERSION}" ]; then
+			LAZYGIT_VERSION="0.41.0"
 		fi
+		echo -e "${GREEN}[nvim]: lazygit version: ${RESET}"
+		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 		tar xf lazygit.tar.gz lazygit
 		sudo install lazygit /usr/local/bin
-
-		# remove download files
-		if [ -d "lazygit" ]; then
-			rm -rf lazygit
-		fi
-		if [ -e "lazygit.tar.gz" ]; then
-			rm -rf lazygit.tar.gz
-		fi
+	fi
+	# remove download files
+	if [ -e "lazygit" ]; then
+		rm -rf lazygit
+	fi
+	if [ -e "lazygit.tar.gz" ]; then
+		rm -rf lazygit.tar.gz
 	fi
 }
 
 install_yazi() {
 	if ! command -v yazi &>/dev/null; then
 		echo -e "${MAGENTA}[nvim]: Install 'yazi' to support TUI file manager${RESET}"
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+		if ! command -v rustup; then
+			curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+			echo ". '$HOME/.cargo/env'" >>$HOME/.bashrc
+		fi
+		source $HOME/.cargo/env
 		rustup update
 		cargo install --locked yazi-fm yazi-cli
 	fi
 }
 
 install_bat_extra() {
-	if ! command -v nvim &>/dev/null; then
+	if ! command -v batgrep &>/dev/null; then
 		echo -e "${MAGENTA}[nvim]: Install 'bat-extras' enhanced CLI tools${RESET}"
+		sudo apt-get install shfmt gawk
 		git clone https://github.com/eth-p/bat-extras.git bat-extras
 		sudo ./bat-extras/build.sh
 		sudo mv bat-extras /usr/local
@@ -96,18 +100,31 @@ install_clang_format() {
 install_lua_ls() {
 	if ! command -v lua-language-server &>/dev/null; then
 		echo -e "${MAGENTA}[nvim]: Install lua-language-server${RESET}"
-		LUA_LS_VERSION=$(curl -s "https://api.github.com/repos/LuaLS/lua-language-server/releases/latest" | grep -Po '"tag_name": "\K[^"]*')
-		if -n ${LUA_LS_VERSION}; then
-			curl -Lo lua_ls.tar.gz "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-${LUA_LS_VERSION}-linux-x64.tar.gz"
-		else
-			curl -Lo lua_ls.tar.gz "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-3.8.3-linux-x64.tar.gz"
+		if [ ! -e "lua_ls.tar.gz"]; then
+			LUA_LS_VERSION=$(curl -s "https://api.github.com/repos/LuaLS/lua-language-server/releases/latest" | grep -Po '"tag_name": "\K[^"]*')
+			if [ -z "${LUA_LS_VERSION}" ]; then
+				LUA_LS_VERSION="3.8.3"
+			fi
+			echo -e "${GREEN}[nvim]: lua_ls version: ${RESET}"
+			curl -Lo lua_ls.tar.gz "https://github.com/LuaLS/lua-language-server/releases/download/${LUA_LS_VERSION}/lua-language-server-${LUA_LS_VERSION}-linux-x64.tar.gz"
 		fi
-		# If automatically download failed, please check <https://github.com/LuaLS/lua-language-server/releases>
-		mkdir -p lua_ls
-		tar xf lua_ls.tar.gz -C lua_ls
-		sudo mv lus_ls /usr/local
-		# add lus_ls/bin into .bashrc
-		echo "export PATH=/usr/local/lus_ls/bin:$PATH" >>$HOME/.bashrc
+
+		# check download file
+		file_type=$(file "lua_ls.tar.gz")
+		if echo "$file_type" | grep "tar" &>/dev/null; then
+			# If automatically download failed, please check <https://github.com/LuaLS/lua-language-server/releases>
+			mkdir -p lua_ls
+			tar xf lua_ls.tar.gz -C lua_ls
+			if [ -d "/usr/local/lua_ls" ]; then
+				sudo rm -rf /usr/local/lua_ls
+			fi
+			sudo mv lua_ls /usr/local
+			# add lua_ls/bin into .bashrc
+			echo "export PATH=/usr/local/lua_ls/bin:$PATH" >>$HOME/.bashrc
+		else
+			echo -e "${YELLOW}[nvim]: lua_ls.tar.gz filetype is not 'tar'${RESET}"
+		fi
+
 	fi
 }
 
@@ -117,9 +134,16 @@ install_python3_venv() {
 		sudo apt-get install -y python3 python3-dev
 	fi
 
+	# check the minimum requirement python version
+	if (($(echo "$python_version < 3.3" | bc -l))); then
+		echo -e "${YELLOW}[nvim]: Python 3 version must be at least 3.3. Current version is $python_version.${RESET}"
+		exit 1
+	fi
+
 	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
 
-	if ! python3 -c "import venv" &>/dev/null; then
+	# no output means the module has been installed
+	if !python3 -c "import venv" &>/dev/null; then
 		echo -e "${MAGENTA}[nvim]: Install python3-venv to support LSP${RESET}"
 		sudo apt-get install python${python_version}-venv
 	fi
@@ -144,33 +168,33 @@ select_component() {
 	if [[ $choice =~ ^[1-8]$ ]]; then
 		case $choice in
 		1)
-            install_nvim
+			install_nvim
 			;;
 		2)
-            install_lazygit
+			install_lazygit
 			;;
 		3)
-            install_yazi
+			install_yazi
 			;;
 		4)
-            install_bat_extra
+			install_bat_extra
 			;;
 		5)
-            install_clang_format
+			install_clang_format
 			;;
 		6)
-            install_lua_ls
+			install_lua_ls
 			;;
 		7)
-            install_python3_venv
+			install_python3_venv
 			;;
 		8)
-            install_nvim_config
+			install_nvim_config
 			;;
 		esac
 	else
 		echo -e "${YELLOW}Invalid input. Please enter a number between 1 and 9.${RESET}"
-        exit 1
+		exit 1
 	fi
 }
 
@@ -182,6 +206,8 @@ install_essential() {
 }
 
 install_all() {
+	sudo apt-get update
+	# packages
 	install_nvim
 	install_essential
 	install_yazi
@@ -200,27 +226,27 @@ main() {
 		show_help
 	fi
 
-	operation="essential"
+	operation="basic"
 
 	if [ $# -eq 1 ]; then
 		case $1 in
 		all)
 			operation="all"
 			;;
-		essential)
-			operation="essential"
+		basic)
+			operation="basic"
 			;;
 		component)
 			operation="component"
 			;;
-        help)
-            show_help
-            exit 1
-            ;;
+		help)
+			show_help
+			exit 1
+			;;
 		*)
 			echo -e "${YELLOW}[nvim]: Invalid parameter: '$1'${RESET}"
 			show_help
-            exit 1
+			exit 1
 			;;
 		esac
 	fi
@@ -232,12 +258,14 @@ main() {
 	if [ "$operation" = "all" ]; then
 		install_all
 		install_nvim_config
-	elif [ "$operation" = "essential" ]; then
+	elif [ "$operation" = "basic" ]; then
+		install_nvim
 		install_essential
 		install_nvim_config
 	elif [ "$operation" = "component" ]; then
 		show_components
-        select_component
+		select_component
+		source $HOME/.bashrc
 	fi
 
 	echo -e "${GREEN}[nvim]: Done!${RESET}"
