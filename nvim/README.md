@@ -3,7 +3,7 @@
 You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html) to configure Neovim.
 
 > [!NOTE]
-> **_requirements.sh_** provides you a convenient installation method. Just run `./requirements.sh help` and follow the guidance. It may ask you privileged right to install necessary packages.
+> **_requirements.sh_** provides you a convenient installation method. Just run `. ./requirements.sh help` and follow the guidance. It may ask you privileged right to install necessary packages. **You must run the script under current shell environment using `. ./requirements.sh all`. Otherwise, the environment variables take no effect!**
 >
 > ```txt
 > Usage:  [all|basic|component|help]"
@@ -61,14 +61,15 @@ LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/re
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
+rm -rf lazygit
 ```
 
 ### `bat-extras` Enhanced Linux CLI Tools
 
 ```bash
-git clone https://github.com/eth-p/bat-extras.git ~/bat-extras
-cd && sudo ./bat-extras/build.sh
-sudo mv bat-extras /usr/local
+git clone https://github.com/eth-p/bat-extras.git
+sudo ./bat-extras/build.sh --install
+rm -rf bat-extras
 echo "export PATH=/usr/local/bat-extras/bin:$PATH" >>$HOME/.bashrc
 source $HOME/.bashrc
 ```
