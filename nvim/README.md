@@ -3,10 +3,18 @@
 You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html) to configure Neovim.
 
 > [!NOTE]
-> **_requirements.sh_** provides you an easy installation method, just run `./requirements.sh all`! It may ask you privileged right to install necessary packages.
+> **_requirements.sh_** provides you a convenient installation method. Just run `./requirements.sh help` and follow the guidance. It may ask you privileged right to install necessary packages.
+>
+> ```txt
+> Usage:  [all|basic|component|help]"
+>     all       - Install all packages"
+>     basic     - Install basic component to support nvim functions(Default)"
+>     component - Install component that you need"
+>     help      - Show this usage guidance information\n"
+> ```
 
 > [!WARNING]
-> But I haven't tested all modules in the script. Please inform me if you figure out issues.
+> But I have tested all modules in the script but it possibly has some tiny mistakes than I haven't found. Please inform me if you figure out issues.
 
 <div class="dino" align="center">
   <table>
@@ -39,8 +47,6 @@ source ~/.bashrc
 
 ## Install essential packages
 
-**You can run `./requirements.sh essential` to install the essential packages.**
-
 ```bash
 sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
 sudo luarocks install jsregexp
@@ -48,7 +54,7 @@ sudo luarocks install jsregexp
 
 ## Install extra packages
 
-### Lazygit
+### `Lazygit` TUI Repository Manager
 
 ```bash
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
@@ -63,7 +69,7 @@ sudo install lazygit /usr/local/bin
 git clone https://github.com/eth-p/bat-extras.git ~/bat-extras
 cd && sudo ./bat-extras/build.sh
 sudo mv bat-extras /usr/local
-echo "export PATH=/usr/local/bat-extras/bin:$PATH" >> $HOME/.bashrc
+echo "export PATH=/usr/local/bat-extras/bin:$PATH" >>$HOME/.bashrc
 source $HOME/.bashrc
 ```
 
@@ -106,9 +112,10 @@ cargo install --locked yazi-fm yazi-cli
   # If automatically download failed, please check <https://github.com/LuaLS/lua-language-server/releases>
   mkdir -p lua_ls
   tar xf lua_ls.tar.gz -C lua_ls
-  sudo mv lus_ls /usr/local
-  # add lus_ls/bin into .bashrc
-  export PATH=/usr/local/lus_ls/bin:$PATH
+  sudo mv lua_ls /usr/local
+  # add lua_ls/bin into .bashrc
+  echo "export PATH=/usr/local/lua_ls/bin:$PATH" >>$HOME/.bashrc
+  source $HOME/.bashrc
   ```
 
 - python virtual environment for other LSP or formatter
