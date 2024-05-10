@@ -28,7 +28,7 @@ return {
 			"rcarriga/nvim-notify",
 		},
 		-- only matched patterns will load this extension
-		event = { "BufRead *.cpp *.c *.s *.S" },
+		event = "VeryLazy",
 		build = {
 			check_global(),
 		},
