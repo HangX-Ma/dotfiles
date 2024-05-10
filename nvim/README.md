@@ -2,7 +2,7 @@
 
 You can follow the steps in this `README` file or read the blog [\[Start from scratch: Neovim\]](https://hangx-ma.github.io/2023/06/23/neovim-config.html) to configure Neovim.
 
-> [!NOTE] Look at here!
+> [!NOTE]
 > **_requirements.sh_** provides you an easy installation method, just run `./requirements.sh all`! It may ask you privileged right to install necessary packages.
 
 > [!WARNING]
@@ -42,7 +42,7 @@ source ~/.bashrc
 **You can run `./requirements.sh essential` to install the essential packages.**
 
 ```bash
-sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
+sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
 sudo luarocks install jsregexp
 ```
 
