@@ -10,10 +10,24 @@ CYAN="\033[36m"
 RESET="\033[0m"
 
 show_help() {
-	echo -e "\nUsage: $0 [all|essential]"
-	echo "    all       - Install all packages"
-	echo -e "    essential - Install essential packages (Default)\n"
+	echo -e "\nUsage: $0 [all|essential|component|help]"
+	echo    "    all       - Install all packages"
+	echo    "    essential - Install essential packages (Default)"
+	echo    "    component - Install component that you need"
+    echo -e "    help      - Show this usage guidance information\n"
 	exit 1
+}
+
+show_components() {
+	echo "${MAGENTA}[nvim]: Select component that you want to install:${RESET}"
+	echo -e "\t1) neovim"
+	echo -e "\t2) lazygit"
+	echo -e "\t3) yazi"
+	echo -e "\t4) bat-extras"
+	echo -e "\t5) clang-format"
+	echo -e "\t6) lua_ls"
+	echo -e "\t7) python3-venv"
+	echo -e "\t8) nvim-config"
 }
 
 install_nvim() {
@@ -30,17 +44,35 @@ install_nvim() {
 	fi
 }
 
-install_python_venv() {
-	if ! command -v python3 &>/dev/null; then
-		echo -e "${MAGENTA}[nvim]: Cannot acquire python3 version. Installing 'python3' ...${RESET}"
-		sudo apt-get install -y python3 python3-dev
+install_lazygit() {
+	if ! command -v lazygit &>/dev/null; then
+		echo -e "${MAGENTA}[nvim]: Install 'lazygit' to support TUI git operations${RESET}"
+		# ensure we can acquire valid lazygit version or we use the default one
+		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+		if -n ${LAZYGIT_VERSION}; then
+			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+		else
+			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_0.41.0_Linux_x86_64.tar.gz"
+		fi
+		tar xf lazygit.tar.gz lazygit
+		sudo install lazygit /usr/local/bin
+
+		# remove download files
+		if [ -d "lazygit" ]; then
+			rm -rf lazygit
+		fi
+		if [ -e "lazygit.tar.gz" ]; then
+			rm -rf lazygit.tar.gz
+		fi
 	fi
+}
 
-	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
-
-	if ! python3 -c "import venv" &>/dev/null; then
-		echo -e "${MAGENTA}[nvim]: Install python3-venv to support LSP${RESET}"
-		sudo apt-get install python${python_version}-venv
+install_yazi() {
+	if ! command -v yazi &>/dev/null; then
+		echo -e "${MAGENTA}[nvim]: Install 'yazi' to support TUI file manager${RESET}"
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+		rustup update
+		cargo install --locked yazi-fm yazi-cli
 	fi
 }
 
@@ -79,35 +111,17 @@ install_lua_ls() {
 	fi
 }
 
-install_yazi() {
-	if ! command -v yazi &>/dev/null; then
-		echo -e "${MAGENTA}[nvim]: Install 'yazi' to support TUI file manager${RESET}"
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-		rustup update
-		cargo install --locked yazi-fm yazi-cli
+install_python3_venv() {
+	if ! command -v python3 &>/dev/null; then
+		echo -e "${MAGENTA}[nvim]: Cannot acquire python3 version. Installing 'python3' ...${RESET}"
+		sudo apt-get install -y python3 python3-dev
 	fi
-}
 
-install_lazygit() {
-	if ! command -v lazygit &>/dev/null; then
-		echo -e "${MAGENTA}[nvim]: Install 'lazygit' to support TUI git operations${RESET}"
-		# ensure we can acquire valid lazygit version or we use the default one
-		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-		if -n ${LAZYGIT_VERSION}; then
-			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-		else
-			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_0.41.0_Linux_x86_64.tar.gz"
-		fi
-		tar xf lazygit.tar.gz lazygit
-		sudo install lazygit /usr/local/bin
+	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
 
-		# remove download files
-		if [ -d "lazygit" ]; then
-			rm -rf lazygit
-		fi
-		if [ -e "lazygit.tar.gz" ]; then
-			rm -rf lazygit.tar.gz
-		fi
+	if ! python3 -c "import venv" &>/dev/null; then
+		echo -e "${MAGENTA}[nvim]: Install python3-venv to support LSP${RESET}"
+		sudo apt-get install python${python_version}-venv
 	fi
 }
 
@@ -125,25 +139,58 @@ install_nvim_config() {
 	fi
 }
 
+select_component() {
+	read choice
+	if [[ $choice =~ ^[1-8]$ ]]; then
+		case $choice in
+		1)
+            install_nvim
+			;;
+		2)
+            install_lazygit
+			;;
+		3)
+            install_yazi
+			;;
+		4)
+            install_bat_extra
+			;;
+		5)
+            install_clang_format
+			;;
+		6)
+            install_lua_ls
+			;;
+		7)
+            install_python3_venv
+			;;
+		8)
+            install_nvim_config
+			;;
+		esac
+	else
+		echo -e "${YELLOW}Invalid input. Please enter a number between 1 and 9.${RESET}"
+        exit 1
+	fi
+}
+
 install_essential() {
 	# install essential packages
 	sudo apt-get update
-	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
+	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
 	sudo luarocks install jsregexp
 }
 
 install_all() {
 	install_nvim
 	install_essential
-    install_yazi
+	install_yazi
 	install lazygit
 	install_bat_extra
 	install_clang_format
 	install_lua_ls
-	install_python_venv
+	install_python3_venv
 	source $HOME/.bashrc
-
-	install_nvim_config
 }
 
 main() {
@@ -163,19 +210,34 @@ main() {
 		essential)
 			operation="essential"
 			;;
+		component)
+			operation="component"
+			;;
+        help)
+            show_help
+            exit 1
+            ;;
 		*)
 			echo -e "${YELLOW}[nvim]: Invalid parameter: '$1'${RESET}"
 			show_help
+            exit 1
 			;;
 		esac
 	fi
 
-	echo -e "${MAGENTA}[nvim]: Install $operation packages ...${RESET}"
+	if [ "$operation" != "component" ]; then
+		echo -e "${MAGENTA}[nvim]: Install $operation packages ...${RESET}"
+	fi
 
 	if [ "$operation" = "all" ]; then
 		install_all
+		install_nvim_config
 	elif [ "$operation" = "essential" ]; then
 		install_essential
+		install_nvim_config
+	elif [ "$operation" = "component" ]; then
+		show_components
+        select_component
 	fi
 
 	echo -e "${GREEN}[nvim]: Done!${RESET}"
