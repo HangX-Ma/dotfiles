@@ -13,18 +13,15 @@ return {
 		end,
 	},
 
-	-- Hydrovim: run python and display it in code editor
+	-- python syntax
 	{
-		-- Put the cursor on the desire line of code and press F8 for running
-		-- hydrovim from first line of your code to the current line and show
-		-- result of the current line in the Hydrovim pop-up.
-		"smzm/hydrovim",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
+		"vim-python/python-syntax",
+		event = { "BufReadPre", "BufNewFile" },
 		ft = { "python" },
 		config = function()
-			require("hydrovim").setup()
+			vim.g.python_version_2 = 0
+			vim.b.python_version_2 = 0
+			vim.g.python_highlight_all = 1
 		end,
 	},
 }

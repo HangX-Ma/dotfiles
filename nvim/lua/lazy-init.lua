@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 
 require("core.options")
+vim.api.nvim_command('syntax on')
 
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
