@@ -27,7 +27,8 @@ show_components() {
 	echo -e "    5) clang-format"
 	echo -e "    6) lua_ls"
 	echo -e "    7) python3-venv"
-	echo -e "    8) nvim-config"
+	echo -e "    8) python-repl"
+	echo -e "    9) nvim-config"
 }
 
 install_nvim() {
@@ -120,7 +121,7 @@ install_lua_ls() {
 		if [[ "$file_type" == *tar* ]]; then
 			mkdir -p lua_ls
 			if [ -d "lua_ls" ]; then
-			    tar xf lua_ls.tar.gz -C lua_ls
+				tar xf lua_ls.tar.gz -C lua_ls
 				if [ -d "/usr/local/lua_ls" ]; then
 					sudo rm -rf /usr/local/lua_ls
 				fi
@@ -148,7 +149,7 @@ install_python3_venv() {
 	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
 
 	# check the minimum requirement python version
-    if (($(echo "${python_version} < 3.3" | bc -l))); then
+	if (($(echo "${python_version} < 3.3" | bc -l))); then
 		echo -e "${YELLOW}[nvim]: Python 3 version must be at least 3.3. Current version is ${python_version}.${RESET}"
 		exit 1
 	fi
@@ -157,6 +158,35 @@ install_python3_venv() {
 	if ! python3 -c "import venv" &>/dev/null; then
 		echo -e "${MAGENTA}[nvim]: Install python3-venv to support LSP${RESET}"
 		sudo apt-get install -y python${python_version}-venv
+	fi
+}
+
+install_repl() {
+	echo -e "${MAGENTA}[nvim]: Install REPL related modules${RESET}"
+
+	# ensure python3 has been installed
+	if ! command -v python3 &>/dev/null; then
+		sudo apt-get install -y python3 python3-dev
+	fi
+
+	# pynvim
+	if ! python3 -m pip list | grep pynvim &>/dev/null; then
+		python3 -m pip install pynvim
+	fi
+
+	# jupyter
+	if ! python3 -m pip list | grep jupyter &>/dev/null; then
+		python3 -m pip install jupyter
+	fi
+
+	# jupytext
+	if ! python3 -m pip list | grep jupytext &>/dev/null; then
+		python3 -m pip install jupytext
+	fi
+
+	# ilua
+	if ! python3 -m pip list | grep ilua &>/dev/null; then
+		python3 -m pip install ilua
 	fi
 }
 
@@ -176,7 +206,7 @@ install_nvim_config() {
 
 select_component() {
 	read choice
-	if [[ $choice =~ ^[1-8]$ ]]; then
+	if [[ $choice =~ ^[1-9]$ ]]; then
 		case $choice in
 		1)
 			install_nvim
@@ -200,6 +230,9 @@ select_component() {
 			install_python3_venv
 			;;
 		8)
+			install_repl
+			;;
+		9)
 			install_nvim_config
 			;;
 		esac
@@ -229,6 +262,7 @@ install_all() {
 	install_clang_format
 	install_lua_ls
 	install_python3_venv
+	install_repl
 }
 
 main() {

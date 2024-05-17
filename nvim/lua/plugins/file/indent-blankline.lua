@@ -3,6 +3,7 @@ return {
 	{
         "lukas-reineke/indent-blankline.nvim",
 		event = { "BufReadPre", "BufNewFile" },
+        tag = "v3.5.4",
 		main = "ibl",
 		config = function()
 			local hooks = require("ibl.hooks")

@@ -27,7 +27,7 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
-            local select_opts = {behavior = cmp.SelectBehavior.Select}
+			local select_opts = { behavior = cmp.SelectBehavior.Select }
 			local status_ok, luasnip = pcall(require, "luasnip")
 			cmp.setup({
 				snippet = {
@@ -68,7 +68,7 @@ return {
 					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 
 					-- solve placeholder movement problem
-                    -- <https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/>
+					-- <https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/>
 					["<Tab>"] = cmp.mapping(function(fallback)
 						local col = vim.fn.col(".") - 1
 
@@ -94,6 +94,8 @@ return {
 				},
 
 				sources = cmp.config.sources({
+					{ name = "jupyter" },
+					{ name = "treesitter" },
 					{ name = "path" },
 					{ name = "nvim_lsp", keyword_length = 1 },
 					{ name = "buffer", keyword_length = 3 },
