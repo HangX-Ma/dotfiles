@@ -3,7 +3,7 @@
 
 -- set vim leader to <space>
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = " "
 
 local opt = vim.opt
 

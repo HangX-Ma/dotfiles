@@ -40,8 +40,5 @@ return {
 		},
 		cmd = { "JupyterAttach", "JupyterDetach", "JupyterInspect", "JupyterExecute" },
 		build = ":UpdateRemotePlugins",
-		config = function(_, opts)
-			require("jupyter-kernel.nvim").setup(opts)
-		end,
 	},
 }

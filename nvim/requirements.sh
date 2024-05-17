@@ -176,7 +176,7 @@ install_repl() {
 
 	# jupyter
 	if ! python3 -m pip list | grep jupyter &>/dev/null; then
-		python3 -m pip install jupyter
+		python3 -m pip install jupyter jupyter_client 
 	fi
 
 	# jupytext

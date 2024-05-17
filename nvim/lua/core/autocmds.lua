@@ -45,3 +45,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- 	end,
 -- 	group = group,
 -- })
+
+-- https://github.com/smzm/MyDotFiles/blob/master/.config/nvim/
+
+-- Check for spelling in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "gitcommit", "markdown" },
+	callback = function()
+		vim.opt_local.spell = true
+	end,
+})
