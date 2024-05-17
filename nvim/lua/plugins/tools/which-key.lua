@@ -89,7 +89,7 @@ return {
 			},
 		}
 
-		local opts = {
+		local normal_opts = {
 			mode = "n", -- NORMAL mode
 			prefix = "",
 			buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
@@ -99,7 +99,17 @@ return {
 			expr = false, -- use `expr` when creating keymaps
 		}
 
-		local mappings = {
+		local visual_opts = {
+			mode = "v", -- NORMAL mode
+			prefix = "",
+			buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+			silent = true, -- use `silent` when creating keymaps
+			noremap = true, -- use `noremap` when creating keymaps
+			nowait = true, -- use `nowait` when creating keymaps
+			expr = false, -- use `expr` when creating keymaps
+		}
+
+		local normal_mappings = {
 			-- bufferline
 			["<leader>1"] = { ":BufferLineGoToBuffer 1<CR>", "Goto Tab1" },
 			["<leader>2"] = { ":BufferLineGoToBuffer 2<CR>", "Goto Tab2" },
@@ -288,9 +298,23 @@ return {
 				O = { "<cmd>lua require('neotest').output_panel.toggle()<cr>", "Toggle Output Panel" },
 				S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
 			},
+			--[[ ["<leader>n"] = {
+                name = "+REPL",
+                s = {"<cmd>lua require('nvim-python-repl').send_statement_definition()<cr>", "Send semantic unit to REPL" },
+                b = {"<cmd>lua require('nvim-python-repl').send_buffer_to_repl()<cr>", "Send entire buffer to REPL" },
+                e = {"<cmd>lua require('nvim-python-repl').toggle_execute()<cr>", "Execute command in REPL after sent" },
+                t = {"<cmd>lua require('nvim-python-repl').toggle_vertical()<cr>", "Create REPL in vertical or horizontal split" },
+                o = {"<cmd>lua require('nvim-python-repl').open_repl()<cr>", "Opens the REPL in a window split" },
+            }, ]]
+		}
+
+		local visual_mappings = {
+			--[[ name = "+REPL",
+			s = { "<cmd>lua require('nvim-python-repl').send_visual_to_repl()<cr>", "Send visual selection to REPL" }, ]]
 		}
 
 		which_key.setup(setup)
-		which_key.register(mappings, opts)
+		which_key.register(normal_mappings, normal_opts)
+		which_key.register(visual_mappings, visual_opts)
 	end,
 }
