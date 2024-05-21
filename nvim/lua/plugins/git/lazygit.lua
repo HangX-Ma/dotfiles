@@ -4,7 +4,7 @@ local function check_lazygit()
         #!/bin/bash
         if ! command -v lazygit &>/dev/null; then
             echo "Package 'lazygit' not installed"
-            echo -n "Please run 'requirements.sh' first"
+            echo -n "Please run 'requirements.sh' to install 'lazygit' dependencies first"
         fi
     ]]
 	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")

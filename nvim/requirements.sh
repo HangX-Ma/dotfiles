@@ -28,7 +28,8 @@ show_components() {
 	echo -e "    6) lua_ls"
 	echo -e "    7) python3-venv"
 	echo -e "    8) python-repl"
-	echo -e "    9) nvim-config"
+	echo -e "    9) debug-tools"
+	echo -e "    a) nvim-config"
 }
 
 install_nvim() {
@@ -169,6 +170,12 @@ install_repl() {
 		sudo apt-get install -y python3 python3-dev
 	fi
 
+	# check the minimum requirement python version
+	if (($(echo "${python_version} < 3.3" | bc -l))); then
+		echo -e "${YELLOW}[nvim]: Python 3 version must be at least 3.3. Current version is ${python_version}.${RESET}"
+		exit 1
+	fi
+
 	# pynvim
 	if ! python3 -m pip list | grep pynvim &>/dev/null; then
 		python3 -m pip install pynvim
@@ -187,6 +194,26 @@ install_repl() {
 	# ilua
 	if ! python3 -m pip list | grep ilua &>/dev/null; then
 		python3 -m pip install ilua
+	fi
+}
+
+install_debug_tools() {
+	echo -e "${MAGENTA}[nvim]: Install debug tools${RESET}"
+
+	# ensure python3 has been installed
+	if ! command -v python3 &>/dev/null; then
+		sudo apt-get install -y python3 python3-dev
+	fi
+
+	# check the minimum requirement python version
+	if (($(echo "${python_version} < 3.3" | bc -l))); then
+		echo -e "${YELLOW}[nvim]: Python 3 version must be at least 3.3. Current version is ${python_version}.${RESET}"
+		exit 1
+	fi
+
+	# debugpy
+	if ! python3 -m pip list | grep debugpy &>/dev/null; then
+		python3 -m pip install debugpy
 	fi
 }
 
@@ -232,7 +259,10 @@ select_component() {
 		8)
 			install_repl
 			;;
-		9)
+        9)
+            install_debug_tools
+            ;;
+		a)
 			install_nvim_config
 			;;
 		esac
@@ -244,7 +274,8 @@ select_component() {
 
 install_essential() {
 	# install essential packages
-	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
+	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks \
+        lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat python3 python3-dev
 	if command -v luarocks &>/dev/null; then
 		if ! luarocks list | grep jsregexp &>/dev/null; then
 			sudo luarocks install jsregexp

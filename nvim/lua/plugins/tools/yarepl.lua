@@ -1,3 +1,42 @@
+local function check_utils()
+	local crisp = require("core.crisp")
+	local script = [[
+        #!/bin/bash
+        package_installed=true
+        if ! python3 -m list | grep pynvim &>/dev/null; then
+            echo "python module 'pynvim' not installed"
+            package_installed=false
+        fi
+
+        if ! python3 -m list | grep jupyter &>/dev/null; then
+            echo "python module 'jupyter' not installed"
+            package_installed=false
+        fi
+
+        if ! python3 -m list | grep jupytext &>/dev/null; then
+            echo "python module 'jupytext' not installed"
+            package_installed=false
+        fi
+
+        if ! python3 -m list | grep ilua &>/dev/null; then
+            echo "python module 'ilua' not installed"
+            package_installed=false
+        fi
+
+        if "$package_installed" = false; then
+            echo -n "Please run 'requirements.sh' to install 'REPL' dependencies first"
+        fi
+    ]]
+	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
+	if handle ~= nil then
+		local result = handle:read("*a")
+		handle:close()
+		if result ~= nil and result ~= "" then
+			crisp.notify(result, "error", "Package state checker information")
+		end
+	end
+end
+
 return {
 	"milanglacier/yarepl.nvim",
 	event = "VeryLazy",
@@ -15,6 +54,9 @@ return {
 		"REPLSendLine",
 		"REPLSendMotion",
 	},
+	build = function()
+		check_utils()
+	end,
 	config = function()
 		local yarepl = require("yarepl")
 		yarepl.setup({

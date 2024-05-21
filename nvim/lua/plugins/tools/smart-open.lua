@@ -4,7 +4,7 @@ local function check_sqlite()
         #!/bin/bash
         if ! command -v sqlite3 &>/dev/null; then
             echo "Package 'sqlite3' not installed"
-            echo -n "Please run 'requirements.sh' first"
+            echo -n "Please run 'requirements.sh' to install 'smart-open' dependencies first"
         fi
     ]]
 	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
