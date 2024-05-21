@@ -117,7 +117,7 @@ return {
 			["<leader>4"] = { ":BufferLineGoToBuffer 4<CR>", "Goto Tab4" },
 			["<leader>5"] = { ":BufferLineGoToBuffer 5<CR>", "Goto Tab5" },
 			["<leader>f"] = {
-				name = "+File",
+				name = "+Telescope",
 				b = { "<cmd>Telescope file_browser<CR>", "File Browser" },
 				B = { "<cmd>Telescope buffers show_all_buffers=true<cr>", "Buffers(All)" },
 				f = { "<cmd>Telescope find_files<cr>", "Find Files(Root)" },
@@ -306,6 +306,12 @@ return {
                 t = {"<cmd>lua require('nvim-python-repl').toggle_vertical()<cr>", "Create REPL in vertical or horizontal split" },
                 o = {"<cmd>lua require('nvim-python-repl').open_repl()<cr>", "Opens the REPL in a window split" },
             }, ]]
+			["<leader>k"] = {
+				name = "+LSP",
+				t = { "Toggle Signature" },
+				h = { "Hover LSP Info" },
+				q = { "Quit LSP Floating Windows" },
+			},
 		}
 
 		local visual_mappings = {
