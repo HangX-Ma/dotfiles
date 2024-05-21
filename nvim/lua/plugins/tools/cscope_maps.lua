@@ -4,7 +4,7 @@ local function check_global()
         #!/bin/bash
         if ! command -v gtags-cscope &>/dev/null; then
             echo "Package 'global' not installed"
-            echo -n "Please run 'requirements.sh' first"
+            echo -n "Please run 'requirements.sh' to install 'cscope-maps' dependencies first"
         fi
     ]]
 	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")

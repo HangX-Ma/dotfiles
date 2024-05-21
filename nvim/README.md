@@ -31,62 +31,7 @@ You can follow the steps in this `README` file or read the blog [\[Start from sc
 > [!WARNING]
 > I have tested all modules in the script but it possibly has some tiny mistakes that I haven't found. Please inform me if you figure out issues.
 
-## Install the latest Neovim
-
-```bash
-wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
-tar -xvf nvim-linux64.tar.gz
-sudo mv nvim-linux64 /usr/local
-
-# edit the .bashrc file to add 'nvim-linux64' system path
-vim ~/.bashrc
-# .bashrc
-export PATH=/usr/local/nvim-linux64/bin:$PATH
-
-# back to cli
-source ~/.bashrc
-```
-
-## Install essential packages
-
-```bash
-sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat
-sudo luarocks install jsregexp
-```
-
-## Install extra packages
-
-### `Lazygit` TUI Repository Manager
-
-```bash
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-tar xf lazygit.tar.gz lazygit
-sudo install lazygit /usr/local/bin
-rm -rf lazygit
-```
-
-### `bat-extras` Enhanced Linux CLI Tools
-
-```bash
-git clone https://github.com/eth-p/bat-extras.git
-sudo ./bat-extras/build.sh --install
-rm -rf bat-extras
-echo "export PATH=/usr/local/bat-extras/bin:$PATH" >>$HOME/.bashrc
-source $HOME/.bashrc
-```
-
-### `Yazi` File Manager(Optional)
-
-[\[Yazi - Installation\]](https://yazi-rs.github.io/docs/installation) tutorial provides you with the complete installation details.
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup update
-cargo install --locked yazi-fm yazi-cli
-```
-
-### System Support
+## System Support(Recommended)
 
 - clipboard
 
@@ -97,40 +42,9 @@ cargo install --locked yazi-fm yazi-cli
 
   > You can select your own clipboard support by looking at `:help clipboard-tool` in neovim.
 
-### Formatter Support(Recommended)
+## Update configuration files
 
-- clang-format
-
-  ```bash
-  # install clang-format
-  sudo apt-get install -y clang-format
-  ```
-
-- lua_ls
-
-  ```bash
-  # install lua-language-server
-  LUA_LS_VERSION=$(curl -s "https://api.github.com/repos/LuaLS/lua-language-server/releases/latest" | grep -Po '"tag_name": "\K[^"]*')
-  curl -Lo lua_ls.tar.gz "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-${LUA_LS_VERSION}-linux-x64.tar.gz"
-  # If automatically download failed, please check <https://github.com/LuaLS/lua-language-server/releases>
-  mkdir -p lua_ls
-  tar xf lua_ls.tar.gz -C lua_ls
-  sudo mv lua_ls /usr/local
-  # add lua_ls/bin into .bashrc
-  echo "export PATH=/usr/local/lua_ls/bin:$PATH" >>$HOME/.bashrc
-  source $HOME/.bashrc
-  ```
-
-- python virtual environment for other LSP or formatter
-
-  ```bash
-  # select your own python-venv version
-  sudo apt-get install python3.10-venv
-  ```
-
-## Add configuration files
-
-- Move `nvim` folder into appropriate place
+- Move `nvim` folder into appropriate place or use the script to update configuration.
 
   ```bash
   git clone https://github.com/HangX-Ma/dotfiles.git
@@ -144,7 +58,7 @@ cargo install --locked yazi-fm yazi-cli
   :checkhealth
   ```
 
-## File Structure
+## Structure
 
 ```txt
 nvim
@@ -163,7 +77,9 @@ nvim
 │   ├── lazy-init.lua
 │   └── plugins
 │       ├── common
+│       │   ├── jupyter.lua
 │       │   ├── leetcode.lua
+│       │   ├── python.lua
 │       │   └── rustaceanvim.lua
 │       ├── debug
 │       │   ├── neotest.lua
@@ -190,9 +106,7 @@ nvim
 │       ├── highlight
 │       │   ├── nvim-treesitter-context.lua
 │       │   ├── nvim-treesitter.lua
-│       │   ├── nvim-ts-rainbow.lua
-│       │   ├── python-syntax.lua
-│       │   └── semshi.lua
+│       │   └── nvim-ts-rainbow.lua
 │       ├── init.lua
 │       ├── lsp
 │       │   ├── auto-complete.lua
@@ -230,8 +144,14 @@ nvim
 │           ├── telescope.lua
 │           ├── toggleterm.lua
 │           ├── trouble.lua
-│           └── which-key.lua
+│           ├── which-key.lua
+│           └── yarepl.lua
 └── requirements.sh
 
-16 directories, 68 files
+16 directories, 69 files
 ```
+
+- **DAP**: c, cpp, python, rust, lua
+- **LSP**: c, cpp, python, rust, lua, cmake, bash, markdown, vim
+- **Lint**: c, cpp, python, lua, markdown, yaml
+- **Formater**: c, cpp, python, lua, cmake, bash, markdown, yaml, json, html, css, javascript, typescript, javascriptreact, typescriptreact, svelte, graphql

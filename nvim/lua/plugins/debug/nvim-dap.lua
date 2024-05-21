@@ -10,12 +10,36 @@ local function get_args(config)
 	return config
 end
 
+local function check_utils()
+	local crisp = require("core.crisp")
+	local script = [[
+        #!/bin/bash
+        package_installed=true
+        if ! python3 -m list | grep debugpy &>/dev/null; then
+            echo "python module 'debugpy' not installed"
+            package_installed=false
+        fi
+
+        if "$package_installed" = false; then
+            echo -n "Please run 'requirements.sh' to install 'debug-tools' dependencies first"
+        fi
+    ]]
+	local handle = io.popen("bash -c '" .. script:gsub("'", "'\\''") .. "'", "r")
+	if handle ~= nil then
+		local result = handle:read("*a")
+		handle:close()
+		if result ~= nil and result ~= "" then
+			crisp.notify(result, "error", "Package state checker information")
+		end
+	end
+end
+
 ---@warning Before you use the Dap Debugger, you need to ensure to add symbol table and debugger info while compiling.
 ---         eg. g++ -std=c++17 test.cpp -g -o test
 return {
 	{
 		"mfussenegger/nvim-dap",
-        lazy = true,
+		lazy = true,
 		dependencies = {
 			{ "rcarriga/nvim-dap-ui" },
 			{ "theHamsta/nvim-dap-virtual-text" },
@@ -159,6 +183,9 @@ return {
 				desc = "Widgets",
 			},
 		},
+		build = function()
+			check_utils()
+		end,
 		config = function()
 			-- load from json file
 			require("dap.ext.vscode").load_launchjs()
@@ -184,6 +211,19 @@ return {
 					port = config.port or 8086,
 				})
 			end
+
+			-- https://github.com/mfussenegger/nvim-dap/discussions/533
+			-- path to python.exe of reference debugpy, installed in the (base) environment in anaconda
+			local std_debugpy_python = vim.fn.environ()["CONDA_PYTHON_EXE"]
+            if not std_debugpy_python then
+                std_debugpy_python = '/usr/bin/python3'
+            end
+			dap.adapters.python = {
+				type = "executable",
+				command = std_debugpy_python,
+				args = { "-m", "debugpy.adapter" },
+			}
+
 			-- config language
 			dap.configurations.lua = {
 				{
@@ -227,6 +267,48 @@ return {
 			}
 			dap.configurations.c = dap.configurations.cpp
 			dap.configurations.rust = dap.configurations.cpp
+			dap.configurations.python = {
+				{
+					name = "Python: Launch module",
+					type = "python",
+					request = "launch",
+					console = "integratedTerminal",
+					program = function()
+                        return vim.fn.input("Python program path: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					python = function()
+						if vim.fn.environ()["CONDA_DEFAULT_ENV"] ~= "base" then
+							local active_python = vim.fn.environ()["CONDA_PREFIX"] .. "/bin/python"
+							local yes_no_active_python =
+								vim.fn.input("Use active python binary (" .. active_python .. ")? (y/n) ")
+							if yes_no_active_python == "n" or yes_no_active_python == "N" then
+								local yes_no_default_python =
+									vim.fn.input("Use default python (" .. std_debugpy_python .. ")? (y/n) ")
+								if yes_no_default_python == "n" or yes_no_default_python == "N" then
+									-- python from user given path
+									return vim.fn.input("Input python binary path (cwd is " .. vim.fn.getcwd() .. "): ")
+								else
+									-- python.exe from base anaconda environment
+									return std_debugpy_python
+								end
+							else
+								-- python.exe from active anaconda environment
+								return active_python
+							end
+						else
+							local yes_no_default_python =
+								vim.fn.input("Use default python (" .. std_debugpy_python .. ")? (y/n) ")
+							if yes_no_default_python == "n" or yes_no_default_python == "N" then
+								-- python.exe from user given path
+								return vim.fn.input("Input python binary path (cwd is " .. vim.fn.getcwd() .. "): ")
+							else
+								-- python.exe from base anaconda environment
+								return std_debugpy_python
+							end
+						end
+					end,
+				},
+			}
 		end,
 	},
 }
