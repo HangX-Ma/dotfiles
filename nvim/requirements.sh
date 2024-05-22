@@ -218,22 +218,26 @@ install_debug_tools() {
 }
 
 install_nvim_config() {
-	echo -e "${MAGENTA}[nvim]: Update neovim configuration files${RESET}"
-	if [ ! -d "dotfiles" ]; then
-		git clone https://github.com/HangX-Ma/dotfiles.git
-	fi
-	if [ ! -d "$HOME/.config" ]; then
-		mkdir $HOME/.config
-	fi
-	cp -r dotfiles/nvim $HOME/.config
-	if [ -d "dotfiles" ]; then
-		rm -rf dotfiles
-	fi
+    echo -e "${MAGENTA}[nvim]: Update neovim configuration files?(y/n)${RESET}"
+
+    read update_config
+    if [[ $update_config != 'n' && $update_config != 'N' ]]; then
+        if [ ! -d "dotfiles" ]; then
+            git clone https://github.com/HangX-Ma/dotfiles.git
+        fi
+        if [ ! -d "$HOME/.config" ]; then
+            mkdir $HOME/.config
+        fi
+        cp -r dotfiles/nvim $HOME/.config
+        if [ -d "dotfiles" ]; then
+            rm -rf dotfiles
+        fi
+    fi
 }
 
 select_component() {
 	read choice
-	if [[ $choice =~ ^[1-9]$ ]]; then
+	if [[ $choice =~ ^[1-9]$ || $choice =~ ^[a-a]$ ]]; then
 		case $choice in
 		1)
 			install_nvim
@@ -293,6 +297,7 @@ install_all() {
 	install_clang_format
 	install_lua_ls
 	install_python3_venv
+    install_debug_tools
 	install_repl
 }
 

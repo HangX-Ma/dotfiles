@@ -19,6 +19,7 @@ return {
 				"clang-format",
 				"clangd",
 				"stylua",
+                "shellharden",
 				"shfmt",
 				"lua-language-server",
 				"cmakelang",

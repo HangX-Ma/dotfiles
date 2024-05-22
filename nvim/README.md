@@ -88,8 +88,7 @@ nvim
 │       │   └── nvim-dap.lua
 │       ├── editor
 │       │   ├── flash.lua
-│       │   ├── nvim-spider.lua
-│       │   └── vim-surround.lua
+│       │   └── nvim-spider.lua
 │       ├── file
 │       │   ├── comment.lua
 │       │   ├── goto-preview.lua
@@ -106,7 +105,9 @@ nvim
 │       ├── highlight
 │       │   ├── nvim-treesitter-context.lua
 │       │   ├── nvim-treesitter.lua
-│       │   └── nvim-ts-rainbow.lua
+│       │   ├── nvim-ts-rainbow.lua
+│       │   ├── python-syntax.lua
+│       │   └── semshi.lua
 │       ├── init.lua
 │       ├── lsp
 │       │   ├── auto-complete.lua
@@ -148,7 +149,7 @@ nvim
 │           └── yarepl.lua
 └── requirements.sh
 
-16 directories, 69 files
+16 directories, 70 files
 ```
 
 - **DAP**: c, cpp, python, rust, lua
