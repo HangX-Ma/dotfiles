@@ -18,17 +18,23 @@ return {
 				graphql = { "prettier" },
 				lua = { "stylua" },
 				python = { "black" },
-				bash = { "shfmt" },
-				cmake = { "cmakelang" },
+				bash = { "shfmt", "shellharden" },
+				cmake = { "cmake" },
 				cpp = { "clang-format" },
 				c = { "clang-format" },
+				-- Use the "*" filetype to run formatters on all filetypes.
+				["*"] = { "codespell" },
 			},
 			-- format on save
-			-- format_on_save = {
-			-- 	lsp_fallback = true,
-			-- 	async = false,
-			-- 	timeout_ms = 500,
-			-- },
+			--[[ format_on_save = {
+				lsp_fallback = true,
+				async = false,
+				timeout_ms = 500,
+			}, ]]
+			-- Set the log level. Use `:ConformInfo` to see the location of the log file.
+			log_level = vim.log.levels.WARNNING,
+			-- Conform will notify you when a formatter errors
+			notify_on_error = true,
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>fm", function()

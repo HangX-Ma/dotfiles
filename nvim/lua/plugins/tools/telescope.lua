@@ -70,7 +70,6 @@ return {
 	"nvim-telescope/telescope.nvim",
 	version = "0.1.x",
 	event = { "VeryLazy" },
-	async = true,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{

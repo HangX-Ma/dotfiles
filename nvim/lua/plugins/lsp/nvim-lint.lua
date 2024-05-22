@@ -26,10 +26,16 @@ return {
             cpplint.args = {
                 '--filter=-whitespace/braces,-whitespace/line_length,-legal/copyright,-build/c++11',
             }
-
             local cpplint_ns = lint.get_namespace("cpplint")
             vim.diagnostic.config({ virtual_text = true }, cpplint_ns)
 
+            -- configure luacheck
+            local luacheck = lint.linters.luacheck
+            luacheck.args = {
+                "--globals vim"
+            }
+
+            -- trigger lint
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()

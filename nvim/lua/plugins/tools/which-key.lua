@@ -9,7 +9,7 @@ return {
 		local which_key = require("which-key")
 		local setup = {
 			plugins = {
-				marks = false, -- shows a list of your marks on ' and `
+				marks = true, -- shows a list of your marks on ' and `
 				registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
 				spelling = {
 					enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
@@ -19,17 +19,20 @@ return {
 				-- No actual key bindings are created
 				presets = {
 					operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-					motions = false, -- adds help for motions
-					text_objects = false, -- help for text objects triggered after entering an operator
+					motions = true, -- adds help for motions
+					text_objects = true, -- help for text objects triggered after entering an operator
 					windows = true, -- default bindings on <c-w>
 					nav = true, -- misc bindings to work with windows
-					z = false, -- bindings for folds, spelling and others prefixed with z
-					g = false, -- bindings for prefixed with g
+					z = true, -- bindings for folds, spelling and others prefixed with z
+					g = true, -- bindings for prefixed with g
 				},
 			},
 			-- add operators that will trigger motion and text object completion
 			-- to enable all native operators, set the preset / operators plugin above
-			operators = { gc = "Comments" },
+			operators = {
+				gc = "Comments",
+				gb = "Comments",
+			},
 			key_labels = {
 				-- override the label used to display some keys. It doesn't effect WK in any other way.
 				-- For example:
@@ -64,7 +67,7 @@ return {
 			show_help = true, -- show help message on the command line when the popup is visible
 			show_keys = true, -- show the currently pressed key and its label as a message in the command line
 			triggers = "auto", -- automatically setup triggers
-			-- triggers = {"<leader>"}, -- or specifiy a list manually
+			-- triggers = {"<leader>"}, -- or specify a list manually
 			-- list of triggers, where WhichKey should not wait for timeoutlen and show immediately
 			triggers_nowait = {
 				-- marks
@@ -218,7 +221,7 @@ return {
 			},
 			g = {
 				d = { "<cmd>Lspsaga goto_definition<cr>", "Goto Definitions" },
-				D = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definitions" },
+				p = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definitions" },
 				h = { "<cmd>Lspsaga hover_doc<cr>", "Hint" },
 				a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
 				A = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "LSP Code Action" },
@@ -226,6 +229,20 @@ return {
 				o = { "<cmd>Lspsaga outgoing_calls<cr>", "Called Functions" },
 				r = { "<cmd>Lspsaga rename<cr>", "Rename" },
 				s = { "<cmd>Lspsaga finder<cr>", "Search" },
+				D = {
+					name = "+Doge",
+					c = { "Generate Comment" },
+					t = { "Trigger Doge" },
+				},
+				P = {
+					name = "+GotoPreview",
+					d = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "Definition" },
+					t = { "< <cmd>lua require('goto-preview').goto_preview_type_definition()<cr>", "Type Definition" },
+					i = { "< <cmd>lua require('goto-preview').goto_preview_implementation()<cr>", "Implementation" },
+					D = { "< <cmd>lua require('goto-preview').goto_preview_declaration()<cr>", "Declaration" },
+					c = { "<<cmd>lua require('goto-preview').close_all_win()<cr>", "Close Windows" },
+					r = { "< <cmd>lua require('goto-preview').goto_preview_references()<cr>", "References" },
+				},
 			},
 			["<leader>a"] = {
 				name = "+Diagonostics",
@@ -247,7 +264,7 @@ return {
 				},
 				p = {
 					"<cmd>Lspsaga diagnostic_jump_prev<cr>",
-					"Prevous Diagonostics",
+					"Previous Diagonostics",
 				},
 				n = {
 					"<cmd>Lspsaga diagnostic_jump_next<cr>",
