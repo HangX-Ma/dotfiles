@@ -278,7 +278,7 @@ select_component() {
 
 install_essential() {
 	# install essential packages
-	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks \
+	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks graphviz\
         lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat python3 python3-dev
 	if command -v luarocks &>/dev/null; then
 		if ! luarocks list | grep jsregexp &>/dev/null; then

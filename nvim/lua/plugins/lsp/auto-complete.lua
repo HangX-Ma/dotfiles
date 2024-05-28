@@ -102,6 +102,7 @@ return {
 					{ name = "luasnip", keyword_length = 2 },
 					{ name = "vsnip" },
 					{ name = "calc" },
+					{ name = "crates" },
 				}),
 
 				-- according filetype to select sources

@@ -18,7 +18,7 @@ return {
 				-- the presets plugin, adds help for a bunch of default keybindings in Neovim
 				-- No actual key bindings are created
 				presets = {
-					operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+					operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
 					motions = true, -- adds help for motions
 					text_objects = true, -- help for text objects triggered after entering an operator
 					windows = true, -- default bindings on <c-w>
@@ -172,6 +172,13 @@ return {
 					w = { "Word(CWD)" },
 					W = { "Word(Buffer)" },
 				},
+				R = {
+					name = "+Wrapping",
+					s = { "<cmd>lua require('wrapping').soft_wrap_mode()<cr>", "Soft Wrap Mode" },
+					h = { "<cmd>lua require('wrapping').hard_wrap_mode()<cr>", "Hard Wrap Mode" },
+					t = { "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", "Toggle Wrap Mode" },
+				},
+				L = { "<cmd>lua require('lint').try_lint()<cr>", "Trigger linting for current file" },
 			},
 			["<leader>t"] = {
 				name = "+Terminal/Tab",
@@ -222,7 +229,7 @@ return {
 			g = {
 				d = { "<cmd>Lspsaga goto_definition<cr>", "Goto Definitions" },
 				p = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definitions" },
-				h = { "<cmd>Lspsaga hover_doc<cr>", "Hint" },
+				h = { "<cmd>Lspsaga hover_doc<cr>", "Give me Hint!" },
 				a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
 				A = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "LSP Code Action" },
 				i = { "<cmd>Lspsaga incoming_calls<cr>", "Callee Functions" },
@@ -292,13 +299,6 @@ return {
 				u = { "Dap UI" },
 				e = { "Dap Eval " },
 			},
-			["<leader>r"] = {
-				name = "+Wrapping",
-				s = { "<cmd>lua require('wrapping').soft_wrap_mode()<cr>", "Soft Wrap Mode" },
-				h = { "<cmd>lua require('wrapping').hard_wrap_mode()<cr>", "Hard Wrap Mode" },
-				t = { "<cmd>lua require('wrapping').toggle_wrap_mode()<cr>", "Toggle Wrap Mode" },
-			},
-			["<leader>l"] = { "Trigger linting" },
 			["<leader>v"] = {
 				name = "+Neotest",
 				a = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach Nearest" },
@@ -329,11 +329,86 @@ return {
 				h = { "Hover LSP Info" },
 				q = { "Quit LSP Floating Windows" },
 			},
+			["<leader>m"] = {
+				name = "+CscopeMaps",
+				s = { "Find all references" },
+				g = { "Find global definition(s)" },
+				c = { "Find all calls to the function name" },
+				t = { "Find all instances of the text" },
+				e = { "egrep search for the word" },
+				f = { "Open the filename" },
+				i = { "Find files that include the filename" },
+				d = { "Find functions that function calls" },
+				a = { "Find places where symbol assigned a value" },
+				b = { "Build cscope database" },
+				-- Ctrl-]	do :Cstag <cword>
+			},
+			["<leader>c"] = {
+				name = "+Crates",
+				t = { "<cmd>lua require('crates').toggle()<cr>", "Toggle" },
+				r = { "<cmd>lua require('crates').reload()<cr>", "Reload" },
+				v = { "<cmd>lua require('crates').show_versions_popup()<cr>", "Show versions" },
+				f = { "<cmd>lua require('crates').show_features_popup()<cr>", "Show features" },
+				d = { "<cmd>lua require('crates').show_dependencies_popup<cr>", "Show dependencies" },
+				u = { "<cmd>lua require('crates').update_crate()<cr>", "Update create" },
+				a = { "<cmd>lua require('crates').update_all_crates<cr>", "Update all crates" },
+				U = { "<cmd>lua require('crates').upgrade_crate()<cr>", "Upgrade create" },
+				A = { "<cmd>lua require('crates').upgrade_all_crates()<cr>", "Upgrade all crates" },
+				x = {
+					"<cmd>lua require('crates').expand_plain_crate_to_inline_table()<cr>",
+					"Expand plain create to inline table",
+				},
+				X = { "<cmd>lua require('crates').extract_crate_into_table()<cr>", "Extract create into table" },
+				H = { "<cmd>lua require('crates').open_homepage()<cr>", "Open homepage" },
+				R = { "<cmd>lua require('crates').open_repository()<cr>", "Open repository" },
+				D = { "<cmd>lua require('crates').open_documentation()<cr>", "Open documentation" },
+				C = { "<cmd>lua require('crates').open_crates_io()<cr>", "Open crates io" },
+			},
+			["<leader>r"] = {
+				name = "+Rust",
+				D = { "<cmd>RustLsp debuggables<cr>", "Rust Debuggables" },
+				R = { "<cmd>RustLsp runnables<cr>", "Rust Runnables" },
+				T = { "<cmd>RustLsp testables<cr>", "Rust Testables" },
+				e = { "<cmd>RustLsp expandMacro<cr>", "Expand Macro" },
+				b = { "<cmd>RustLsp rebuildProcMacros<cr>", "Rebuild ProcMacros" },
+				u = { "<cmd>RustLsp moveItem up<cr>", "Move item up" },
+				d = { "<cmd>RustLsp moveItem down<cr>", "Move item down" },
+				a = { "<cmd>RustLsp codeAction<cr>", "Code Action" },
+				h = { "<cmd>RustLsp hover actions<cr>", "Hover Actions" },
+				n = { "<cmd>RustLsp hover range<cr>", "Hover Range" },
+				E = { "<cmd>RustLsp explainError<cr>", "Explain Error" },
+				r = { "<cmd>RustLsp renderDiagnostic<cr>", "Render Diagnostic" },
+				o = { "<cmd>RustLsp openCargo<cr>", "Open cargo" },
+				O = { "<cmd>RustLsp openDocs<cr>", "Open docs.rs documentation" },
+				p = { "<cmd>RustLsp parentModule<cr>", "Rust parent module" },
+				s = {
+					name = "+WorkspaceSymbol",
+					t = { "<cmd>RustLsp workspaceSymbol onlyTypes<cr>", "Only type symbols" },
+					a = { "<cmd>RustLsp workspaceSymbol allSymbols<cr>", "Show all symbols" },
+				},
+				j = { "<cmd>RustLsp joinLines<cr>", "Join lines" },
+				S = { "<cmd>RustLsp ssr<cr>", "Structural search Replace" },
+				g = { "<cmd>RustLsp crateGraph<cr>", "View create graph" },
+				t = { "<cmd>RustLsp syntaxTree<cr>", "Rust syntax tree" },
+				f = {
+					name = "+FlyCheck",
+				    r =	{ "<cmd>RustLsp flyCheck run<cr>", "Run check" },
+				    c =	{ "<cmd>RustLsp flyCheck clear<cr>", "Clear check" },
+				    n =	{ "<cmd>RustLsp flyCheck cancel<cr>", "Cancel check" },
+				},
+				v = { "<cmd>RustLsp view hir<cr>", "View rust HIR" },
+				V = { "<cmd>RustLsp vim mir<cr>", "View rust MIR" },
+			},
 		}
 
 		local visual_mappings = {
 			--[[ name = "+REPL",
 			s = { "<cmd>lua require('nvim-python-repl').send_visual_to_repl()<cr>", "Send visual selection to REPL" }, ]]
+			["<leader>c"] = {
+				name = "+Crates",
+				u = { "<cmd>lua require('crates').update_crates()", "Update crates" },
+				U = { "<cmd>lua require('crates').upgrade_crates()", "Upgrade crates" },
+			},
 		}
 
 		which_key.setup(setup)
