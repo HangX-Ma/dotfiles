@@ -266,7 +266,7 @@ return {
 					custom_sort = nil,
 					keys = {
 						expand_or_jump = "o",
-						quit = "<C-[>",
+					    quit = "<ESC>",
 					},
 				},
 			})
