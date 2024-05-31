@@ -13,11 +13,11 @@ return {
 		end
 	end,
 	config = function()
-		require("lualine").setup({
+		local config = {
 			options = {
 				icons_enabled = true,
 				theme = "auto",
-				component_separators = { left = "", right = "" },
+				component_separators = { left = '', right = "" },
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
 					statusline = {},
@@ -25,7 +25,6 @@ return {
 				},
 				ignore_focus = {},
 				always_divide_middle = true,
-				globalstatus = false,
 				refresh = {
 					statusline = 1000,
 					tabline = 1000,
@@ -52,6 +51,43 @@ return {
 			winbar = {},
 			inactive_winbar = {},
 			extensions = {},
+		}
+
+		-- Inserts a component in lualine_c at left section
+		local function ins_left(component)
+			table.insert(config.sections.lualine_c, component)
+		end
+
+		-- Insert mid section. You can make any number of sections in neovim :)
+		-- for lualine it's any number greater then 2
+		ins_left({
+			function()
+				return "%="
+			end,
 		})
+
+		ins_left({
+			-- Lsp server name .
+			function()
+				local msg = "No Active Lsp"
+				local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+				local clients = vim.lsp.get_active_clients()
+				if next(clients) == nil then
+					return msg
+				end
+				for _, client in ipairs(clients) do
+					local filetypes = client.config.filetypes
+					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+						return client.name
+					end
+				end
+				return msg
+			end,
+			icon = " LSP:",
+			color = { fg = "#eeeeee", gui = "bold" },
+		})
+
+		-- Now don't forget to initialize lualine
+		require("lualine").setup(config)
 	end,
 }
