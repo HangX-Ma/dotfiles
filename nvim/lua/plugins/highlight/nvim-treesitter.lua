@@ -17,6 +17,7 @@ return {
 				"bash",
 				"cpp",
 				"json",
+				"jsonc",
 				"python",
 				"cmake",
 				"markdown",
