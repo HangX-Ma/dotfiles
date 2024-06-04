@@ -148,9 +148,10 @@ install_python3_venv() {
 	fi
 
 	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
+    cut_version=$(echo ${python_version} | cut -d. -f2)
 
 	# check the minimum requirement python version
-	if (($(echo "${python_version} < 3.3" | bc -l))); then
+	if (($(echo "${cut_version} < 3" | bc -l))); then
 		echo -e "${YELLOW}[nvim]: Python 3 version must be at least 3.3. Current version is ${python_version}.${RESET}"
 		exit 1
 	fi
@@ -170,8 +171,11 @@ install_repl() {
 		sudo apt-get install -y python3 python3-dev
 	fi
 
+	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
+    cut_version=$(echo ${python_version} | cut -d. -f2)
+
 	# check the minimum requirement python version
-	if (($(echo "${python_version} < 3.3" | bc -l))); then
+	if (($(echo "${cut_version} < 3.3" | bc -l))); then
 		echo -e "${YELLOW}[nvim]: Python 3 version must be at least 3.3. Current version is ${python_version}.${RESET}"
 		exit 1
 	fi
@@ -204,6 +208,9 @@ install_debug_tools() {
 	if ! command -v python3 &>/dev/null; then
 		sudo apt-get install -y python3 python3-dev
 	fi
+
+	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
+    cut_version=$(echo ${python_version} | cut -d. -f2)
 
 	# check the minimum requirement python version
 	if (($(echo "${python_version} < 3.3" | bc -l))); then
@@ -279,7 +286,7 @@ select_component() {
 install_essential() {
 	# install essential packages
 	sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks graphviz\
-        lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat python3 python3-dev
+        lua5.3 liblua5.3-dev npm fd-find ripgrep global sqlite3 libsqlite3-dev bat python3 python3-dev bc
 	if command -v luarocks &>/dev/null; then
 		if ! luarocks list | grep jsregexp &>/dev/null; then
 			sudo luarocks install jsregexp
