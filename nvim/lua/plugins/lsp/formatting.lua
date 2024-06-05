@@ -18,12 +18,11 @@ return {
 				graphql = { "prettier" },
 				lua = { "stylua" },
 				python = { "black" },
-				bash = { "shfmt", "shellharden" },
+				bash = { "shfmt"  },
 				cmake = { "cmake" },
 				cpp = { "clang-format" },
 				c = { "clang-format" },
 				-- Use the "*" filetype to run formatters on all filetypes.
-				["*"] = { "codespell" },
 			},
 			-- format on save
 			--[[ format_on_save = {

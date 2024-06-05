@@ -1,8 +1,10 @@
 return {
 	"folke/trouble.nvim",
 	event = "VeryLazy",
+    cmd = "Trouble",
 	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	config = function()
+        require("trouble").setup()
 		local open_with_trouble = require("trouble.sources.telescope").open
 		local telescope = require("telescope")
 

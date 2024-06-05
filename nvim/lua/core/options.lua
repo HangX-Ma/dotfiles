@@ -38,7 +38,7 @@ opt.smartcase = true -- if 'ignorecase' is also true, case sensitive when exists
 
 -- spell check
 opt.spelllang = "en_us,cjk"
-opt.spell = true
+opt.spell = false
 
 -- split windows
 opt.splitright = true -- prefer to split the new windows right
