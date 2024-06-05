@@ -15,31 +15,32 @@ return {
 				cpp = { "cpplint" },
 				c = { "cpplint" },
 				yaml = { "yamllint" },
-				python = { "ruff" },
+				python = { "flake8", "pydocstyle" },
 				lua = { "luacheck" },
 			}
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-            -- configure cpplint
-            --ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
-            local cpplint = lint.linters.cpplint
-            cpplint.args = {
-                '--filter=-whitespace/braces,-whitespace/line_length,-legal/copyright,-build/c++11',
-            }
-            local cpplint_ns = lint.get_namespace("cpplint")
-            vim.diagnostic.config({ virtual_text = true }, cpplint_ns)
+			-- configure cpplint
+			--ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
+			local cpplint = lint.linters.cpplint
+			cpplint.args = {
+				"--filter=-whitespace/braces,-whitespace/line_length,-legal/copyright,-build/c++11",
+			}
+			local cpplint_ns = lint.get_namespace("cpplint")
+			vim.diagnostic.config({ virtual_text = true }, cpplint_ns)
 
-            -- configure luacheck
-            local luacheck = lint.linters.luacheck
-            luacheck.args = {
-                "--globals vim"
-            }
+			-- configure luacheck
+			local luacheck = lint.linters.luacheck
+			luacheck.args = {
+				"--globals vim",
+			}
 
-            -- trigger lint
+			-- trigger lint
 			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 				group = lint_augroup,
 				callback = function()
 					lint.try_lint()
+					lint.try_lint("codespell")
 				end,
 			})
 		end,
@@ -57,12 +58,11 @@ return {
 					"markdownlint",
 					"cpplint",
 					"luacheck",
-					"ruff",
+                    "flake8",
+                    "pydocstyle",
 					"yamllint",
 					"codespell",
 					"commitlint",
-					"checkmake",
-					"cmakelang",
 				},
 				automatic_installation = true,
 				quiet_mode = false,
