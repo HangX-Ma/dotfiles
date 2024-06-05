@@ -1,7 +1,7 @@
 return {
-	"https://codeberg.org/esensar/nvim-dev-container",
+	"esensar/nvim-dev-container",
 	dependencies = "nvim-treesitter/nvim-treesitter",
-    event = "VeryLazy",
+    	event = "VeryLazy",
 	config = function()
 		require("devcontainer").setup({})
 	end,
