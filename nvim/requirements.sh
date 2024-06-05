@@ -172,7 +172,7 @@ install_repl() {
 	fi
 
 	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
-    cut_version=$(echo ${python_version} | cut -d. -f2)
+    	cut_version=$(echo ${python_version} | cut -d. -f2)
 
 	# check the minimum requirement python version
 	if (($(echo "${cut_version} < 3.3" | bc -l))); then
@@ -210,10 +210,10 @@ install_debug_tools() {
 	fi
 
 	python_version=$(python3 --version 2>&1 | sed -n 's/.* \([0-9]*\.[0-9]*\).*/\1/p')
-    cut_version=$(echo ${python_version} | cut -d. -f2)
+    	cut_version=$(echo ${python_version} | cut -d. -f2)
 
 	# check the minimum requirement python version
-	if (($(echo "${python_version} < 3.3" | bc -l))); then
+	if (($(echo "${cut_version} < 3.3" | bc -l))); then
 		echo -e "${YELLOW}[nvim]: Python 3 version must be at least 3.3. Current version is ${python_version}.${RESET}"
 		exit 1
 	fi
