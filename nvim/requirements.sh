@@ -291,11 +291,11 @@ install_essential() {
     # install essential packages
     sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks graphviz\
         lua5.3 liblua5.3-dev fd-find ripgrep global sqlite3 libsqlite3-dev bat python3 python3-dev flake8 bc
-    if command -v luarocks &>/dev/null; then
-        if ! luarocks list | grep jsregexp &>/dev/null; then
-            sudo luarocks install jsregexp
-        fi
-    fi
+    # if command -v luarocks &>/dev/null; then
+    #     if ! luarocks list | grep jsregexp &>/dev/null; then
+    #         sudo luarocks install jsregexp
+    #     fi
+    # fi
 
     # install latest npm to avoid bashls and pyright error
     if command -v nvm &>/dev/null; then
