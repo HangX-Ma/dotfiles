@@ -20,7 +20,7 @@ local opts = {
 return {
 	{
 		"kevinhwang91/nvim-bqf",
-        event = "QuickFixCmdPre",
+		event = "QuickFixCmdPre",
 		opts = opts,
 		ft = "qf",
 		dependencies = {
@@ -32,10 +32,10 @@ return {
 		"ibhagwan/fzf-lua",
 		dependencies = {
 			-- we need to ensure the fzf has been installed
-			{ "junegunn/fzf", build = "./install --bin" },
+			{ "junegunn/fzf", name = "fzf", build = "./install --bin" },
 			{ "nvim-web-devicons", lazy = true },
 		},
-        event = "VeryLazy",
+		event = "VeryLazy",
 		config = function()
 			-- calling `setup` is optional for customization
 			require("fzf-lua").setup({})

@@ -204,13 +204,11 @@ return {
 				type = "executable",
 				command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/OpenDebugAD7",
 			}
-			dap.adapters.nlua = function(callback, config)
-				callback({
-					type = "server",
-					host = config.host or "127.0.0.1",
-					port = config.port or 8086,
-				})
-			end
+			dap.adapters.nlua = {
+				type = "server",
+                host = "127.0.0.1",
+                port = "8086",
+			}
 
 			-- https://github.com/mfussenegger/nvim-dap/discussions/533
 			-- path to python.exe of reference debugpy, installed in the (base) environment in anaconda
