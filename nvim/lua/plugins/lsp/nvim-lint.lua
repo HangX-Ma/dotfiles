@@ -15,7 +15,7 @@ return {
 				cpp = { "cpplint" },
 				c = { "cpplint" },
 				yaml = { "yamllint" },
-				python = { "flake8", "pydocstyle" },
+				-- python = { "flake8", "pydocstyle" },
 				lua = { "luacheck" },
 			}
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -58,8 +58,8 @@ return {
 					"markdownlint",
 					"cpplint",
 					"luacheck",
-                    "flake8",
-                    "pydocstyle",
+                    -- "flake8",
+                    -- "pydocstyle",
 					"yamllint",
 					"codespell",
 					"commitlint",
