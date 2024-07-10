@@ -23,8 +23,9 @@ return {
 				"lua-language-server",
 				"cmake-language-server",
 				"marksman",
-                -- "pyright",
-                "ruff-lsp",
+				-- "pyright",
+				"ruff-lsp",
+				"taplo",
 			},
 		},
 		---@param opts MasonSettings | {ensure_installed: string[]}
@@ -81,14 +82,14 @@ return {
 					"lua_ls",
 					"marksman",
 					"rust_analyzer",
-                    -- "pyright",
-                    "ruff_lsp",
+					-- "pyright",
+					"ruff_lsp",
+					"taplo",
 				},
 				automatic_installation = true,
 			})
 		end,
 	},
-
 
 	-- lspconfig
 	{
@@ -115,7 +116,9 @@ return {
 				"cmake",
 				"lua",
 				"markdown",
-                "pyright",
+				-- "pyright",
+                "ruff-lsp",
+                "taplo",
 			}
 
 			for _, server in ipairs(servers) do
@@ -266,7 +269,7 @@ return {
 					custom_sort = nil,
 					keys = {
 						expand_or_jump = "o",
-					    quit = "<ESC>",
+						quit = "<ESC>",
 					},
 				},
 			})
