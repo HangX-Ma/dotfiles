@@ -17,7 +17,7 @@ return {
 			options = {
 				icons_enabled = true,
 				theme = "auto",
-				component_separators = { left = '', right = "" },
+				component_separators = { left = "", right = "" },
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
 					statusline = {},
@@ -37,13 +37,13 @@ return {
 				lualine_c = { "filename" },
 				lualine_x = { "encoding", "fileformat", "filetype" },
 				lualine_y = { "progress" },
-				lualine_z = { "location" },
+				lualine_z = { "location", { "datetime", style = "%H:%M" } },
 			},
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
 				lualine_c = { "filename" },
-				lualine_x = { "location" },
+				lualine_x = { "location", { "datetime", style = "%H:%M" } },
 				lualine_y = {},
 				lualine_z = {},
 			},
