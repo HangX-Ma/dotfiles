@@ -40,7 +40,10 @@ return {
 			},
 			show_help = true, -- show help message on the command line when the popup is visible
 			show_keys = true, -- show the currently pressed key and its label as a message in the command line
-			triggers = "auto", -- automatically setup triggers
+			triggers = {
+				{ "<auto>", mode = "nixsotc" },
+				{ "a", mode = { "n", "v" } },
+			},
 		}
 
 		which_key.setup(setup)
@@ -64,6 +67,7 @@ return {
 			{ "<leader>W", group = "Window" },
 			{ "<leader>Wh", desc = "<cmd>:sp<CR>", "Spilt Horizontal" },
 			{ "<leader>Wv", desc = "<cmd>:vsp<CR>", "Spilt Vertical" },
+			{ "g", group = "General" },
 			{ "gd", "<cmd>Lspsaga goto_definition<cr>", desc = "Goto Definitions" },
 			{ "gp", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definitions" },
 			{ "gh", "<cmd>Lspsaga hover_doc<cr>", desc = "Give me Hint!" },
@@ -73,7 +77,6 @@ return {
 			{ "go", "<cmd>Lspsaga outgoing_calls<cr>", desc = "Called Functions" },
 			{ "gr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
 			{ "gs", "<cmd>Lspsaga finder<cr>", desc = "Search" },
-
 
 			-- Doge
 			{ "gD", group = "Doge" },
@@ -348,10 +351,12 @@ return {
 			{ "<leader>cR", "<cmd>lua require('crates').open_repository()<cr>", desc = "Open repository" },
 			{ "<leader>cD", "<cmd>lua require('crates').open_documentation()<cr>", desc = "Open documentation" },
 			{ "<leader>cC", "<cmd>lua require('crates').open_crates_io()<cr>", desc = "Open crates io" },
+			{ "<leader>cu", "<cmd>lua require('crates').update_crate()<cr>", desc = "Update create" },
+			{ "<leader>cU", "<cmd>lua require('crates').upgrade_crate()<cr>", desc = "Upgrade create" },
 		})
 
 		which_key.add({
-			mode = { "v", "n" },
+			mode = { "v" },
 			prefix = "",
 			buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
 			silent = true, -- use `silent` when creating keymaps
