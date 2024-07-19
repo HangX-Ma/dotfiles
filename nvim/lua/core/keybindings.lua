@@ -18,8 +18,8 @@ keymap.set("n", "<leader>Q", ":qa!<CR>", opts)
 keymap.set("n", "<leader>nh", ":nohl<CR>", opts)
 
 -- split windows vertically or horizontally
-keymap.set("n", "<leader>sv", ":vsp<CR>", opts)
-keymap.set("n", "<leader>sh", ":sp<CR>", opts)
+-- keymap.set("n", "<leader>sv", ":vsp<CR>", opts)
+-- keymap.set("n", "<leader>sh", ":sp<CR>", opts)
 
 -- close current window <C-w>c
 -- close other window <C-w>o
