@@ -195,6 +195,7 @@ return {
 			{ "<leader>tcr", desc = "Close Right Tab" },
 
 			-- Git
+			{ "<leader>g", group = "Git" },
 			{ "<leader>gf", "<cmd>DiffviewFileHistory<CR>", desc = "File History" },
 			{ "<leader>gp", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },
 			{ "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
