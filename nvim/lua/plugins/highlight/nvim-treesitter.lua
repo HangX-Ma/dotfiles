@@ -22,6 +22,7 @@ return {
 				"cmake",
 				"markdown",
 				"markdown_inline",
+                "latex",
 				"yaml",
 			},
 			-- install parsers synchronously (only applied to `ensure_installed`)
