@@ -246,6 +246,7 @@ install_nvim_config() {
     fi
 }
 
+
 select_component() {
     read choice
     if [[ $choice =~ ^[1-9]$ || $choice =~ ^[a-a]$ ]]; then
@@ -310,6 +311,15 @@ install_essential() {
             nvm install 20
         fi
     fi
+
+    # install markdown related
+    wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.22.6/tree-sitter-linux-x64.gz
+    gunzip tree-sitter-linux-x64.gz
+    chmod +x tree-sitter-linux-x64
+    sudo mv tree-sitter-linux-x64 /usr/local/bin/tree-sitter
+    rm -rf tree-sitter-linux-x64.gz
+    # install latex parser
+    pip install pylatexenc
 }
 
 install_all() {
