@@ -56,9 +56,9 @@ return {
 			end
 			-- vim config
 			vim.diagnostic.config({
-				virtual_text = true,
+				virtual_text = false,
 				signs = true,
-				update_in_insert = false,
+				update_in_insert = true,
 			})
 			local signs = { Error = "", Warn = "", Hint = " ", Info = "" }
 			for type, icon in pairs(signs) do
@@ -100,6 +100,35 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"windwp/nvim-autopairs",
 		},
+		on_attach = function(client, bufnr)
+			local status_ok, codelens_supported = pcall(function()
+				return client.supports_method("textDocument/codeLens")
+			end)
+			if not status_ok or not codelens_supported then
+				return
+			end
+			local group = "lsp_code_lens_refresh"
+			local cl_events = { "BufEnter", "InsertLeave" }
+			local ok, cl_autocmds = pcall(vim.api.nvim_get_autocmds, {
+				group = group,
+				buffer = bufnr,
+				event = cl_events,
+			})
+			if ok and #cl_autocmds > 0 then
+				return
+			end
+			local cb = function()
+				if vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_is_valid(bufnr) then
+					vim.lsp.codelens.refresh({ bufnr = bufnr })
+				end
+			end
+			vim.api.nvim_create_augroup(group, { clear = false })
+			vim.api.nvim_create_autocmd(cl_events, {
+				group = group,
+				buffer = bufnr,
+				callback = cb,
+			})
+		end,
 		config = function()
 			local crisp = require("core.crisp")
 			-- Change diagnostic symbols in the sign column (gutter)
@@ -117,8 +146,8 @@ return {
 				"lua",
 				"markdown",
 				"pyright",
-                -- "ruff-lsp",
-                "taplo",
+				-- "ruff-lsp",
+				"taplo",
 			}
 
 			for _, server in ipairs(servers) do
