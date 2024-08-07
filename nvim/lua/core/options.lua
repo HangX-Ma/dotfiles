@@ -28,6 +28,7 @@ opt.smartindent = true
 -- render
 opt.termguicolors = true -- the nvim terminal will become colorful
 opt.signcolumn = "yes"
+opt.conceallevel = 2
 
 -- coding
 opt.wrap = false -- don't wrap the codes when too long

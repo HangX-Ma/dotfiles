@@ -10,7 +10,11 @@ return {
 
 			-- set termguicolors to enable highlight groups
 			vim.opt.termguicolors = true
-			require("nvim-tree").setup()
+			require("nvim-tree").setup({
+				update_focused_file = {
+					enable = true,
+				},
+			})
 		end,
 	},
 	-- tmux
