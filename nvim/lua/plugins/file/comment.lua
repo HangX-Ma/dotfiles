@@ -1,6 +1,6 @@
 return {
 	"numToStr/Comment.nvim",
-    enabled = false, -- use built-in commenting provided in neovim 0.10.0
+    enabled = true, -- use built-in commenting provided in neovim 0.10.0
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		require("Comment").setup({
