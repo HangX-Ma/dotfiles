@@ -4,7 +4,7 @@ return {
 	lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
 	build = ":TSUpdate html",
 	dependencies = {
-		{"nvim-telescope/telescope.nvim", lazy = true},
+		{ "nvim-telescope/telescope.nvim", lazy = true },
 		"nvim-lua/plenary.nvim", -- required by telescope
 		"MunifTanjim/nui.nvim",
 
@@ -34,10 +34,20 @@ return {
 			},
 			description = {
 				position = "left",
-				width = "40%",
+				width = "30%",
 				show_stats = true,
 			},
 			image_support = false,
+
+			keys = {
+				toggle = { "q" }, ---@type string|string[]
+				confirm = { "<CR>" }, ---@type string|string[]
+
+				reset_testcases = "R", ---@type string
+				use_testcase = "U", ---@type string
+				focus_testcases = "H", ---@type string
+				focus_result = "L", ---@type string
+			},
 		})
 	end,
 }
