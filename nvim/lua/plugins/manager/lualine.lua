@@ -44,7 +44,7 @@ return {
 				lualine_a = {},
 				lualine_b = {},
 				lualine_c = { "filename" },
-				lualine_x = { "location", { "datetime", style = " %H:%M" } },
+				lualine_x = { "location" },
 				lualine_y = {},
 				lualine_z = {},
 			},
