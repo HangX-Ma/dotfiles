@@ -2,6 +2,7 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
+	dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
 	init = function()
 		vim.g.lualine_laststatus = vim.o.laststatus
 		if vim.fn.argc(-1) > 0 then
@@ -37,13 +38,13 @@ return {
 				lualine_c = { "filename" },
 				lualine_x = { "encoding", "fileformat", "filetype" },
 				lualine_y = { "progress" },
-				lualine_z = { "location", { "datetime", style = "%H:%M" } },
+				lualine_z = { "location", { "datetime", style = " %H:%M" } },
 			},
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
 				lualine_c = { "filename" },
-				lualine_x = { "location", { "datetime", style = "%H:%M" } },
+				lualine_x = { "location", { "datetime", style = " %H:%M" } },
 				lualine_y = {},
 				lualine_z = {},
 			},

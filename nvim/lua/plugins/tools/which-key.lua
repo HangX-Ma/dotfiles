@@ -57,6 +57,9 @@ return {
 			nowait = true, -- use `nowait` when creating keymaps
 			expr = false, -- use `expr` when creating keymaps
 
+			-- common
+			{ "<leader><leader>", group = "Common" },
+
 			-- vim basic
 			{ "<leader>nh", desc = "No Highlights", hidden = true },
 			{ "<leader>q", desc = "Quit", hidden = true },
