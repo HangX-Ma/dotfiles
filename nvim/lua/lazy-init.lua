@@ -15,7 +15,7 @@ vim.api.nvim_command('syntax on')
 
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-require("lazy").setup("plugins", {
+require("lazy").setup("plugin", {
 	ui = {
 		border = "rounded",
 	},
