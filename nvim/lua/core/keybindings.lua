@@ -44,16 +44,22 @@ keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
 
 -- close all floating windows
 keymap.set("n", "<esc>", function()
+	-- local closed_windows = {}
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_config(win).relative == "win" then
-			vim.api.nvim_win_close(win, false)
-		end
+        if vim.api.nvim_win_is_valid(win) then
+            local config = vim.api.nvim_win_get_config(win)
+            if config.relative ~= "" then -- is_floating_window?
+                vim.api.nvim_win_close(win, false) -- do not force
+                -- table.insert(closed_windows, win)
+            end
+        end
 	end
+	-- print(string.format("Closed %d windows: %s", #closed_windows, vim.inspect(closed_windows)))
 end)
 
 -- vim-doge
 vim.g.doge_enable_mappings = 0
-vim.g.doge_mapping = 'gDt'
+vim.g.doge_mapping = "gDt"
 vim.keymap.set("n", "gDc", "<Plug>(doge-generate)")
 
 -- Interactive mode comment todo-jumping
