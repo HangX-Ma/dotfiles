@@ -1,13 +1,13 @@
 -- lazy.nvim
 return {
 	"folke/noice.nvim",
-    lazy = false,
+	lazy = false,
 	opts = {
 		-- add any options here
 	},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-		"MunifTanjim/nui.nvim",
+		{ "MunifTanjim/nui.nvim", lazy = false },
 		-- OPTIONAL:
 		--   `nvim-notify` is only needed, if you want to use the notification view.
 		--   If not available, we use `mini` as the fallback
