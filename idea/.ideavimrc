@@ -34,9 +34,13 @@ set clipboard+=unnamed
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-surround'
+Plug 'justinmk/vim-sneak'
+Plug 'michaeljsmith/vim-indent-object'
 " Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-highlightedyank'
+
+set quickscope
 
 " clear the highlighted search result
 nnoremap <Leader>nh :nohlsearch<CR>
