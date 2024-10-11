@@ -1,9 +1,9 @@
 return {
 	-- indent guides for Neovim
 	{
-        "lukas-reineke/indent-blankline.nvim",
+		"lukas-reineke/indent-blankline.nvim",  
 		event = { "BufReadPre", "BufNewFile" },
-        tag = "v3.5.4",
+		tag = "v3.8.2",
 		main = "ibl",
 		config = function()
 			local hooks = require("ibl.hooks")
@@ -33,16 +33,18 @@ return {
 			require("ibl").setup({
 				indent = {
 					char = "│",
-					tab_char = "│",
+					-- tab_char = "│",
+					tab_char = "┇",
 				},
 				whitespace = {
 					highlight = {
 						"Whitespace",
 					},
-					remove_blankline_trail = true,
+					remove_blankline_trail = false,
 				},
 				scope = {
 					enabled = true,
+					show_exact_scope = true,
 					highlight = highlight,
 				},
 				exclude = {
