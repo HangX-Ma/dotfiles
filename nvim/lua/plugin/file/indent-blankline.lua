@@ -1,7 +1,7 @@
 return {
 	-- indent guides for Neovim
 	{
-		"lukas-reineke/indent-blankline.nvim",  
+		"lukas-reineke/indent-blankline.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		tag = "v3.8.2",
 		main = "ibl",
@@ -52,6 +52,7 @@ return {
 						"help",
 						"alpha",
 						"dashboard",
+						"NvimTree",
 						"neo-tree",
 						"trouble",
 						"lazy",
@@ -59,6 +60,7 @@ return {
 						"notify",
 						"toggleterm",
 						"lazyterm",
+						"Outline",
 					},
 				},
 			})
