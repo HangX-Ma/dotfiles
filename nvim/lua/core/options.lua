@@ -63,4 +63,4 @@ opt.formatoptions = opt.formatoptions
 	+ "l" -- long lines are not broken
 	+ "j" -- remove comment when joining lines
 
-vim.o.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
+-- vim.o.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"

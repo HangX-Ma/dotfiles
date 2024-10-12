@@ -1,10 +1,7 @@
--- reference: https://waylonwalker.com/nvim-navic/
 return {
+
 	"SmiteshP/nvim-navic",
-	dependencies = {
-		"neovim/nvim-lspconfig",
-	},
-	event = { "BufReadPre", "BufNewFile" },
+	dependencies = { "neovim/nvim-lspconfig" },
 	config = function()
 		local navic = require("nvim-navic")
 		navic.setup({
@@ -47,6 +44,9 @@ return {
 			safe_output = true,
 			lazy_update_context = false,
 			click = false,
+			format_text = function(text)
+				return text
+			end,
 		})
 	end,
 }
