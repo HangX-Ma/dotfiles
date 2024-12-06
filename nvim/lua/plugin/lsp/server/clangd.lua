@@ -13,6 +13,7 @@ function server.setup()
 		cmd = {
 			"clangd",
 			"--background-index",
+            "--background-index-priority=low",
 			"-j=12",
 			"--all-scopes-completion",
 			"--completion-style=bundled",
@@ -22,7 +23,7 @@ function server.setup()
 			"--log=verbose",
 			"--header-insertion=iwyu",
 			"--header-insertion-decorators",
-			"--query-driver=/usr/bin/clang++-14*",
+			"--query-driver=/usr/bin/clang++",
 			"--pch-storage=memory",
 			"--malloc-trim",
 		},
@@ -49,8 +50,9 @@ function server.setup()
 			usePlaceholders = true,
 			completeUnimported = true,
 			clangdFileStatus = true, -- Provides information about activity on clangd’s per-file worker thread
+            fallback_flags = { "-std=c++17" }
 		},
-		filetypes = { "c", "cpp", "h", "ojbc", "objcpp", "cuda", "proto" },
+		filetypes = { "c", "cc", "cpp", "h", "hpp", "ojbc", "objcpp", "cuda", "proto" },
 	})
 end
 
