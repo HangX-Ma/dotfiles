@@ -13,6 +13,12 @@ return {
 		---@type Neominimap.UserConfig
 		vim.g.neominimap = {
 			auto_enable = true,
+
+			float = {
+                -- zindex: https://github.com/neovim/neovim/issues/18486
+                -- need to be higher than 'nvim-treesiter-context'
+				z_index = 11,
+			},
 		}
 	end,
 }
