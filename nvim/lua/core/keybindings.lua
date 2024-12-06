@@ -43,7 +43,7 @@ keymap.set("n", "<C-Up>", ":resize -2<CR>", opts)
 -- equivalent scale: <C-w>=
 
 -- close all floating windows
-keymap.set("n", "<esc>", function()
+--[[ keymap.set("n", "<esc>", function()
 	-- local closed_windows = {}
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
         if vim.api.nvim_win_is_valid(win) then
@@ -55,7 +55,7 @@ keymap.set("n", "<esc>", function()
         end
 	end
 	-- print(string.format("Closed %d windows: %s", #closed_windows, vim.inspect(closed_windows)))
-end)
+end) ]]
 
 -- vim-doge
 vim.g.doge_enable_mappings = 0
