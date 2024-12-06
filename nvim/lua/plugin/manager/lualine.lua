@@ -15,6 +15,7 @@ return {
 	end,
 	config = function()
 		local navic = require("nvim-navic")
+		local minimap_extension = require("neominimap.statusline").lualine_default
 		local config = {
 			options = {
 				icons_enabled = true,
@@ -76,7 +77,9 @@ return {
 				},
 			},
 			inactive_winbar = {},
-			extensions = {},
+			extensions = {
+				minimap_extension,
+			},
 		}
 
 		-- Inserts a component in lualine_c at left section
