@@ -15,7 +15,24 @@ return {
 	end,
 	config = function()
 		local navic = require("nvim-navic")
-		local minimap_extension = require("neominimap.statusline").lualine_default
+		local neominimap = require("neominimap.statusline")
+		local minimap_extension = {
+			sections = {
+				winbar = {},
+				lualine_a = {
+					neominimap.plugin_name,
+				},
+				lualine_c = {
+					neominimap.fullname,
+				},
+				lualine_z = {
+					neominimap.position,
+					"progress",
+				},
+			},
+			filetypes = { "neominimap" },
+		}
+
 		local config = {
 			options = {
 				icons_enabled = true,

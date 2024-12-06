@@ -5,5 +5,7 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		require("core.autocmds")
 		require("core.keybindings")
+        require("syntax.c")
+        require("syntax.cpp")
 	end,
 })
