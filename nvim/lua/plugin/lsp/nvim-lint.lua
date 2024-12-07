@@ -24,7 +24,8 @@ return {
 			--ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
 			local cpplint = lint.linters.cpplint
 			cpplint.args = {
-				"--filter=-whitespace/braces,-whitespace/line_length,-legal/copyright,-build/c++11",
+				"--filter=-whitespace/braces,-whitespace/line_length,-whitespace/indent_namespace,"
+					.. "-legal/copyright,-build/c++11,-build/header_guard",
 			}
 			local cpplint_ns = lint.get_namespace("cpplint")
 			vim.diagnostic.config({ virtual_text = true }, cpplint_ns)
@@ -58,8 +59,8 @@ return {
 					"markdownlint",
 					"cpplint",
 					"luacheck",
-                    -- "flake8",
-                    -- "pydocstyle",
+					-- "flake8",
+					-- "pydocstyle",
 					"yamllint",
 					"codespell",
 					"commitlint",
