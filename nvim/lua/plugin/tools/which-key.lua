@@ -82,10 +82,9 @@ return {
 			{ "gR", desc = "IncRename" },
 			{ "gs", "<cmd>Lspsaga finder<cr>", desc = "Search" },
 
-			-- Doge
 			{ "gD", group = "Doge" },
-			{ "gDc", desc = "Generate Comment" },
 			{ "gDt", desc = "Trigger Doge" },
+			{ "gDc", desc = "Generate Doxygen Comment" },
 
 			-- GotoPreview
 			{ "<leader>P", group = "GotoPreview" },
