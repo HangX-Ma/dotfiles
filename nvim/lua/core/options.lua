@@ -5,6 +5,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- open doxygen syntax highlight
+vim.g.load_doxygen_syntax = 1
+
 local opt = vim.opt
 
 -- speed up lua load time
