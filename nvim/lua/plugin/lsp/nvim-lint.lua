@@ -25,7 +25,7 @@ return {
 			local cpplint = lint.linters.cpplint
 			cpplint.args = {
 				"--filter=-whitespace/braces,-whitespace/line_length,-whitespace/indent_namespace,"
-					.. "-legal/copyright,-build/c++11,-build/header_guard",
+					.. "-legal/copyright,-build/c++20,-build/header_guard",
 			}
 			local cpplint_ns = lint.get_namespace("cpplint")
 			vim.diagnostic.config({ virtual_text = true }, cpplint_ns)
