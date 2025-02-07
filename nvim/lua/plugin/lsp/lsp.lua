@@ -222,6 +222,11 @@ return {
 	-- lspsaga
 	{
 		"nvimdev/lspsaga.nvim",
+		event = "LspAttach",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter", -- optional
+			"nvim-tree/nvim-web-devicons", -- optional
+		},
 		config = function()
 			local lspsaga = require("lspsaga")
 			lspsaga.setup({ -- defaults ...
