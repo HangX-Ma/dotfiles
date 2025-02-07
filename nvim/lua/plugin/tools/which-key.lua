@@ -71,45 +71,26 @@ return {
 			{ "<leader>Wh", desc = "<cmd>:sp<CR>", "Spilt Horizontal" },
 			{ "<leader>Wv", desc = "<cmd>:vsp<CR>", "Spilt Vertical" },
 			{ "g", group = "General" },
-			{ "gd", "<cmd>Lspsaga goto_definition<cr>", desc = "Goto Definitions" },
-			{ "gp", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definitions" },
-			{ "gh", "<cmd>Lspsaga hover_doc<cr>", desc = "Give me Hint!" },
-			{ "ga", "<cmd>Lspsaga code_action<cr>", desc = "Code Action" },
-			{ "gA", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "LSP Code Action" },
-			{ "gi", "<cmd>Lspsaga incoming_calls<cr>", desc = "Callee Functions" },
-			{ "go", "<cmd>Lspsaga outgoing_calls<cr>", desc = "Called Functions" },
-			{ "gr", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+			{ "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Goto Definition" },
+			{ "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Goto Declaration" },
+			{ "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Goto Type Declaration" },
+			{ "gs", "<cmd>lua vim.lsp.buf.document_symbol<cr>", desc = "Goto Document Symbol" },
+			{ "gS", "<cmd>SymbolsOutline<cr>", desc = "Toggle SymbolsOutline" },
+			{ "gh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Show Hint" },
+			{ "gH", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show Signature" },
+			{ "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "Show Implementation" },
+			{ "gc", "<cmd>lua vim.lsp.buf.references()<cr>", desc = "Show References" },
+			{ "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "LSP Code Action" },
+			{ "gr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
 			{ "gR", desc = "IncRename" },
-			{ "gs", "<cmd>Lspsaga finder<cr>", desc = "Search" },
+			{ "g]", desc = "Goto Tag" },
+			{ "gf", desc = "Goto File" },
+			{ "g*", desc = "Search Symbol(↑)" },
+			{ "g#", desc = "Search Symbol(↓)" },
 
-			{ "gD", group = "Doge" },
-			{ "gDt", desc = "Trigger Doge" },
-			{ "gDc", desc = "Generate Doxygen Comment" },
-
-			-- GotoPreview
-			{ "<leader>P", group = "GotoPreview" },
-			{ "<leader>Pd", "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", desc = "Definition" },
-			{
-				"<leader>Pt",
-				"<cmd>lua require('goto-preview').goto_preview_type_definition()<cr>",
-				desc = "Type Definition",
-			},
-			{
-				"<leader>Pi",
-				"<cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
-				desc = "Implementation",
-			},
-			{
-				"<leader>PD",
-				"<cmd>lua require('goto-preview').goto_preview_declaration()<cr>",
-				desc = "Declaration",
-			},
-			{ "<leader>Pc", "<cmd>lua require('goto-preview').close_all_win()<cr>", desc = "Close Windows" },
-			{
-				"<leader>Pr",
-				"<cmd>lua require('goto-preview').goto_preview_references()<cr>",
-				desc = "References",
-			},
+			{ "<leader>D", group = "Doge" },
+			{ "<leader>Dt", desc = "Trigger Doge" },
+			{ "<leader>Dc", desc = "Generate Doxygen Comment" },
 
 			-- yazi
 			{ "<leader>-", desc = "Yazi" },
@@ -217,34 +198,29 @@ return {
 			{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
 			{ "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diff" },
 
-			-- Lspsaga, diagonostics
+			-- diagonostics
 			{ "<leader>a", group = "Diagonostics" },
-			{ "<leader>ab", "<cmd>Lspsaga show_buf_diagnostics<cr>", desc = "Buffer Diagonostics" },
 			{
-				"<leader>al",
-				"<cmd>Lspsaga show_line_diagnostics<cr>",
-				desc = "Line Diagonostics",
-			},
-			{
-				"<leader>ac",
-				"<cmd>Lspsaga show_cursor_diagnostics<cr>",
-				desc = "Cursor Diagonostics",
-			},
-			{
-				"<leader>aw",
-				"<cmd>Lspsaga show_workspace_diagnostics<cr>",
-				desc = "Workspace Diagonostics",
+				"<leader>ao",
+				"<cmd>lua vim.diagnostic.open_float()<cr>",
+				desc = "Show Diagonostics",
 			},
 			{
 				"<leader>ap",
-				"<cmd>Lspsaga diagnostic_jump_prev<cr>",
+				"<cmd>lua vim.diagnostic.goto_prev()<cr>",
 				desc = "Previous Diagonostics",
 			},
 			{
 				"<leader>an",
-				"<cmd>Lspsaga diagnostic_jump_next<cr>",
+				"<cmd>lua vim.diagnostic.goto_next()<cr>",
 				desc = "Next Diagonostics",
 			},
+			{
+				"<leader>al",
+				"<cmd>lua vim.diagnostic.setloclist()<cr>",
+				desc = "Diagonostics Location",
+			},
+
 			-- Dap
 			{ "<leader>d", group = "Dap" },
 			{ "<leader>dB", desc = "BreakPoint Condition" },

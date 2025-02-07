@@ -10,8 +10,10 @@ function server.setup()
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
 	local common = require("plugin.lsp.server.common")
+	local custom_attach = require("core.handlers").on_attach
 	local lspconfig = require("lspconfig")
 	lspconfig.lua_ls.setup({
+        on_attach = custom_attach,
 		flags = common.lspflags,
 		capabilities = common.capabilities,
 		before_init = require("neodev.lsp").before_init,

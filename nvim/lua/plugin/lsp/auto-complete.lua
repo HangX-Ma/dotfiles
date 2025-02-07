@@ -42,8 +42,12 @@ return {
 				},
 
 				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
+					completion = {
+						border = "rounded",
+					},
+					documentation = {
+						border = "rounded",
+					},
 				},
 
 				mapping = {
