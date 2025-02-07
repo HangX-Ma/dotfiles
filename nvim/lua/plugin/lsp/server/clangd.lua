@@ -8,8 +8,10 @@ function server.setup()
 	local lspconfig = require("lspconfig")
 	local common = require("plugin.lsp.server.common")
 	local capabilities = vim.deepcopy(common.capabilities)
+	local custom_attach = require("core.handlers").on_attach
 	capabilities.offsetEncoding = "utf-8"
 	lspconfig.clangd.setup({
+        on_attach = custom_attach,
 		cmd = {
 			"clangd",
 			"--background-index",

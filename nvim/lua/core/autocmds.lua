@@ -28,10 +28,6 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local keymap_opts = { remap = false, silent = true, buffer = ev.buf }
-		vim.keymap.set("n", "<leader>kh", vim.lsp.buf.hover, keymap_opts)
-		vim.keymap.set("n", "<Leader>kq", function()
-			hover_close(vim.api.nvim_get_current_win())
-		end, keymap_opts)
 		vim.keymap.set("n", "<Leader><esc>", function()
 			hover_close(vim.api.nvim_get_current_win())
 		end, keymap_opts)
@@ -71,5 +67,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
-
-
