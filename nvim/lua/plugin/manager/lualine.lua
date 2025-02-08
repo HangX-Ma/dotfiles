@@ -14,7 +14,7 @@ return {
 		end
 	end,
 	config = function()
-		local navic = require("nvim-navic")
+		-- local navic = require("nvim-navic")
 		local neominimap = require("neominimap.statusline")
 		local minimap_extension = {
 			sections = {
@@ -82,7 +82,7 @@ return {
 			},
 			tabline = {},
 			winbar = {
-				lualine_c = {
+				--[[ lualine_c = {
 					{
 						function()
 							return navic.get_location()
@@ -91,7 +91,7 @@ return {
 							return navic.is_available()
 						end,
 					},
-				},
+				}, ]]
 			},
 			inactive_winbar = {},
 			extensions = {

@@ -130,6 +130,9 @@ return {
 			})
 		end,
 		config = function()
+			require("lspconfig.ui.windows").default_options = {
+				border = "rounded",
+			}
 			local crisp = require("core.crisp")
 			-- Change diagnostic symbols in the sign column (gutter)
 			local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
@@ -150,10 +153,6 @@ return {
 				"taplo",
 			}
 
-			local lsp_flags = {
-				-- This is the default in Nvim 0.7+
-				debounce_text_changes = 150,
-			}
 			for _, server in ipairs(servers) do
 				local serverModule = crisp.prequire("plugin.lsp.server." .. server)
 				if serverModule and serverModule.checkOK() then
