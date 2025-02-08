@@ -32,19 +32,6 @@ M.setup = function()
 	}
 
 	vim.diagnostic.config(config)
-
-	-- helper
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-		max_width = 80,
-		max_height = 10,
-	})
-
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-		max_width = 80,
-		max_height = 10,
-	})
 end
 
 local function lsp_highlight_document(client)
