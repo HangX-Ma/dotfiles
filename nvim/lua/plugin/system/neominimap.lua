@@ -27,7 +27,7 @@ return {
 				"prompt",
 			},
 
-			layout = "split", ---@type Neominimap.Config.LayoutType
+			layout = "float", ---@type Neominimap.Config.LayoutType
 
 			--- Used when `layout` is set to `split`
 			split = {
