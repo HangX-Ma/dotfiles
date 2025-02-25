@@ -210,6 +210,7 @@ return {
 			"file_browser",
 			"ui-select",
 			"dap",
+			"nerdy",
 		}
 
 		for e in ipairs(extensions) do
