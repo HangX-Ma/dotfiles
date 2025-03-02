@@ -54,7 +54,7 @@ return {
 				}, -- here you can configure namu
 			},
 			-- Optional: Enable other modules if needed
-			ui_select = { enable = true }, -- vim.ui.select() wrapper
+			ui_select = { enable = false }, -- vim.ui.select() wrapper
 			colorscheme = {
 				enable = false,
 				options = {
@@ -64,6 +64,8 @@ return {
 				},
 			},
 		})
+		-- FIXME: Similar to the Visual group in OneDark
+		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#393f4a" }) -- onedark palette bg2
 		-- === Suggested Keymaps: ===
 		vim.keymap.set("n", "<leader>ks", ":Namu symbols<cr>", {
 			desc = "Jump to LSP symbol",

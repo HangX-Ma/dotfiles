@@ -1,6 +1,6 @@
 return {
 	"Isrothy/neominimap.nvim",
-	version = "v3.*.*",
+	version = "v3.9.1",
 	enabled = true,
 	lazy = false, -- NOTE: NO NEED to Lazy load
 	init = function()
