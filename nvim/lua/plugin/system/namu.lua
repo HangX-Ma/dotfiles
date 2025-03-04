@@ -51,6 +51,13 @@ return {
 							keys = "<C-t>", -- Add symbol to Avante
 						},
 					},
+					-- Suggestion Reference: https://github.com/bassamsdata/namu.nvim/issues/28
+					current_highlight = {
+						enabled = true, -- Enable custom prefix icon
+						hl_group = "PmenuSel", -- Default highlight group: Visual. CursorLine, PmenuSel are also available
+						-- Please keep space after the icon for better viewing
+						prefix_icon = " ", --icon for current selection, some other example ▎ 󰇙 ┆
+					},
 				}, -- here you can configure namu
 			},
 			-- Optional: Enable other modules if needed
@@ -65,7 +72,7 @@ return {
 			},
 		})
 		-- FIXME: Similar to the Visual group in OneDark
-		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#393f4a" }) -- onedark palette bg2
+		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2d323b" }) -- darker than onedark palette bg2
 		-- === Suggested Keymaps: ===
 		vim.keymap.set("n", "<leader>ks", ":Namu symbols<cr>", {
 			desc = "Jump to LSP symbol",
