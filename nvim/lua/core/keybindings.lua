@@ -59,9 +59,6 @@ end) ]]
 
 -- ------------- extensions -------------
 local pluginKeys = {}
--- toggle explorer
-keymap.set("n", "<C-N>", ":NvimTreeToggle<CR>", opts)
-
 -- <leader>tt float
 -- <leader>tv vertical
 -- <leader>th horizontal

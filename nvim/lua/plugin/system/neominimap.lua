@@ -65,6 +65,7 @@ return {
 					"lazy",
 					"mason",
 					"notify",
+                    ""
 				}
 				for _, win_id in ipairs(win_list) do
 					if not is_float_window(win_id) then

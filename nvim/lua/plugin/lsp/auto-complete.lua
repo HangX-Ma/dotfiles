@@ -110,6 +110,10 @@ return {
 					{ name = "vsnip" },
 					{ name = "calc" },
 					{ name = "crates" },
+					{
+						name = "lazydev",
+						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+					},
 				}),
 
 				-- according filetype to select sources

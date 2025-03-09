@@ -39,7 +39,7 @@ end
 
 return {
 	"milanglacier/yarepl.nvim",
-	event = "VeryLazy",
+	event = { "BufRead *.py *.sh *.ipy", "BufNewFile *.py *.sh *.ipy" },
 	enabled = true,
 	cmd = {
 		"REPLStart",
