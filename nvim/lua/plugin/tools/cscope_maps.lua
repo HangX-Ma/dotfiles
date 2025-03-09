@@ -66,6 +66,7 @@ return {
 	-- reference: https://zhuanlan.zhihu.com/p/36279445
 	{
 		"ludovicchabant/vim-gutentags",
+		lazy = true,
 		event = { "BufRead *.cpp *.c *.s *.S", "BufNewFile *.cpp *.c *.s *.S" },
 		init = function()
 			-- Or use 'Cs db build' manually!!!
