@@ -1,7 +1,7 @@
 -- status bar
 return {
 	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
+	event = "ColorScheme",
 	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	init = function()
 		vim.g.lualine_laststatus = vim.o.laststatus

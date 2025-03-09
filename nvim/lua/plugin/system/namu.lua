@@ -1,5 +1,6 @@
 return {
 	"bassamsdata/namu.nvim",
+	event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		require("namu").setup({
 			-- Enable the modules you want

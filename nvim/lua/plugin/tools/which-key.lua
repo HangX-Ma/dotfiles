@@ -79,7 +79,7 @@ return {
 			{ "gh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Show Hint" },
 			{ "gH", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show Signature" },
 			{ "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", desc = "Show Implementation" },
-			{ "gc", "<cmd>lua vim.lsp.buf.references()<cr>", desc = "Show References" },
+			{ "gF", "<cmd>lua vim.lsp.buf.references()<cr>", desc = "Show References" },
 			{ "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "LSP Code Action" },
 			{ "gr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
 			{ "gR", desc = "IncRename" },

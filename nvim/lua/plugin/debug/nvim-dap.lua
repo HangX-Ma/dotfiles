@@ -206,16 +206,16 @@ return {
 			}
 			dap.adapters.nlua = {
 				type = "server",
-                host = "127.0.0.1",
-                port = "8086",
+				host = "127.0.0.1",
+				port = "8086",
 			}
 
 			-- https://github.com/mfussenegger/nvim-dap/discussions/533
 			-- path to python.exe of reference debugpy, installed in the (base) environment in anaconda
 			local std_debugpy_python = vim.fn.environ()["CONDA_PYTHON_EXE"]
-            if not std_debugpy_python then
-                std_debugpy_python = '/usr/bin/python3'
-            end
+			if not std_debugpy_python then
+				std_debugpy_python = "/usr/bin/python3"
+			end
 			dap.adapters.python = {
 				type = "executable",
 				command = std_debugpy_python,
@@ -272,7 +272,7 @@ return {
 					request = "launch",
 					console = "integratedTerminal",
 					program = function()
-                        return vim.fn.input("Python program path: ", vim.fn.getcwd() .. "/", "file")
+						return vim.fn.input("Python program path: ", vim.fn.getcwd() .. "/", "file")
 					end,
 					python = function()
 						if vim.fn.environ()["CONDA_DEFAULT_ENV"] ~= "base" then

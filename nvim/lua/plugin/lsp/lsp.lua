@@ -3,7 +3,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		cmd = "Mason",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			ui = {
 				icons = {
@@ -71,7 +71,7 @@ return {
 	-- mason lspconfig
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = "williamboman/mason.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
@@ -100,6 +100,7 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"windwp/nvim-autopairs",
 		},
+		event = { "BufReadPost", "BufNewFile" },
 		on_attach = function(client, bufnr)
 			local status_ok, codelens_supported = pcall(function()
 				return client.supports_method("textDocument/codeLens")

@@ -6,7 +6,25 @@ function server.checkOK()
 end
 
 function server.setup()
-	local runtime_path = vim.split(package.path, ";")
+	-- lazydev.nvim configuration
+	-- https://www.reddit.com/r/neovim/comments/1d5ub7d/lazydevnvim_much_faster_luals_setup_for_neovim/
+	local lspconfig = require("lspconfig")
+	lspconfig.lua_ls.setup({
+		root_dir = lspconfig.util.root_pattern(
+			"init.lua",
+			".luarc.json",
+			".luarc.jsonc",
+			".luacheckrc",
+			".stylua.toml",
+			"stylua.toml",
+			"selene.toml",
+			"selene.yml",
+			".git"
+		),
+	})
+
+	-- no need for lazydev.nvim
+	--[[ local runtime_path = vim.split(package.path, ";")
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
 	local common = require("plugin.lsp.server.common")
@@ -16,7 +34,7 @@ function server.setup()
         on_attach = custom_attach,
 		flags = common.lspflags,
 		capabilities = common.capabilities,
-		before_init = require("neodev.lsp").before_init,
+        before_init = require("neodev.nvim").before_init,
 		on_init = function(client)
 			local path = client.workspace_folders[1].name
 			if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
@@ -49,7 +67,7 @@ function server.setup()
 			end
 			return true
 		end,
-	})
+	}) ]]
 end
 
 return server
