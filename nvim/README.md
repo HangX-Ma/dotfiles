@@ -5,7 +5,7 @@ You can follow the steps in this `README` file or read the blog [\[Start from sc
 <div class="dino" align="center">
   <table>
     <tr>
-      <td><img src="./assets/nvim-statup.png" alt="Neovim: Statup Page" width=500 />
+      <td><img src="./assets/nvim-startup.png" alt="Neovim: Statup Page" width=500 />
       <td><img src="./assets/nvim-main.png" alt="Neovim: Main Page" width=500 />
     </tr>
     <tr>
