@@ -49,6 +49,7 @@ return {
 	-- mason-nvim-lint
 	{
 		"rshkarin/mason-nvim-lint",
+		event = "VeryLazy",
 		dependencies = {
 			"williamboman/mason.nvim",
 			"mfussenegger/nvim-lint",
@@ -65,6 +66,7 @@ return {
 					"codespell",
 					"commitlint",
 				},
+				ignore_install = {},
 				automatic_installation = true,
 				quiet_mode = false,
 			})

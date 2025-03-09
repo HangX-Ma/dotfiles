@@ -3,7 +3,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		cmd = "Mason",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "VeryLazy",
 		opts = {
 			ui = {
 				icons = {
@@ -71,7 +71,7 @@ return {
 	-- mason lspconfig
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "VeryLazy",
 		dependencies = "williamboman/mason.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
