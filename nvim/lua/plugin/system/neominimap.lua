@@ -1,6 +1,6 @@
 return {
 	"Isrothy/neominimap.nvim",
-	version = "v3.9.1",
+	version = "v3.*.*",
 	enabled = true,
 	lazy = false, -- NOTE: NO NEED to Lazy load
 	init = function()
@@ -65,7 +65,7 @@ return {
 					"lazy",
 					"mason",
 					"notify",
-                    ""
+					"",
 				}
 				for _, win_id in ipairs(win_list) do
 					if not is_float_window(win_id) then
