@@ -81,6 +81,10 @@ return {
 		"nvim-telescope/telescope-file-browser.nvim",
 		"nvim-telescope/telescope-dap.nvim",
 		"catgoose/telescope-helpgrep.nvim",
+		{
+			"ryanmsnyder/toggleterm-manager.nvim",
+			config = true,
+		},
 	},
 	cmd = "Telescope",
 	build = function()
