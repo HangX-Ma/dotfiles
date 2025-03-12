@@ -5,11 +5,6 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		require("core.autocmds")
 		require("core.keybindings")
-	end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "c", "cpp" },
-	callback = function()
 		require("syntax.c")
 		require("syntax.cpp")
 	end,
