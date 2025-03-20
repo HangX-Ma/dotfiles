@@ -1,7 +1,7 @@
 return {
 	"akinsho/bufferline.nvim",
 	version = "v4.*",
-	event = { "BufReadPre", "BufNewFile" },
+	event = "VeryLazy",
 	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	config = function()
 		require("bufferline").setup({
@@ -16,6 +16,10 @@ return {
 						highlight = "Directory",
 						text_align = "left",
 					},
+				},
+				indicator = {
+					icon = "▎", -- this should be omitted if indicator style is not 'icon'
+					style = "underline",
 				},
 			},
 		})

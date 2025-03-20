@@ -2,7 +2,7 @@ return {
 	"folke/trouble.nvim",
 	event = "VeryLazy",
 	cmd = "Trouble",
-	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
+	dependencies = "nvim-tree/nvim-web-devicons",
 	opts = {
 		icons = {
 			indent = {

@@ -11,7 +11,7 @@ return {
 		-- optional
 		"nvim-treesitter/nvim-treesitter",
 		"rcarriga/nvim-notify",
-		{ "nvim-tree/nvim-web-devicons", lazy = true },
+		{ "nvim-tree/nvim-web-devicons", lazy = false },
 	},
 	config = function()
 		require("leetcode").setup({

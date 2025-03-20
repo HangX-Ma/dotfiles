@@ -28,7 +28,7 @@ return {
 					.. "-legal/copyright,-build/c++20,-build/header_guard,-readability/todo",
 			}
 			local cpplint_ns = lint.get_namespace("cpplint")
-			vim.diagnostic.config({ virtual_text = true }, cpplint_ns)
+			vim.diagnostic.config({ virtual_text = false }, cpplint_ns)
 
 			-- configure luacheck
 			local luacheck = lint.linters.luacheck
