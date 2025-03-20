@@ -8,6 +8,7 @@ return {
 			options = {
 				mode = "buffers",
 				number = "ordinal", -- show id
+				themable = true,
 				diagnostics = "nvim_lsp", -- use internal lsp
 				offsets = {
 					{
@@ -19,8 +20,9 @@ return {
 				},
 				indicator = {
 					icon = "▎", -- this should be omitted if indicator style is not 'icon'
-					style = "underline",
+					style = "icon",
 				},
+				always_show_bufferline = false,
 			},
 		})
 		-- jump between buffers
