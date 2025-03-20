@@ -50,7 +50,6 @@ opt.splitbelow = true -- prefer to split the new windows below
 opt.title = true
 
 -- appearance
-opt.termguicolors = true
 opt.signcolumn = "yes"
 
 -- other

@@ -6,7 +6,7 @@ return {
 		dependencies = {
 			-- we need to ensure the fzf has been installed
 			{ "junegunn/fzf", name = "fzf", build = "./install --bin" },
-			{ "nvim-web-devicons", lazy = true },
+			{ "nvim-tree/nvim-web-devicons", lazy = false },
 		},
 		event = "VeryLazy",
 		opts = function(_, opts)

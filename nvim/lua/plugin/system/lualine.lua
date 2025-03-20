@@ -2,7 +2,7 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	lazy = false,
-	dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
+	dependencies = { "nvim-tree/nvim-web-devicons", lazy = false },
 	init = function()
 		vim.g.lualine_laststatus = vim.o.laststatus
 		if vim.fn.argc(-1) > 0 then

@@ -7,7 +7,7 @@ return {
 	end,
 	dependencies = {
 		"echasnovski/mini.icons",
-		{ "nvim-tree/nvim-web-devicons", lazy = true },
+		{ "nvim-tree/nvim-web-devicons", lazy = false },
 	},
 	config = function()
 		local which_key = require("which-key")
@@ -189,17 +189,17 @@ return {
 			{ "<leader>a", group = "Diagonostics" },
 			{
 				"<leader>ao",
-				"<cmd>lua vim.diagnostic.open_float()<cr>",
+				"<cmd>lua vim.diagnostic.open_float(nil, {focus=false, scope='cursor', border='rounded'})<cr>",
 				desc = "Show Diagonostics",
 			},
 			{
 				"<leader>ap",
-				"<cmd>lua vim.diagnostic.goto_prev()<cr>",
+				"<cmd>lua vim.diagnostic.goto_prev({float={source=true, border='rounded'}})<cr>",
 				desc = "Previous Diagonostics",
 			},
 			{
 				"<leader>an",
-				"<cmd>lua vim.diagnostic.goto_next()<cr>",
+				"<cmd>lua vim.diagnostic.goto_next({float={source=true, border='rounded'}})<cr>",
 				desc = "Next Diagonostics",
 			},
 			{
@@ -207,6 +207,9 @@ return {
 				"<cmd>lua vim.diagnostic.setloclist()<cr>",
 				desc = "Diagonostics Location",
 			},
+
+			{ "<leader>ac", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagonostics(CWD)" },
+			{ "<leader>ar", "<cmd>Telescope diagnostics<cr>", desc = "Diagonostics(Root)" },
 
 			-- Dap
 			{ "<leader>d", group = "Dap" },
@@ -268,8 +271,6 @@ return {
 			{ "<leader>ki", "<cmd>Telescope lsp_incoming_calls<cr>", desc = "Incoming Calls" },
 			{ "<leader>ko", "<cmd>Telescope lsp_outgoing_calls<cr>", desc = "Outgoing Calls" },
 			{ "<leader>kd", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols(Buffer)" },
-			{ "<leader>ka", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagonostics(CWD)" },
-			{ "<leader>kA", "<cmd>Telescope diagnostics<cr>", desc = "Diagonostics(Root)" },
 			{ "<leader>kw", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Document Symbols(CWD)" },
 			{ "<leader>kW", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Document Symbols(Dynamic)" },
 			{ "<leader>kI", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementation" },
