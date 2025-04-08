@@ -15,7 +15,6 @@ return {
 	end,
 	config = function()
 		-- local navic = require("nvim-navic")
-		local neominimap = require("neominimap.statusline")
 		local config = {
 			options = {
 				icons_enabled = true,
@@ -24,7 +23,7 @@ return {
 				section_separators = { left = "", right = "" },
 				disabled_filetypes = {
 					statusline = {
-                        "",
+						"",
 						"help",
 						"alpha",
 						"dashboard",
@@ -99,14 +98,14 @@ return {
 			-- Lsp server name .
 			function()
 				local msg = "No Active Lsp"
-				local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-				local clients = vim.lsp.get_active_clients()
+				local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+				local clients = vim.lsp.get_clients()
 				if next(clients) == nil then
 					return msg
 				end
 				for _, client in ipairs(clients) do
-					local filetypes = client.config.filetypes
-					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+					local langid = client.config.get_language_id
+					if langid and vim.fn.index(langid, buf_ft) ~= -1 then
 						return client.name
 					end
 				end
