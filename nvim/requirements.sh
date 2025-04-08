@@ -41,7 +41,7 @@ install_nvim() {
         echo 'export PATH="/usr/local/nvim-linux64/bin:$PATH"' >>$HOME/.bashrc
 
         if [ -e "nvim-linux64.tar.gz" ]; then
-            rm -rf nvim-linux64.tar.gz
+            sudo rm -rf nvim-linux64.tar.gz
         fi
     fi
 }
@@ -61,10 +61,10 @@ install_lazygit() {
     fi
     # remove download files
     if [ -e "lazygit" ]; then
-        rm -rf lazygit
+        sudo rm -rf lazygit
     fi
     if [ -e "lazygit.tar.gz" ]; then
-        rm -rf lazygit.tar.gz
+        sudo rm -rf lazygit.tar.gz
     fi
 }
 
@@ -91,7 +91,7 @@ install_bat_extra() {
         git clone https://github.com/eth-p/bat-extras.git bat-extras
         sudo ./bat-extras/build.sh --install
         if [ -d "bat-extras" ]; then
-            rm -rf bat-extras
+            sudo rm -rf bat-extras
         fi
         echo 'export PATH="/usr/local/bat-extras/bin:$PATH"' >>$HOME/.bashrc
     fi
@@ -140,7 +140,7 @@ install_lua_ls() {
 
         # remove download lua_ls.tar.gz
         if ${file_type}; then
-            rm -rf lua_ls.tar.gz
+            sudo rm -rf lua_ls.tar.gz
         fi
     fi
 }
@@ -185,22 +185,22 @@ install_repl() {
     fi
 
     # pynvim
-    if ! python3 -m pip list | grep pynvim &>/dev/null; then
-        python3 -m pip install pynvim
+    if grep pynvim &>/dev/null; then
+        sudo apt-get install python3-pynvim
     fi
 
     # jupyter
-    if ! python3 -m pip list | grep jupyter &>/dev/null; then
-        python3 -m pip install jupyter jupyter_client
+    if grep jupyter &>/dev/null; then
+        sudo apt-get install jupyter-notebook python3-jupyter-client
     fi
 
     # jupytext
-    if ! python3 -m pip list | grep jupytext &>/dev/null; then
-        python3 -m pip install jupytext
+    if grep jupytext &>/dev/null; then
+        sudo apt-get install python3-jupytext
     fi
 
     # ilua
-    if ! python3 -m pip list | grep ilua &>/dev/null; then
+    if grep ilua &>/dev/null; then
         python3 -m pip install ilua
     fi
 }
@@ -223,8 +223,8 @@ install_debug_tools() {
     fi
 
     # debugpy
-    if ! python3 -m pip list | grep debugpy &>/dev/null; then
-        python3 -m pip install debugpy
+    if grep debugpy &>/dev/null; then
+        sudo apt-get install python3-debugpy
     fi
 }
 
@@ -241,11 +241,10 @@ install_nvim_config() {
         fi
         cp -r dotfiles/nvim $HOME/.config
         if [ -d "dotfiles" ]; then
-            rm -rf dotfiles
+            sudo rm -rf dotfiles
         fi
     fi
 }
-
 
 select_component() {
     read choice
@@ -290,8 +289,7 @@ select_component() {
 
 install_essential() {
     # install essential packages
-    sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks graphviz\
-        lua5.3 liblua5.3-dev fd-find ripgrep global sqlite3 libsqlite3-dev bat python3 python3-dev flake8 bc
+    sudo apt-get install -y ninja-build cmake unzip zip curl build-essential luarocks graphviz lua5.3 liblua5.3-dev fd-find ripgrep global sqlite3 libsqlite3-dev bat python3 python3-dev flake8 bc
     # if command -v luarocks &>/dev/null; then
     #     if ! luarocks list | grep jsregexp &>/dev/null; then
     #         sudo luarocks install jsregexp
@@ -305,7 +303,7 @@ install_essential() {
     if command -v node &>/dev/null; then
         nvm install 20
     else
-        node_version=${node -v}
+        node_version=${node-v}
         major_version=$(echo $node_version | cut -d. -f1 | cut -d'v' -f2)
         if (($(echo "${major_version} < 20" | bc -l))); then
             nvm install 20
@@ -313,13 +311,13 @@ install_essential() {
     fi
 
     # install markdown related
-    wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.22.6/tree-sitter-linux-x64.gz
+    wget https://github.com/tree-sitter/tree-sitter/releases/download/v0.25.3/tree-sitter-linux-x64.gz
     gunzip tree-sitter-linux-x64.gz
     chmod +x tree-sitter-linux-x64
     sudo mv tree-sitter-linux-x64 /usr/local/bin/tree-sitter
-    rm -rf tree-sitter-linux-x64.gz
+    sudo rm -rf tree-sitter-linux-x64.gz
     # install latex parser
-    pip install pylatexenc
+    sudo apt-get install python3-pylatexenc
 }
 
 install_all() {
