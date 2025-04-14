@@ -35,7 +35,7 @@ return {
 				border = "curved",
 				-- like `size`, width and height can be a number or function which is passed the current terminal
 				winblend = 0,
-				hightlights = {
+				highlights = {
 					border = "Normal",
 					background = "Normal",
 				},
