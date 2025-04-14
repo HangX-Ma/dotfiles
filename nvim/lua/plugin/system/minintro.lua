@@ -1,5 +1,6 @@
 return {
 	"eoh-bse/minintro.nvim",
-	config = true,
+	event = "VimEnter",
 	lazy = false,
+	config = true,
 }
