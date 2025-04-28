@@ -142,14 +142,14 @@ return {
 				layout_config = {
 					horizontal = {
 						prompt_position = "bottom",
-						preview_width = 0.35,
-						results_width = 0.65,
+						preview_width = 0.5,
+						results_width = 0.5,
 					},
 					vertical = {
 						mirror = false,
 					},
 					width = 0.9,
-					height = 0.9,
+					height = 0.72,
 					preview_cutoff = 120,
 				},
 				file_sorter = require("telescope.sorters").get_fuzzy_file,
