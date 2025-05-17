@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 vim.api.nvim_create_autocmd("User", {
-	pattern = "ReadBufPre",
+	pattern = "BufReadPre",
 	callback = function()
 		require("core.handlers").setup()
 	end,
