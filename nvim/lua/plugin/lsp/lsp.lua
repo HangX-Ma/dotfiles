@@ -100,7 +100,6 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"windwp/nvim-autopairs",
 		},
-		event = { "BufReadPost", "BufNewFile" },
 		on_attach = function(client, bufnr)
 			local status_ok, codelens_supported = pcall(function()
 				return client.supports_method("textDocument/codeLens")
