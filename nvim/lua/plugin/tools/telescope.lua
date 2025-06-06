@@ -110,8 +110,6 @@ return {
 		{ "<leader>fsq", "<cmd>Telescope quickfix<CR>", desc = "Quickfix" },
 		{ "<leader>fst", "<cmd>Telescope<CR>", desc = "Telescope Builtins" },
 		{ "<leader>fsT", "<cmd>Telescope tags<CR>", desc = "Tags" },
-		{ "<leader>fss", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
-		{ "<leader>fsS", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Workspace Symbols" },
 		{ "<leader>fsw", grep_string_cwd, desc = "Word(CWD)" },
 		{ "<leader>fsW", grep_string_cbd, desc = "Word(Buffer)" },
 	},

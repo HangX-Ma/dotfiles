@@ -13,6 +13,10 @@ local opt = vim.opt
 -- speed up lua load time
 vim.loader.enable()
 
+-- transparent
+vim.opt.pumblend=10
+vim.opt.winblend=10
+
 -- line number
 opt.relativenumber = true -- show relative line number
 opt.number = true -- show line number
@@ -66,3 +70,4 @@ opt.formatoptions = opt.formatoptions
 	+ "j" -- remove comment when joining lines
 
 -- vim.o.winbar = " %{%v:lua.vim.fn.expand('%F')%}  %{%v:lua.require'nvim-navic'.get_location()%}"
+

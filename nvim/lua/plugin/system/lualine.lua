@@ -35,7 +35,6 @@ return {
 						"notify",
 						"toggleterm",
 						"lazyterm",
-						"Outline",
 						"neominimap",
 					},
 					winbar = {},
