@@ -59,7 +59,6 @@ return {
 					"toggleterm",
 					"help",
 					"bigfile",
-					"Outline",
 					"NvimTree",
 					"startup",
 					"lazy",

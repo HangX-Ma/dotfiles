@@ -60,7 +60,6 @@ return {
 						"notify",
 						"toggleterm",
 						"lazyterm",
-						"Outline",
 					},
 				},
 			})
