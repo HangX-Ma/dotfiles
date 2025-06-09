@@ -24,7 +24,7 @@ return {
 			--ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
 			local cpplint = lint.linters.cpplint
 			cpplint.args = {
-				"--filter=-whitespace/braces,-whitespace/line_length,-whitespace/indent_namespace,"
+				"--filter=-whitespace/braces,-whitespace/line_length,-whitespace/indent_namespace,-whitespace/tab,"
 					.. "-whitespace/tab,-legal/copyright,-build/c++20,-build/header_guard,-readability/todo",
 			}
 			local cpplint_ns = lint.get_namespace("cpplint")
@@ -49,7 +49,7 @@ return {
 	-- mason-nvim-lint
 	{
 		"rshkarin/mason-nvim-lint",
-		version = "",
+		version = "v0.1.*",
 		event = "VeryLazy",
 		dependencies = {
 			"williamboman/mason.nvim",
