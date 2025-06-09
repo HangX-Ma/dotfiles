@@ -11,11 +11,11 @@ function server.setup()
 	local custom_attach = require("core.handlers").on_attach
 	capabilities.offsetEncoding = "utf-8"
 	lspconfig.clangd.setup({
-        on_attach = custom_attach,
+		on_attach = custom_attach,
 		cmd = {
 			"clangd",
 			"--background-index",
-            "--background-index-priority=low",
+			"--background-index-priority=low",
 			"-j=12",
 			"--all-scopes-completion",
 			"--completion-style=bundled",
@@ -25,7 +25,7 @@ function server.setup()
 			"--log=verbose",
 			"--header-insertion=iwyu",
 			"--header-insertion-decorators",
-			"--query-driver=/usr/bin/clang++",
+			"--query-driver=/usr/bin/clang",
 			"--pch-storage=memory",
 			"--malloc-trim",
 		},
@@ -52,7 +52,7 @@ function server.setup()
 			usePlaceholders = true,
 			completeUnimported = true,
 			clangdFileStatus = true, -- Provides information about activity on clangd’s per-file worker thread
-            fallback_flags = { "-std=c++17" }
+            fallback_flags = { "-std=c99" }
 		},
 		filetypes = { "c", "cc", "cpp", "h", "hpp", "ojbc", "objcpp", "cuda", "proto" },
 	})
