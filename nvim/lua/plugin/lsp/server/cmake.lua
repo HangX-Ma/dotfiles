@@ -10,7 +10,7 @@ function server.setup()
 	local lspconfig = require("lspconfig")
 	local custom_attach = require("core.handlers").on_attach
 	lspconfig.cmake.setup({
-        on_attach = custom_attach,
+		on_attach = custom_attach,
 		root_dir = function(fname)
 			return require("lspconfig.util").root_pattern(
 				"CMakePresets.json",

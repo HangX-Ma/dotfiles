@@ -13,9 +13,12 @@ local opt = vim.opt
 -- speed up lua load time
 vim.loader.enable()
 
--- transparent
-vim.opt.pumblend=10
-vim.opt.winblend=10
+-- window & popup transparency
+vim.opt.pumblend = 10
+vim.opt.winblend = 10
+
+-- sync buffer automatically
+vim.opt.autoread = true
 
 -- line number
 opt.relativenumber = true -- show relative line number
@@ -26,9 +29,9 @@ opt.cursorline = true -- highlight the line where the cursor points
 
 -- tab
 -- ref: <https://www.jianshu.com/p/162c19cc9c11>
-opt.tabstop = 4 -- determine one tab length is 4 space
-opt.shiftwidth = 4 -- indent length for each level, usually equals to 'tabstop'
-opt.expandtab = true -- use space to replace the tab
+opt.tabstop = 8 -- determine one tab length is 8 space
+opt.shiftwidth = 8 -- indent length for each level, usually equals to 'tabstop'
+opt.expandtab = false -- use space to replace the tab
 opt.autoindent = true -- the new tab level will use the same format as previous ones
 opt.smartindent = true
 
