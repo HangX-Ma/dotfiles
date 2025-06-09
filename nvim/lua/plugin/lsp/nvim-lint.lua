@@ -49,7 +49,7 @@ return {
 	-- mason-nvim-lint
 	{
 		"rshkarin/mason-nvim-lint",
-		version = "",
+		version = "v0.1.*",
 		event = "VeryLazy",
 		dependencies = {
 			"williamboman/mason.nvim",
