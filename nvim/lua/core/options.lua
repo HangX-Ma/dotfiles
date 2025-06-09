@@ -15,7 +15,7 @@ vim.loader.enable()
 
 -- window & popup transparency
 vim.opt.pumblend = 10
-vim.opt.winblend = 10
+vim.opt.winblend = 0
 
 -- sync buffer automatically
 vim.opt.autoread = true
