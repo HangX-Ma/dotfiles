@@ -9,7 +9,7 @@ function server.setup()
 	local lspconfig = require("lspconfig")
 	local custom_attach = require("core.handlers").on_attach
 	lspconfig.marksman.setup({
-        on_attach = custom_attach,
+		on_attach = custom_attach,
 		marksman = {},
 		flags = common.lspflags,
 		capabilities = common.capabilities,
