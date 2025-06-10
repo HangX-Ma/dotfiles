@@ -94,6 +94,7 @@ return {
 	-- lspconfig
 	{
 		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -168,6 +169,7 @@ return {
 	-- LspUI
 	{
 		"jinzhongjia/LspUI.nvim",
+		event = "VeryLazy",
 		branch = "main",
 		config = function()
 			require("LspUI").setup({
