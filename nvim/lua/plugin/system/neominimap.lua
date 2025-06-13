@@ -16,6 +16,7 @@ return {
 			exclude_filetypes = {
 				"help",
 				"bigfile", -- For Snacks.nvim
+				"markdown",
 			},
 
 			-- Minimap will not be created for buffers of these types
