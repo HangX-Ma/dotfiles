@@ -8,7 +8,7 @@ echo "=== Testing component installation ==="
 components=(1 2 3 4 5 6 7 8 9)
 for comp in "${components[@]}"; do
 	echo "--- Testing component $comp ---"
-	./requirement.sh component <<<"$comp"
+	./requirements.sh component <<<"$comp"
 done
 
 echo "=== Verifying installations ==="
