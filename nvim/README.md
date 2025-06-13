@@ -16,9 +16,9 @@ You can follow the steps in this `README` file or read the blog [\[Start from sc
 </div>
 
 > [!NOTE]
-> **_requirements.sh_** provides you a convenient installation method. Just run `. ./requirements.sh help` and follow the guidance. It may ask you privileged right to install necessary packages.
+> **_requirements.sh_** provides you a convenient installation method. Just run `. ./script/requirements.sh help` and follow the guidance. It may ask you privileged right to install necessary packages.
 >
-> **You must run the script under current shell environment using `. ./requirements.sh all`. Otherwise, the environment variables take no effect!**
+> **You must run the script under current shell environment using `. ./script/requirements.sh all`. Otherwise, the environment variables take no effect!**
 >
 > ```txt
 > Usage:  [all|basic|component|help]"
@@ -36,7 +36,9 @@ You can follow the steps in this `README` file or read the blog [\[Start from sc
 - clipboard
 
   ```bash
-  # support clipboard
+  cp script/clipboard-provider $HOME/clipboard-provider
+  echo "export PATH=$HOME/clipboard-provider:$PATH" >> ~/.bashrc
+  # support clipboard on WSL
   sudo apt-get install wl-clipboard
   ```
 

@@ -1,16 +1,23 @@
 return {
-	"OXY2DEV/markview.nvim",
-	lazy = true, -- Recommended
+	"MeanderingProgrammer/render-markdown.nvim",
+	lazy = true,
 	event = { "BufReadPre" },
-	-- ft = "markdown" -- If you decide to lazy-load anyway
-	build = ":TSUpdate html",
-	dependencies = {
-		-- You will not need this if you installed the
-		-- parsers manually
-		-- Or if the parsers are in your $RUNTIMEPATH
-		"nvim-treesitter/nvim-treesitter",
+	dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+	---@module 'render-markdown'
+	---@type render.md.UserConfig
+	config = function()
+		require("render-markdown").setup({
+			completions = {
+				lsp = { enabled = true },
+				blink = { enabled = true },
+			},
+		})
 
-		"nvim-tree/nvim-web-devicons",
-		"echasnovski/mini.nvim",
-	},
+		local cmp = require("cmp")
+		cmp.setup({
+			sources = cmp.config.sources({
+				{ name = "render-markdown" },
+			}),
+		})
+	end,
 }

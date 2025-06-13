@@ -49,7 +49,7 @@ return {
 		which_key.setup(setup)
 		which_key.add({
 			-- NORMAL mode
-			mode = "n",
+			mode = { "n", "v" },
 			prefix = "",
 			buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
 			silent = true, -- use `silent` when creating keymaps
@@ -74,7 +74,7 @@ return {
 			{ "gd", "<cmd>LspUI definition<cr>", desc = "Goto Definition" },
 			{ "gD", "<cmd>LspUI declaration<cr>", desc = "Goto Declaration" },
 			{ "gt", "<cmd>LspUI type_definition<cr>", desc = "Goto Type Declaration" },
-            { "gO", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
+			{ "gO", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
 			{ "gh", "<cmd>LspUI hover<cr>", desc = "Show Hint" },
 			{ "gH", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Show Signature" },
 			{ "gi", "<cmd>LspUI implementation<cr>", desc = "Show Implementation" },
@@ -82,7 +82,7 @@ return {
 			{ "ga", "<cmd>LspUI code_action<cr>", desc = "LSP Code Action" },
 			{ "gr", "<cmd>LspUI rename<cr>", desc = "Rename" },
 
-            -- original
+			-- original
 			-- { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Goto Definition" },
 			-- { "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", desc = "Goto Declaration" },
 			-- { "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Goto Type Declaration" },
@@ -99,18 +99,22 @@ return {
 			{ "g*", desc = "Search Symbol(↑)" },
 			{ "g#", desc = "Search Symbol(↓)" },
 
+			-- Doxygen
 			{ "<leader>D", group = "Doge" },
 			{ "<leader>Dt", desc = "Trigger Doge" },
 			{ "<leader>Dc", desc = "Generate Doxygen Comment" },
 
+
 			-- yazi
 			{ "<leader>-", desc = "Yazi" },
+
 			-- bufferline
 			{ "<leader>1", "<cmd>BufferLineGoToBuffer 1<CR>", desc = "Goto Tab1" },
 			{ "<leader>2", "<cmd>BufferLineGoToBuffer 2<CR>", desc = "Goto Tab2" },
 			{ "<leader>3", "<cmd>BufferLineGoToBuffer 3<CR>", desc = "Goto Tab3" },
 			{ "<leader>4", "<cmd>BufferLineGoToBuffer 4<CR>", desc = "Goto Tab4" },
 			{ "<leader>5", "<cmd>BufferLineGoToBuffer 5<CR>", desc = "Goto Tab5" },
+
 			-- File
 			{ "<leader>f", group = "File" },
 			{ "<leader>fb", "<cmd>Telescope file_browser<CR>", desc = "File Browser" },
@@ -343,18 +347,6 @@ return {
 			{ "<leader>cR", "<cmd>lua require('crates').open_repository()<cr>", desc = "Open repository" },
 			{ "<leader>cD", "<cmd>lua require('crates').open_documentation()<cr>", desc = "Open documentation" },
 			{ "<leader>cC", "<cmd>lua require('crates').open_crates_io()<cr>", desc = "Open crates io" },
-			{ "<leader>cu", "<cmd>lua require('crates').update_crate()<cr>", desc = "Update create" },
-			{ "<leader>cU", "<cmd>lua require('crates').upgrade_crate()<cr>", desc = "Upgrade create" },
-		})
-
-		which_key.add({
-			mode = { "v" },
-			prefix = "",
-			buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-			silent = true, -- use `silent` when creating keymaps
-			noremap = true, -- use `noremap` when creating keymaps
-			nowait = true, -- use `nowait` when creating keymaps
-			expr = false, -- use `expr` when creating keymaps
 			{ "<leader>cu", "<cmd>lua require('crates').update_crate()<cr>", desc = "Update create" },
 			{ "<leader>cU", "<cmd>lua require('crates').upgrade_crate()<cr>", desc = "Upgrade create" },
 		})
