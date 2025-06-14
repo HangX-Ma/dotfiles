@@ -24,7 +24,7 @@ return {
 				"cmake-language-server",
 				"marksman",
 				"pyright",
-				-- "ruff-lsp",
+				"rust-analyzer",
 				"taplo",
 			},
 		},
@@ -83,7 +83,6 @@ return {
 					"marksman",
 					"rust_analyzer",
 					"pyright",
-					-- "ruff_lsp",
 					"taplo",
 				},
 				automatic_installation = true,
@@ -150,7 +149,6 @@ return {
 				"lua",
 				"markdown",
 				"pyright",
-				-- "ruff-lsp",
 				"taplo",
 			}
 

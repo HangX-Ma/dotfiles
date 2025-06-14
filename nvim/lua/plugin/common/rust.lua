@@ -4,7 +4,7 @@ return {
 		-- rustaceanvim has automatically configured the rust-analyzer
 		-- builtin LSP client and integrates with other Rust tools.
 		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
+		version = "^6", -- Recommended
 		ft = { "rust" },
 		opts = {
 			server = {
