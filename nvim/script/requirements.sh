@@ -568,7 +568,7 @@ install_essential() {
 	# List of essential packages to install/update
 	ESSENTIAL_PKGS=(ninja-build cmake unzip zip curl build-essential luarocks graphviz
 		lua5.3 liblua5.3-dev fd-find ripgrep global sqlite3 libsqlite3-dev
-		bat python3 python3-dev flake8 bc python3-pylatexenc)
+		bat python3 python3-dev flake8 bc)
 
 	# Install/update essential packages
 	sudo apt-get install -y "${ESSENTIAL_PKGS[@]}"

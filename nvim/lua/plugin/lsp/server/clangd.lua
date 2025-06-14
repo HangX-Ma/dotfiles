@@ -25,7 +25,7 @@ function server.setup()
 			"--log=verbose",
 			"--header-insertion=iwyu",
 			"--header-insertion-decorators",
-			"--query-driver=/usr/bin/clang",
+			"--query-driver=/usr/bin/clang++",
 			"--pch-storage=memory",
 			"--malloc-trim",
 		},
@@ -52,7 +52,7 @@ function server.setup()
 			usePlaceholders = true,
 			completeUnimported = true,
 			clangdFileStatus = true, -- Provides information about activity on clangd’s per-file worker thread
-            fallback_flags = { "-std=c99" }
+            fallback_flags = { "-std=c++23" }
 		},
 		filetypes = { "c", "cc", "cpp", "h", "hpp", "ojbc", "objcpp", "cuda", "proto" },
 	})
