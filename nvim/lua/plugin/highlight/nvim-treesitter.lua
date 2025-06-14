@@ -14,7 +14,6 @@ return {
 				"html",
 				"json",
 				"jsonc",
-				"latex",
 				"lua",
 				"markdown",
 				"markdown_inline",
