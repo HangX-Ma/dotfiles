@@ -7,17 +7,7 @@ return {
 	---@type render.md.UserConfig
 	config = function()
 		require("render-markdown").setup({
-			completions = {
-				lsp = { enabled = true },
-				blink = { enabled = true },
-			},
-		})
-
-		local cmp = require("cmp")
-		cmp.setup({
-			sources = cmp.config.sources({
-				{ name = "render-markdown" },
-			}),
+			completions = { lsp = { enabled = true } },
 		})
 	end,
 }

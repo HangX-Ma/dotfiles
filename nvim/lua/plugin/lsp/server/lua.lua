@@ -10,17 +10,13 @@ function server.setup()
 	-- https://www.reddit.com/r/neovim/comments/1d5ub7d/lazydevnvim_much_faster_luals_setup_for_neovim/
 	local lspconfig = require("lspconfig")
 	lspconfig.lua_ls.setup({
-		root_dir = lspconfig.util.root_pattern(
-			"init.lua",
-			".luarc.json",
-			".luarc.jsonc",
-			".luacheckrc",
-			".stylua.toml",
-			"stylua.toml",
-			"selene.toml",
-			"selene.yml",
-			".git"
-		),
+		settings = {
+			Lua = {
+				hint = {
+					enable = true, -- necessary
+				},
+			},
+		},
 	})
 
 	-- no need for lazydev.nvim

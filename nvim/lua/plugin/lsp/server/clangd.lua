@@ -9,7 +9,8 @@ function server.setup()
 	local common = require("plugin.lsp.server.common")
 	local capabilities = vim.deepcopy(common.capabilities)
 	local custom_attach = require("core.handlers").on_attach
-	capabilities.offsetEncoding = "utf-8"
+	capabilities.offsetEncoding = { "utf-8", "utf-16" }
+	capabilities.textDocument = { completion = { editsNearCursor = true } }
 	lspconfig.clangd.setup({
 		on_attach = custom_attach,
 		cmd = {
@@ -52,9 +53,20 @@ function server.setup()
 			usePlaceholders = true,
 			completeUnimported = true,
 			clangdFileStatus = true, -- Provides information about activity on clangd’s per-file worker thread
-            fallback_flags = { "-std=c++23" }
+
 		},
 		filetypes = { "c", "cc", "cpp", "h", "hpp", "ojbc", "objcpp", "cuda", "proto" },
+		settings = {
+			clangd = {
+				InlayHints = {
+					Designators = true,
+					Enabled = true,
+					ParameterNames = true,
+					DeducedTypes = true,
+				},
+				fallback_flags = { "-std=c++23" },
+			},
+		},
 	})
 end
 
