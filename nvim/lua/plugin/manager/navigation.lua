@@ -2,7 +2,7 @@ return {
 	-- nvim tree
 	{
 		"nvim-tree/nvim-tree.lua",
-		version = "v1.*",
+		version = "^v1",
 		lazy = false,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
@@ -10,15 +10,16 @@ return {
 			vim.g.loaded_netrw = 1
 			vim.g.loaded_netrwPlugin = 1
 
-			-- set termguicolors to enable highlight groups
-			vim.opt.termguicolors = true
 			require("nvim-tree").setup({
 				sort = {
 					sorter = "case_sensitive",
 				},
 				update_focused_file = {
 					enable = true,
+					update_root = { enable = true },
 				},
+				renderer = { group_empty = true },
+				filters = { dotfiles = true },
 			})
 
 			local function opts(desc)

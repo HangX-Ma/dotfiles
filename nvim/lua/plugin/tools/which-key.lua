@@ -49,7 +49,7 @@ return {
 		which_key.setup(setup)
 		which_key.add({
 			-- NORMAL mode
-			mode = { "n" },
+			mode = { "n", "v" },
 			prefix = "",
 			buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
 			silent = true, -- use `silent` when creating keymaps
