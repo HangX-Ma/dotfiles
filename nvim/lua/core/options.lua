@@ -29,6 +29,7 @@ vim.opt.cursorline = true -- highlight the line where the cursor points
 -- ref: <https://www.jianshu.com/p/162c19cc9c11>
 vim.opt.tabstop = 8 -- determine one tab length is 8 space
 vim.opt.shiftwidth = 8 -- indent length for each level, usually equals to 'tabstop'
+vim.opt.softtabstop = 8 -- control tab and backspace
 vim.opt.expandtab = false -- use space to replace the tab
 vim.opt.autoindent = true -- the new tab level will use the same format as previous ones
 vim.opt.smartindent = true
