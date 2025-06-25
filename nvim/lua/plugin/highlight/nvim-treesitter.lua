@@ -24,6 +24,7 @@ return {
 				"vim",
 				"vimdoc",
 				"yaml",
+				"doxygen",
 			},
 			-- install parsers synchronously (only applied to `ensure_installed`)
 			sync_install = false,
