@@ -16,7 +16,7 @@ return {
 				},
 				update_focused_file = {
 					enable = true,
-					update_root = { enable = true },
+					update_root = { enable = false },
 				},
 				renderer = { group_empty = true },
 				filters = { dotfiles = true },
