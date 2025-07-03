@@ -1,3 +1,9 @@
+local function virtlocation()
+	local line = vim.fn.line('.')
+	local vcol = vim.fn.virtcol('.')
+	return string.format("%d:%d", line, vcol)
+end
+
 -- status bar
 return {
 	"nvim-lualine/lualine.nvim",
@@ -53,13 +59,13 @@ return {
 				lualine_c = { "filename" },
 				lualine_x = { "encoding", "fileformat", "filetype" },
 				lualine_y = { "progress" },
-				lualine_z = { "location", { "datetime", style = " %H:%M" } },
+				lualine_z = { virtlocation, { "datetime", style = " %H:%M" } },
 			},
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
 				lualine_c = { "filename" },
-				lualine_x = { "location", { "datetime", style = " %H:%M" } },
+				lualine_x = { virtlocation, { "datetime", style = " %H:%M" } },
 				lualine_y = {},
 				lualine_z = {},
 			},
