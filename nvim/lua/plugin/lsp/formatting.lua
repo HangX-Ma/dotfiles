@@ -36,12 +36,18 @@ return {
 			notify_on_error = true,
 		})
 
-		vim.keymap.set({ "n", "v" }, "<leader>fm", function()
-			conform.format({
+		vim.keymap.set("", "<leader>fm", function()
+			require("conform").format({
+				async = true,
 				lsp_fallback = true,
-				async = false,
-				timeout_ms = 500,
-			})
+			}, function(err)
+				if not err then
+					local mode = vim.api.nvim_get_mode().mode
+					if vim.startswith(string.lower(mode), "v") then
+						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+					end
+				end
+			end)
 		end, { desc = "Format file or range" })
 	end,
 }
