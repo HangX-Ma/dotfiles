@@ -114,6 +114,19 @@ return {
 			{ "<leader>3", "<cmd>BufferLineGoToBuffer 3<CR>", desc = "Goto Tab3" },
 			{ "<leader>4", "<cmd>BufferLineGoToBuffer 4<CR>", desc = "Goto Tab4" },
 			{ "<leader>5", "<cmd>BufferLineGoToBuffer 5<CR>", desc = "Goto Tab5" },
+			-- bufferline - Tab
+			{ "<leader>tj", desc = "Goto Next Tab" },
+			{ "<leader>tk", desc = "Goto Previous Tab" },
+			{ "<leader>tp", desc = "Pick Tab" },
+			{ "<leader>td", desc = "Close Tab" },
+			-- bufferline - Close Tab
+			{ "<leader>tc", group = "Close" },
+			{ "<leader>tcp", desc = "Pick And Close Tab" },
+			{ "<leader>tco", desc = "Close Other Tabs" },
+			{ "<leader>tcl", desc = "Close Left Tab" },
+			{ "<leader>tcr", desc = "Close Right Tab" },
+			-- arena
+			{"<leader>tm", "<cmd>ArenaToggle<cr>", desc = "Toggle Buffer Menu" },
 
 			-- File
 			{ "<leader>f", group = "File" },
@@ -163,7 +176,7 @@ return {
 			-- File -> linter
 			{ "<leader>fL", "<cmd>lua require('lint').try_lint()<cr>", desc = "Trigger linting" },
 
-			-- Terminal/Tab
+			-- Terminal
 			{ "<leader>t", group = "Terminal/Tab" },
 			{ "<leader>tf", desc = "Terminal Float" },
 			{ "<leader>th", desc = "Terminal Horizontal" },
@@ -171,16 +184,6 @@ return {
 			{ "<leader>tg", desc = "Lazy Git" },
 			{ "<leader>tn", desc = "ncdu" },
 			{ "<leader>tt", desc = "htop" },
-			{ "<leader>tj", desc = "Goto Next Tab" },
-			{ "<leader>tk", desc = "Goto Previous Tab" },
-			{ "<leader>tp", desc = "Pick Tab" },
-			{ "<leader>td", desc = "Close Tab" },
-			{ "<leader>tc", group = "Close" },
-			-- Terminal/Tab -> Close Tab
-			{ "<leader>tcp", desc = "Pick And Close Tab" },
-			{ "<leader>tco", desc = "Close Other Tabs" },
-			{ "<leader>tcl", desc = "Close Left Tab" },
-			{ "<leader>tcr", desc = "Close Right Tab" },
 
 			-- Git
 			{ "<leader>g", group = "Git" },
