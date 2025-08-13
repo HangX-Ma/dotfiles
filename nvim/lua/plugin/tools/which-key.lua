@@ -59,6 +59,12 @@ return {
 
 			-- common
 			{ "<leader><leader>", group = "Common" },
+			{ "<leader><leader>i", desc = "IconPicker Normal"},
+			{ "<leader><leader>y", desc = "IconPicker Yank"},
+			{ "<leader><leader>v", desc = "Toggle Visual Whitespace"},
+			{ "<leader><leader>s", desc = "Trim Trailing Whitespace"},
+			{ "<leader><leader>l", desc = "Trim Trailing Empty Lines"},
+
 
 			-- vim basic
 			{ "<leader>nh", desc = "No Highlights", hidden = true },
