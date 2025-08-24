@@ -5,7 +5,7 @@ return {
 		require("arena").setup({
 			-- Maxiumum number of files that the arena window can contain, or `nil` for
 			-- an unlimited amount
-			max_items = 5,
+			max_items = 10,
 			-- Always show the enclosing directory for these paths
 			always_context = { "mod.rs", "init.lua" },
 			-- When set, ignores the current buffer when listing files in the window.
