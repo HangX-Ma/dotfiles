@@ -16,7 +16,7 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
-				lua = { "stylua" },
+				lua = { "luaformatter" },
 				python = { "black" },
 				bash = { "shfmt"  },
 				cmake = { "cmake" },
