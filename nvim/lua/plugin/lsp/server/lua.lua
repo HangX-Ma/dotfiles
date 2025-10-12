@@ -6,26 +6,7 @@ function server.checkOK()
 end
 
 function server.setup()
-	-- lazydev.nvim configuration
-	-- https://www.reddit.com/r/neovim/comments/1d5ub7d/lazydevnvim_much_faster_luals_setup_for_neovim/
-	local opts = {
-		settings = {
-			Lua = {
-				hint = {
-					enable = true, -- necessary
-				},
-			},
-		},
-	}
-
-	local v = vim.version()
-	-- Check if Neovim is at least 0.11.0
-	if v.major > 0 or (v.major == 0 and v.minor >= 11) then
-		vim.lsp.config("lua-language-server", opts)
-	else
-		local lspconfig = require("lspconfig")
-		lspconfig.lua_ls.setup(opts)
-	end
+	vim.lsp.enable("lua_ls")
 end
 
 return server

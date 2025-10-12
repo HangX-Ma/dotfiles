@@ -58,6 +58,7 @@ function server.setup()
 	-- Check if Neovim is at least 0.11.0
 	if v.major > 0 or (v.major == 0 and v.minor >= 11) then
 		vim.lsp.config("rust_analyzer", opts)
+		vim.lsp.enable("rust_analyzer")
 	else
 		local lspconfig = require("lspconfig")
 		lspconfig.rust_analyzer.setup(opts)

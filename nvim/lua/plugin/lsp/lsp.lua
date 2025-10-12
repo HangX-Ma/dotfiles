@@ -18,7 +18,7 @@ return {
 				"prettier",
 				"clang-format",
 				"clangd",
-				"stylua",
+				"luaformatter",
 				"shfmt",
 				"lua-language-server",
 				"cmake-language-server",
@@ -144,7 +144,7 @@ return {
 
 			-- https://github.com/williamboman/nvim-lsp-installer#available-lsps
 			local servers = {
-				"bash",
+				-- "bash",
 				"clangd",
 				"cmake",
 				"lua",
