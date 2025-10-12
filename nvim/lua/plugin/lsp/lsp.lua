@@ -22,6 +22,7 @@ return {
 				"shfmt",
 				"lua-language-server",
 				"cmake-language-server",
+				"cmakelang",
 				"marksman",
 				"pyright",
 				"rust-analyzer",

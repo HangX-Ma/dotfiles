@@ -5,10 +5,9 @@ function server.checkOK()
 end
 
 function server.setup()
-	local lspconfig = require("lspconfig")
 	local common = require("plugin.lsp.server.common")
 	local custom_attach = require("core.handlers").on_attach
-	lspconfig.rust_analyzer.setup({
+	local opts = {
 		on_attach = custom_attach,
 		flags = common.lspflags,
 		capabilities = vim.tbl_deep_extend("force", common.capabilities or {}, {
@@ -53,7 +52,16 @@ function server.setup()
 				},
 			},
 		},
-	})
+	}
+
+	local v = vim.version()
+	-- Check if Neovim is at least 0.11.0
+	if v.major > 0 or (v.major == 0 and v.minor >= 11) then
+		vim.lsp.config("rust_analyzer", opts)
+	else
+		local lspconfig = require("lspconfig")
+		lspconfig.rust_analyzer.setup(opts)
+	end
 end
 
 return server
