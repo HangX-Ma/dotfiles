@@ -40,9 +40,12 @@ You can follow the steps in this `README` file or read the blog [\[Start from sc
   echo "export PATH=$HOME/clipboard-provider:$PATH" >> ~/.bashrc
   # support clipboard on WSL
   sudo apt-get install wl-clipboard
+  # test clipboard-provider
+  echo "test" | clipboard-provider copy
   ```
 
   > You can select your own clipboard support by looking at `:help clipboard-tool` in neovim.
+  > Refer to this [page](https://zhuanlan.zhihu.com/p/419472307) to acquire more details.
 
 ## Update configuration files
 
