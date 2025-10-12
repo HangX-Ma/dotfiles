@@ -5,13 +5,12 @@ function server.checkOK()
 end
 
 function server.setup()
-	local lspconfig = require("lspconfig")
 	local common = require("plugin.lsp.server.common")
 	local capabilities = vim.deepcopy(common.capabilities)
 	local custom_attach = require("core.handlers").on_attach
 	capabilities.offsetEncoding = { "utf-8", "utf-16" }
 	capabilities.textDocument = { completion = { editsNearCursor = true } }
-	lspconfig.clangd.setup({
+	local opts = {
 		on_attach = custom_attach,
 		cmd = {
 			"clangd",
@@ -67,7 +66,16 @@ function server.setup()
 				fallback_flags = { "-std=c++23" },
 			},
 		},
-	})
+	}
+
+	local v = vim.version()
+	-- Check if Neovim is at least 0.11.0
+	if v.major > 0 or (v.major == 0 and v.minor >= 11) then
+		vim.lsp.config("clangd", opts)
+	else
+		local lspconfig = require("lspconfig")
+		lspconfig.clangd.setup(opts)
+	end
 end
 
 return server
