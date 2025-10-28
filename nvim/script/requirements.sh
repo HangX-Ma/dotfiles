@@ -647,7 +647,11 @@ install_essential() {
 			wget -q "$TS_URL" -O "${ts_package}.gz"
 			gunzip "${ts_package}.gz"
 			chmod +x "$ts_package"
-			sudo mv "$ts_package" "${DEFAULT_PATH}/bin/tree-sitter"
+			if [ -w ${DEFAULT_PATH} ]; then
+				mv "$ts_package" "${DEFAULT_PATH}/bin/tree-sitter"
+			else
+				sudo mv "$ts_package" "${DEFAULT_PATH}/bin/tree-sitter"
+			fi
 			rm -f "${ts_package}.gz"
 			echo -e "${GREEN}[SUCCESS] tree-sitter updated to v${TS_LATEST_VERSION}${RESET}"
 		else
