@@ -356,7 +356,13 @@ install_bat_extra() {
 	git clone https://github.com/eth-p/bat-extras.git bat-extras
 	cd bat-extras
 	git checkout "$LATEST_VERSION"
-	sudo ./build.sh --install --prefix="${DEFAULT_PATH}"
+	
+	if [ -w ${DEFAULT_PATH} ]; then
+		./build.sh --install --prefix="${DEFAULT_PATH}"
+	else
+		sudo ./build.sh --install --prefix="${DEFAULT_PATH}"
+	fi
+
 	cd ..
 	sudo rm -rf bat-extras
 
