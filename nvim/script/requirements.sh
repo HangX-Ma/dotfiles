@@ -350,19 +350,10 @@ install_bat_extra() {
 	fi
 
 	sudo apt-get install -y gawk
-	curl -sS https://webinstall.dev/shfmt | bash
-	source "$HOME/.config/envman/PATH.env"
-
 	git clone https://github.com/eth-p/bat-extras.git bat-extras
 	cd bat-extras
-	git checkout "$LATEST_VERSION"
-	
-	if [ -w ${DEFAULT_PATH} ]; then
-		./build.sh --install --prefix="${DEFAULT_PATH}"
-	else
-		sudo ./build.sh --install --prefix="${DEFAULT_PATH}"
-	fi
-
+	git checkout "v${LATEST_VERSION}"
+	sudo ./build.sh --install --minify=none --prefix="${DEFAULT_PATH}"
 	cd ..
 	sudo rm -rf bat-extras
 
