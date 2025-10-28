@@ -213,13 +213,22 @@ install_nvim() {
 		fi
 	fi
 
-	if ! wget -q "https://github.com/neovim/neovim/releases/download/v${LATEST_VERSION}/nvim-linux-${PACKAGE_NAME}.tar.gz"; then
-		echo -e "${RED}[ERROR] Failed to download Neovim${RESET}"
+	for i in {1..3}; do
+		wget -q "https://github.com/neovim/neovim/releases/download/v${LATEST_VERSION}/nvim-linux-${PACKAGE_NAME}.tar.gz" && break
+		echo -e "${RED}[WARNING] Attempt $i failed${RESET}"
+		sleep 2
+	done || {
+		echo -e "${RED}[ERROR] Failed to download Neovim after 3 attempts${RESET}"
 		return 1
-	fi
+	}
 
 	tar xf "nvim-linux-${PACKAGE_NAME}.tar.gz"
-	sudo cp -rf "nvim-linux-${PACKAGE_NAME}" "${DEFAULT_PATH}/"
+	if [ -w ${DEFAULT_PATH} ]; then
+		cp -rf "nvim-linux-${PACKAGE_NAME}" "${DEFAULT_PATH}/"
+	else
+		sudo cp -rf "nvim-linux-${PACKAGE_NAME}" "${DEFAULT_PATH}/"
+	fi
+
 	echo "export PATH=\"${DEFAULT_PATH}/nvim-linux-${PACKAGE_NAME}/bin:\$PATH\"" >>"$HOME/.bashrc"
 	rm -rf "nvim-linux-${PACKAGE_NAME}"*
 
@@ -346,9 +355,7 @@ install_bat_extra() {
 	sudo ./build.sh --install --prefix="${DEFAULT_PATH}"
 	cd ..
 	sudo rm -rf bat-extras
-	echo "export PATH=\"${DEFAULT_PATH}/bat-extras/bin:\$PATH\"" >>"$HOME/.bashrc"
 
-	export PATH="${DEFAULT_PATH}/bat-extras/bin:$PATH"
 	verify_installation "bat-extras" "batgrep"
 }
 
@@ -459,26 +466,31 @@ install_lua_ls() {
 
 	echo -e "${CYAN}[INFO] Downloading lua-language-server from: $DOWNLOAD_URL${RESET}"
 
-	if ! curl -Lo lua_ls.tar.gz "$DOWNLOAD_URL"; then
+	curl -fLo lua_ls.tar.gz "${DOWNLOAD_URL}"
+	if [ ! -f lua_ls.tar.gz ]; then
 		echo -e "${RED}[ERROR] Failed to download lua-language-server${RESET}"
+		return 1
+	fi
+
+	FILE_TYPE=$(file --mime-type lua_ls.tar.gz | awk '{print $2}')
+	if [ "$FILE_TYPE" != "application/gzip" ]; then
+		echo -e "${RED}[ERROR] The downloaded file is not a valid .tar.gz archive (detected type: $FILE_TYPE)${RESET}"
 		return 1
 	fi
 
 	local TEMP_DIR=$(mktemp -d)
 	mkdir -p "$TEMP_DIR/lua_ls"
 
-	if ! tar xf lua_ls.tar.gz -C "$TEMP_DIR/lua_ls"; then
-		echo -e "${RED}[ERROR] Failed to extract lua-language-server${RESET}"
-		rm -rf "$TEMP_DIR"
-		return 1
-	fi
+	tar xf lua_ls.tar.gz -C "$TEMP_DIR/lua_ls"
 
-	sudo cp -rf "$TEMP_DIR/lua_ls" "${DEFAULT_PATH}/"
-	echo "export PATH=\"${DEFAULT_PATH}/lua_ls/bin:\$PATH\"" >>"$HOME/.bashrc"
+	if [ -w ${DEFAULT_PATH} ]; then
+		cp -rf "$TEMP_DIR/lua_ls/bin/lua-language-server" "$DEFAULT_PATH/bin"
+	else
+		sudo cp -rf "$TEMP_DIR/lua_ls/bin/lua-language-server" "$DEFAULT_PATH/bin"
+	fi
 
 	rm -rf "$TEMP_DIR" lua_ls.tar.gz
 
-	export PATH="${DEFAULT_PATH}/lua_ls/bin:$PATH"
 	verify_installation "lua-language-server" "lua-language-server"
 }
 
