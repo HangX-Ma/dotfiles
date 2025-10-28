@@ -272,7 +272,11 @@ install_lazygit() {
 	fi
 
 	tar xf lazygit.tar.gz lazygit
-	sudo cp -rf lazygit "${DEFAULT_PATH}/bin"
+	if [ -w ${DEFAULT_PATH} ]; then
+		cp -rf lazygit "${DEFAULT_PATH}/bin"
+	else
+		sudo cp -rf lazygit "${DEFAULT_PATH}/bin"
+	fi
 	rm -rf lazygit*
 
 	export PATH="${DEFAULT_PATH}/bin:$PATH"
