@@ -79,7 +79,7 @@ return {
 		"nvim-telescope/telescope-symbols.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		"nvim-telescope/telescope-file-browser.nvim",
-		"nvim-telescope/telescope-dap.nvim",
+		-- "nvim-telescope/telescope-dap.nvim",
 		"catgoose/telescope-helpgrep.nvim",
 		{
 			"ryanmsnyder/toggleterm-manager.nvim",
@@ -211,7 +211,7 @@ return {
 			"helpgrep",
 			"file_browser",
 			"ui-select",
-			"dap",
+			-- "dap",
 		}
 
 		for e in ipairs(extensions) do

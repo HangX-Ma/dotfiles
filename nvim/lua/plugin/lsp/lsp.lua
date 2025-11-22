@@ -173,6 +173,21 @@ return {
 		config = function()
 			require("LspUI").setup({
 				-- config options go here
+				code_action = {
+					keys = {
+						quit = "q",
+						prev = "k",
+						next = "j",
+						exec = "<CR>",
+					},
+				},
+				hover = {
+					keys = {
+						prev = "k",
+						next = "j",
+						exec = "<CR>",
+					},
+				},
 			})
 		end,
 	},

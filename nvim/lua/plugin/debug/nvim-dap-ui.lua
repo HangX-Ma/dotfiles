@@ -52,16 +52,17 @@ local dap_breakpoint = {
 -- fancy UI for the debugger
 return {
 	"rcarriga/nvim-dap-ui",
+	enabled = false,
 	dependencies = {
 		"mfussenegger/nvim-dap",
 		"nvim-neotest/nvim-nio",
 	},
-    lazy = true,
-    -- stylua: ignore
-    keys = {
-        { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
-        { "<leader>de", function() require("dapui").eval() end,     desc = "Dap Eval",  mode = { "n", "v" } },
-    },
+	lazy = true,
+	-- stylua: ignore
+	keys = {
+		{ "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
+		{ "<leader>de", function() require("dapui").eval() end,     desc = "Dap Eval", mode = { "n", "v" } },
+	},
 	opts = {},
 	config = function(_, opts)
 		-- highlight
