@@ -1,5 +1,6 @@
 return {
 	"kawre/leetcode.nvim",
+	enabled = false,
 	version = "v0.3.x",
 	lazy = "leetcode.nvim" ~= vim.fn.argv()[1],
 	build = ":TSUpdate html",
