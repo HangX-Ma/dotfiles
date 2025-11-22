@@ -87,6 +87,9 @@ return {
 			{ "gF", "<cmd>LspUI reference<cr>", desc = "Show References" },
 			{ "ga", "<cmd>LspUI code_action<cr>", desc = "LSP Code Action" },
 			{ "gr", "<cmd>LspUI rename<cr>", desc = "Rename" },
+			{ "gl", "<cmd>LspUI call_hierarchy incoming_calls<cr>", desc = "Incoming Calls" },
+			{ "gL", "<cmd>LspUI call_hierarchy outgoing_calls<cr>", desc = "Outgoing Calls" },
+			{ "gs", "<cmd>LspUI history<cr>", desc = "Jump History Viewer" },
 
 			-- original
 			-- { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", desc = "Goto Definition" },
@@ -194,9 +197,9 @@ return {
 			-- Git
 			{ "<leader>g", group = "Git" },
 			{ "<leader>gf", "<cmd>DiffviewFileHistory<CR>", desc = "File History" },
-			{ "<leader>gp", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },
+			{ "<leader>gD", "<cmd>DiffviewOpen<CR>", desc = "Diff Project" },
 			{ "<leader>gn", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "Next Hunk" },
-			{ "<leader>gN", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
+			{ "<leader>gp", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "Prev Hunk" },
 			{ "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame" },
 			{ "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset Hunk" },
 			{ "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset Buffer" },
@@ -207,7 +210,7 @@ return {
 			{ "<leader>go", "<cmd>Telescope git_status<cr>", desc = "Open changed file" },
 			{ "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
 			{ "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit" },
-			{ "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diff" },
+			{ "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diffthis" },
 
 			-- diagonostics
 			{ "<leader>a", group = "Diagonostics" },
