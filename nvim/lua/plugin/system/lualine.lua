@@ -57,7 +57,7 @@ local function virtlocation()
 			end
 		end
 
-		select_info = string.format("%d   %d:%d (%d selected)", line_count, line, vcol, count)
+		select_info = string.format("%d:%d Sel:%d|%d", line, vcol, count, line_count)
 	else
 		select_info = string.format("%d:%d", line, vcol)
 	end
@@ -118,7 +118,7 @@ return {
 			sections = {
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = { "filename" },
+				lualine_c = {},
 				lualine_x = {
 					{
 						"encoding",
@@ -126,30 +126,28 @@ return {
 							return string.upper(str)
 						end
 					}
-					, "fileformat", "filetype" },
+					, "fileformat", "filetype"
+				},
 				lualine_y = { "progress" },
 				lualine_z = { virtlocation, { "datetime", style = " %H:%M" } },
 			},
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
-				lualine_c = { "filename" },
+				lualine_c = {},
 				lualine_x = { virtlocation, { "datetime", style = " %H:%M" } },
 				lualine_y = {},
 				lualine_z = {},
 			},
 			tabline = {},
 			winbar = {
-				--[[ lualine_c = {
-					{
-						function()
-							return navic.get_location()
-						end,
-						cond = function()
-							return navic.is_available()
-						end,
-					},
-				}, ]]
+				-- lualine_c = {
+				-- 	{
+				-- 		"navic",
+				-- 		color_correction = nil,
+				-- 		navic_opts = nil
+				-- 	}
+				-- },
 			},
 			inactive_winbar = {},
 			extensions = {},

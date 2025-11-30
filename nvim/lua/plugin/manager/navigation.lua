@@ -32,7 +32,7 @@ return {
 			-- custom mappings
 			vim.keymap.set("n", "g?", api.tree.toggle_help, opts("Help"))
 			-- toggle explorer
-			vim.keymap.set("n", "<C-N>", ":NvimTreeToggle<CR>", opts("Toggle Explorer"))
+			vim.keymap.set("n", "<C-B>", ":NvimTreeToggle<CR>", opts("Toggle Explorer"))
 		end,
 	},
 	-- tmux
