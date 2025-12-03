@@ -276,6 +276,9 @@ return {
 			{ "<leader>vO", "<cmd>lua require('neotest').output_panel.toggle()<cr>", desc = "Toggle Output Panel" },
 			{ "<leader>vS", "<cmd>lua require('neotest').run.stop()<cr>", desc = "Stop" },
 
+			{ "<leader>M", group = "Makers" },
+			{ "<leader>Mg", group = "Groups" },
+
 			-- CscopeMaps
 			{ "<leader>m", group = "CscopeMaps" },
 			{ "<leader>ms", desc = "Find all references" },
