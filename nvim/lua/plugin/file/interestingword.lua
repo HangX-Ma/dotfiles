@@ -6,7 +6,7 @@ return {
 			colors = { "#e67e80", "#bfa3df", "#6cbbda", "#dfdb72", "#a4c5ea", "#9999ea", "#a7c080" },
 			search_count = true,
 			navigation = true,
-			scroll_center = true,
+			scroll_center = false,
 			search_key = "<leader><leader>m",
 			cancel_search_key = "<leader><leader>M",
 			color_key = "<leader><leader>k",
