@@ -12,8 +12,8 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				markdown = { "markdownlint" },
-				cpp = { "cpplint" },
-				c = { "cpplint" },
+				-- cpp = { "cpplint" },
+				-- c = { "cpplint" },
 				yaml = { "yamllint" },
 				-- python = { "flake8", "pydocstyle" },
 				lua = { "luacheck" },
@@ -22,13 +22,13 @@ return {
 
 			-- configure cpplint
 			--ref: https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py
-			local cpplint = lint.linters.cpplint
-			cpplint.args = {
-				"--filter=-whitespace/braces,-whitespace/line_length,-whitespace/indent_namespace,-whitespace/tab,"
-					.. "-whitespace/tab,-legal/copyright,-build/c++20,-build/header_guard,-readability/todo",
-			}
-			local cpplint_ns = lint.get_namespace("cpplint")
-			vim.diagnostic.config({ virtual_text = false }, cpplint_ns)
+			-- local cpplint = lint.linters.cpplint
+			-- cpplint.args = {
+			-- 	"--filter=-whitespace/braces,-whitespace/line_length,-whitespace/indent_namespace,-whitespace/tab,"
+			-- 		.. "-whitespace/tab,-legal/copyright,-build/c++20,-build/header_guard,-readability/todo",
+			-- }
+			-- local cpplint_ns = lint.get_namespace("cpplint")
+			-- vim.diagnostic.config({ virtual_text = false }, cpplint_ns)
 
 			-- configure luacheck
 			local luacheck = lint.linters.luacheck
@@ -41,7 +41,9 @@ return {
 				group = lint_augroup,
 				callback = function()
 					lint.try_lint()
-					lint.try_lint("codespell")
+					if vim.fn.executable("codespell") == 1 then
+						lint.try_lint("codespell")
+					end
 				end,
 			})
 		end,
@@ -59,7 +61,7 @@ return {
 			require("mason-nvim-lint").setup({
 				ensure_installed = {
 					"markdownlint",
-					"cpplint",
+					-- "cpplint",
 					"luacheck",
 					-- "flake8",
 					-- "pydocstyle",
@@ -68,7 +70,7 @@ return {
 					"commitlint",
 				},
 				ignore_install = {},
-				automatic_installation = true,
+				automatic_installation = false,
 				quiet_mode = false,
 			})
 		end,

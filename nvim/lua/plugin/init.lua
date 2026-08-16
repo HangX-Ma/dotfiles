@@ -1,13 +1,12 @@
 return {
-	{ import = "plugin.common" },
 	{ import = "plugin.debug" },
 	{ import = "plugin.editor" },
-	{ import = "plugin.file" },
+	{ import = "plugin.finder" },
 	{ import = "plugin.git" },
-	{ import = "plugin.highlight" },
+	{ import = "plugin.lang" },
 	{ import = "plugin.lsp" },
-	{ import = "plugin.manager" },
-	{ import = "plugin.system" },
 	{ import = "plugin.theme" },
 	{ import = "plugin.tools" },
+	{ import = "plugin.treesitter" },
+	{ import = "plugin.ui" },
 }

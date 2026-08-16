@@ -10,16 +10,17 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 
+vim.loader.enable() -- speed up Lua module loading; must run before requiring user modules
+require("core.node-path") -- put a modern node on PATH before mason spawns node-based servers
 require("core.options")
 vim.api.nvim_command("syntax on")
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
-vim.loader.enable()
 
 require("lazy").setup("plugin", {
 	ui = {
 		border = "rounded",
 	},
-	checker = { enabled = true }, -- automatically check for plugin updates
+	checker = { enabled = false }, -- avoid blocking startup with remote update checks
 	performance = {
 		rtp = {
 			-- disable some rtp plugins

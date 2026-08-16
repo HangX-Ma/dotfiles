@@ -5,11 +5,20 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- open doxygen syntax highlight
-vim.g.load_doxygen_syntax = 1
+-- disable netrw early so nvim-tree can take over without races
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
--- speed up lua load time
-vim.loader.enable()
+-- Disable language providers we don't use (silences :checkhealth warnings
+-- and skips a fork/exec at startup for each).
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+-- doxygen highlighting is provided by the treesitter `doxygen` parser
+-- injected into C/C++ comments; the Vim regex syntax is redundant.
+vim.g.load_doxygen_syntax = 0
 
 -- window & popup transparency
 vim.opt.pumblend = 10
@@ -36,7 +45,6 @@ vim.opt.smartindent = true
 
 -- render
 vim.opt.termguicolors = true -- the nvim terminal will become colorful
-vim.opt.signcolumn = "yes"
 vim.opt.conceallevel = 2
 
 -- coding
@@ -85,4 +93,8 @@ if vim.fn.executable("clipboard-provider") == 1 then
 			["*"] = "clipboard-provider paste",
 		},
 	}
+	-- Route yank/put through the system clipboard via the provider above.
+	-- vim.g.clipboard is set explicitly, so Neovim skips its usual clipboard
+	-- probe at startup; setting this synchronously has no startup cost.
+	vim.opt.clipboard = "unnamedplus"
 end

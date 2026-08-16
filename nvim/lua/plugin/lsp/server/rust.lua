@@ -1,42 +1,24 @@
 local server = {}
 
 function server.checkOK()
-	return vim.fn.executable("rust_analyzer") == 1
+	return vim.fn.executable("rust-analyzer") == 1
 end
 
 function server.setup()
-	local common = require("plugin.lsp.server.common")
-	local custom_attach = require("core.handlers").on_attach
-	local opts = {
-		on_attach = custom_attach,
-		flags = common.lspflags,
-		capabilities = vim.tbl_deep_extend("force", common.capabilities or {}, {
-			experimental = {
-				serverStatusNotification = true,
-			},
-		}),
+	vim.lsp.config("rust_analyzer", {
 		filetypes = { "rust" },
 		settings = {
 			["rust-analyzer"] = {
-				diagnostics = {
-					enable = true,
-				},
+				diagnostics = { enable = true },
 				completion = {
-					autoimport = {
-						enable = true,
-					},
-					postfix = {
-						enable = true,
-					},
+					autoimport = { enable = true },
+					postfix = { enable = true },
 				},
 				cargo = {
 					allFeatures = true,
 					loadOutDirsFromCheck = true,
-					buildScripts = {
-						enable = true,
-					},
+					buildScripts = { enable = true },
 				},
-				-- Add clippy lints for Rust.
 				checkOnSave = {
 					allFeatures = true,
 					command = "clippy",
@@ -52,17 +34,8 @@ function server.setup()
 				},
 			},
 		},
-	}
-
-	local v = vim.version()
-	-- Check if Neovim is at least 0.11.0
-	if v.major > 0 or (v.major == 0 and v.minor >= 11) then
-		vim.lsp.config("rust_analyzer", opts)
-		vim.lsp.enable("rust_analyzer")
-	else
-		local lspconfig = require("lspconfig")
-		lspconfig.rust_analyzer.setup(opts)
-	end
+	})
+	vim.lsp.enable("rust_analyzer")
 end
 
 return server

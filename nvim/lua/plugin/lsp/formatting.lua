@@ -16,10 +16,10 @@ return {
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
-				lua = { "luaformatter" },
+				lua = { "stylua" },
 				python = { "black" },
-				bash = { "shfmt"  },
-				cmake = { "cmake" },
+				bash = { "shfmt" },
+				cmake = { "cmake_format" },
 				cpp = { "clang-format" },
 				c = { "clang-format" },
 				-- Use the "*" filetype to run formatters on all filetypes.
@@ -31,7 +31,7 @@ return {
 				timeout_ms = 500,
 			}, ]]
 			-- Set the log level. Use `:ConformInfo` to see the location of the log file.
-			log_level = vim.log.levels.WARNNING,
+			log_level = vim.log.levels.WARN,
 			-- Conform will notify you when a formatter errors
 			notify_on_error = true,
 		})

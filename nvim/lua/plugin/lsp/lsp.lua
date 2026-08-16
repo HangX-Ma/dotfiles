@@ -1,5 +1,59 @@
+-- Single source of truth for LSP servers.
+-- Each entry maps a lspconfig server name to:
+--   mason     - the mason package name (omit if not installed via mason)
+--   exe       - executable to probe with vim.fn.executable() before enabling
+--   custom    - module under plugin.lsp.server.* that does its own setup
+--               (e.g. clangd, rust). When set, we never call vim.lsp.enable here.
+local SERVERS = {
+	bashls = { mason = "bash-language-server", exe = "bash-language-server" },
+	clangd = { mason = "clangd", exe = "clangd", custom = "clangd" },
+	cmake = { mason = "cmake-language-server", exe = "cmake-language-server" },
+	-- Not on mason (it's camera-kernel's own in-tree tool, not a package-
+	-- manager install). exe = "python3" rather than "kclippy": kclippy.lua's
+	-- own setup() falls back to `python3 <checkout>/kclippy.py` when a bare
+	-- `kclippy` isn't on PATH, and gates activation per-buffer on actually
+	-- being inside a camera-kernel checkout — so probing for "kclippy" here
+	-- would wrongly warn on every box that only has the fallback available.
+	kclippy = { exe = "python3", custom = "kclippy" },
+	lua_ls = { mason = "lua-language-server", exe = "lua-language-server" },
+	marksman = { mason = "marksman", exe = "marksman" },
+	pyright = { mason = "pyright", exe = "pyright" },
+	rust_analyzer = { mason = "rust-analyzer", exe = "rust-analyzer", custom = "rust" },
+	taplo = { mason = "taplo", exe = "taplo" },
+}
+
+-- Extra (non-server) tools mason should install for formatters/linters.
+local MASON_TOOLS = {
+	"black",
+	"clang-format",
+	"cmakelang",
+	"codelldb",
+	"stylua",
+	"prettier",
+	"shfmt",
+}
+
+local function mason_ensure_installed()
+	local list = vim.deepcopy(MASON_TOOLS)
+	for _, cfg in pairs(SERVERS) do
+		if cfg.mason then
+			table.insert(list, cfg.mason)
+		end
+	end
+	return list
+end
+
+local function mason_lspconfig_ensure()
+	local list = {}
+	for name, cfg in pairs(SERVERS) do
+		if cfg.mason then
+			table.insert(list, name)
+		end
+	end
+	return list
+end
+
 return {
-	-- cmdline tools and lsp servers
 	{
 		"williamboman/mason.nvim",
 		cmd = "Mason",
@@ -12,22 +66,7 @@ return {
 					package_uninstalled = "×",
 				},
 			},
-			ensure_installed = {
-				"codelldb",
-				"black",
-				"prettier",
-				"clang-format",
-				"clangd",
-				"luaformatter",
-				"shfmt",
-				"lua-language-server",
-				"cmake-language-server",
-				"cmakelang",
-				"marksman",
-				"pyright",
-				-- "rust-analyzer",
-				"taplo",
-			},
+			ensure_installed = mason_ensure_installed(),
 		},
 		---@param opts MasonSettings | {ensure_installed: string[]}
 		config = function(_, opts)
@@ -35,7 +74,6 @@ return {
 			local mr = require("mason-registry")
 			mr:on("package:install:success", function()
 				vim.defer_fn(function()
-					-- trigger FileType event to possibly load this newly installed LSP server
 					require("lazy.core.handler.event").trigger({
 						event = "FileType",
 						buf = vim.api.nvim_get_current_buf(),
@@ -55,140 +93,145 @@ return {
 			else
 				ensure_installed()
 			end
-			-- vim config
-			vim.diagnostic.config({
-				virtual_text = false,
-				signs = true,
-				update_in_insert = true,
-			})
-			local signs = { Error = "", Warn = "", Hint = " ", Info = "" }
-			for type, icon in pairs(signs) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-			end
 		end,
 	},
 
-	-- mason lspconfig
 	{
 		"williamboman/mason-lspconfig.nvim",
 		event = "VeryLazy",
 		dependencies = "williamboman/mason.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"bashls",
-					"clangd",
-					"cmake",
-					"lua_ls",
-					"marksman",
-					-- "rust_analyzer",
-					"pyright",
-					"taplo",
-				},
+				ensure_installed = mason_lspconfig_ensure(),
 				automatic_installation = true,
 			})
 		end,
 	},
 
-	-- lspconfig
 	{
 		"neovim/nvim-lspconfig",
 		event = "VeryLazy",
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"hrsh7th/cmp-nvim-lsp",
+			"saghen/blink.cmp",
 			"windwp/nvim-autopairs",
 		},
-		on_attach = function(client, bufnr)
-			local status_ok, codelens_supported = pcall(function()
-				return client.supports_method("textDocument/codeLens")
-			end)
-			if not status_ok or not codelens_supported then
-				return
-			end
-			local group = "lsp_code_lens_refresh"
-			local cl_events = { "BufEnter", "InsertLeave" }
-			local ok, cl_autocmds = pcall(vim.api.nvim_get_autocmds, {
-				group = group,
-				buffer = bufnr,
-				event = cl_events,
-			})
-			if ok and #cl_autocmds > 0 then
-				return
-			end
-			local cb = function()
-				if vim.api.nvim_buf_is_loaded(bufnr) and vim.api.nvim_buf_is_valid(bufnr) then
-					vim.lsp.codelens.refresh({ bufnr = bufnr })
-				end
-			end
-			vim.api.nvim_create_augroup(group, { clear = false })
-			vim.api.nvim_create_autocmd(cl_events, {
-				group = group,
-				buffer = bufnr,
-				callback = cb,
-			})
-		end,
 		config = function()
-			require("lspconfig.ui.windows").default_options = {
-				border = "rounded",
-			}
-			local crisp = require("core.crisp")
-			-- Change diagnostic symbols in the sign column (gutter)
-			local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-			for type, icon in pairs(signs) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+			require("lspconfig.ui.windows").default_options = { border = "rounded" }
+
+			-- Diagnostic UI. Sign text/highlights are configured via
+			-- `vim.diagnostic.config({ signs = { text = ..., numhl = ... } })`
+			-- on Neovim 0.10+; the older `sign_define("DiagnosticSign*", ...)`
+			-- API is deprecated.
+			vim.diagnostic.config({
+				virtual_text = false,
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "󰅚 ",
+						[vim.diagnostic.severity.WARN] = "󰀪 ",
+						[vim.diagnostic.severity.HINT] = "󰌶 ",
+						[vim.diagnostic.severity.INFO] = " ",
+					},
+					numhl = {
+						[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+						[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+						[vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+						[vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+					},
+				},
+				underline = true,
+				severity_sort = true,
+				update_in_insert = false,
+				float = {
+					style = "minimal",
+					border = "rounded",
+					source = "always",
+					header = "",
+					prefix = "",
+				},
+			})
+
+			-- Default capabilities for every server. blink.cmp injects its own
+			-- completion capabilities and merges with the default protocol
+			-- capabilities; ufo needs lineFoldingOnly on top.
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			local ok_blink, blink = pcall(require, "blink.cmp")
+			if ok_blink then
+				capabilities = blink.get_lsp_capabilities(capabilities)
 			end
-
-			-- https://github.com/williamboman/nvim-lsp-installer#available-lsps
-			local servers = {
-				-- "bash",
-				"clangd",
-				"cmake",
-				"lua",
-				"markdown",
-				"pyright",
-				"taplo",
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
 			}
+			vim.lsp.config("*", { capabilities = capabilities })
 
-			for _, server in ipairs(servers) do
-				local serverModule = crisp.prequire("plugin.lsp.server." .. server)
-				if serverModule and serverModule.checkOK() then
-					serverModule.setup()
-				else
-					if crisp.notifyLSPError() then
-						crisp.warn("The lsp server " .. server .. " not found", "LSP ERROR")
+			-- LspAttach: shared per-buffer behaviour (codelens refresh, document
+			-- highlight, formatting opt-out for noisy servers).
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("user_lsp_attach", { clear = true }),
+				callback = function(ev)
+					local client = vim.lsp.get_client_by_id(ev.data.client_id)
+					if not client then
+						return
 					end
+
+					if client.name == "tsserver" or client.name == "rust_analyzer" then
+						client.server_capabilities.documentFormattingProvider = false
+					end
+
+					if client.server_capabilities.documentHighlightProvider then
+						local hl_group =
+							vim.api.nvim_create_augroup("user_lsp_doc_highlight_" .. ev.buf, { clear = true })
+						vim.api.nvim_create_autocmd("CursorHold", {
+							group = hl_group,
+							buffer = ev.buf,
+							callback = vim.lsp.buf.document_highlight,
+						})
+						vim.api.nvim_create_autocmd("CursorMoved", {
+							group = hl_group,
+							buffer = ev.buf,
+							callback = vim.lsp.buf.clear_references,
+						})
+					end
+
+					local ok, supported = pcall(client.supports_method, client, "textDocument/codeLens")
+					local ft = vim.bo[ev.buf].filetype
+					if ok and supported and ft ~= "c" and ft ~= "cpp" then
+						-- codelens.enable() replaces the deprecated codelens.refresh()
+						-- (removed in 0.13). It buf_attaches and auto-refreshes on
+						-- text changes, so the old BufEnter/InsertLeave autocmd that
+						-- called refresh() by hand is no longer needed.
+						vim.lsp.codelens.enable(true, { bufnr = ev.buf })
+					end
+				end,
+			})
+
+			local crisp = require("core.crisp")
+			for name, cfg in pairs(SERVERS) do
+				if vim.fn.executable(cfg.exe) ~= 1 then
+					if crisp.notifyLSPError() then
+						crisp.warn("LSP server '" .. name .. "' (exe: " .. cfg.exe .. ") not found", "LSP")
+					end
+				elseif cfg.custom then
+					local mod = crisp.prequire("plugin.lsp.server." .. cfg.custom)
+					if mod and mod.setup then
+						mod.setup()
+					end
+				else
+					vim.lsp.enable(name)
 				end
 			end
 		end,
 	},
-	-- LspUI
+
 	{
 		"jinzhongjia/LspUI.nvim",
 		event = "VeryLazy",
 		branch = "main",
-		config = function()
-			require("LspUI").setup({
-				-- config options go here
-				code_action = {
-					keys = {
-						quit = "q",
-						prev = "k",
-						next = "j",
-						exec = "<CR>",
-					},
-				},
-				hover = {
-					keys = {
-						prev = "k",
-						next = "j",
-						exec = "<CR>",
-					},
-				},
-			})
-		end,
+		opts = {
+			code_action = { keys = { quit = "q", prev = "k", next = "j", exec = "<CR>" } },
+			hover = { keys = { prev = "k", next = "j", exec = "<CR>" } },
+		},
 	},
 }

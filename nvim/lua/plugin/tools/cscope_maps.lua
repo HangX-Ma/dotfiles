@@ -22,16 +22,12 @@ return {
 		"dhananjaylatkar/cscope_maps.nvim",
 		dependencies = {
 			"folke/which-key.nvim", -- optional [for whichkey hints]
-			{ "nvim-telescope/telescope.nvim", lazy = true }, -- optional [for picker="telescope"]
-			"ibhagwan/fzf-lua", -- optional [for picker="fzf-lua"]
-			{ "nvim-tree/nvim-web-devicons", lazy = true }, -- optional [for devicons in telescope or fzf]
-			"rcarriga/nvim-notify",
+			"ibhagwan/fzf-lua", -- picker
+			{ "nvim-tree/nvim-web-devicons", lazy = true }, -- optional [for devicons]
 		},
 		-- only matched patterns will load this extension
 		event = "VeryLazy",
-		build = {
-			check_global(),
-		},
+		build = check_global,
 		opts = {
 			-- USE EMPTY FOR DEFAULT OPTIONS
 			-- DEFAULTS ARE LISTED BELOW
@@ -42,6 +38,7 @@ return {
 			prefix = "<leader>m", -- prefix to trigger maps
 
 			-- cscope related defaults
+			skip_picker_for_single_result = true,
 			cscope = {
 				-- location of cscope db file
 				db_file = "./cscope.out", -- DB or table of DBs
@@ -54,7 +51,7 @@ return {
 				-- cscope executable
 				exec = "gtags-cscope", -- "cscope" or "gtags-cscope"
 				-- choose your fav picker
-				picker = "telescope", -- "quickfix", "telescope", "fzf-lua" or "mini-pick"
+				picker = "fzf-lua", -- "quickfix", "telescope", "fzf-lua" or "mini-pick"
 			},
 		},
 		config = function(_, opts)

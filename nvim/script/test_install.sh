@@ -11,7 +11,7 @@ echo "=== Testing basic installation (prefix=$PREFIX) ==="
 printf "N\n" | "$SCRIPT_DIR/requirements.sh" basic --prefix="$PREFIX" "${EXTRA_ARGS[@]}"
 
 echo "=== Testing component installation ==="
-components=(1 2 3 4 5 6 7 8 9)
+components=(1 2 3 4 5 6 7 8 9 10 11)
 for comp in "${components[@]}"; do
 	echo "--- Testing component $comp ---"
 	# Two stdin lines: the component choice, and 'N' if a secondary prompt
@@ -21,7 +21,7 @@ done
 
 echo "=== Verifying installations ==="
 export PATH="$PREFIX/bin:$PREFIX/nvim-linux-x86_64/bin:$PREFIX/nvim-linux-arm64/bin:$PATH"
-for cmd in nvim lazygit yazi batgrep clangd lua-language-server; do
+for cmd in nvim lazygit batgrep clangd lua-language-server fd bat; do
 	if command -v "$cmd" >/dev/null 2>&1; then
 		echo "[OK]   $cmd -> $(command -v "$cmd")"
 	else
